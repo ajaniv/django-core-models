@@ -5,28 +5,14 @@
 django-utils core miscellaneous models module.
 
 """
+from __future__ import absolute_import
 
-from core.models import app_table_name, db_table_name
-from core.models import VersionedModel, NamedModel
-from core import fields
+from core_utils import fields
+from core_utils.models import NamedModel, VersionedModel, db_table
 
-from .apps import CoreModelsConfig
+from ..apps import CoreModelsConfig
 
 _app_label = CoreModelsConfig.name
-
-
-__all__ = [
-    'Group',
-    'Name',
-    'FormattedName',
-    'NicknameType',
-    'LogoType',
-    'PhotoType',
-    'UrlType',
-    'PhoneType',
-    'EmailType',
-    'InstantMessagingType'
-    ]
 
 
 class Group(NamedModel):
@@ -34,8 +20,9 @@ class Group(NamedModel):
     Group model class.
     """
     class Meta(NamedModel.Meta):
+        """Model meta class declaration."""
         app_label = _app_label
-        db_table = app_table_name(_app_label, db_table_name("Group"))
+        db_table = db_table(_app_label, "Group")
 
 
 class Name(VersionedModel):
@@ -44,20 +31,26 @@ class Name(VersionedModel):
     Defines the  name attributes.
 
     """
-    class Meta(VersionedModel.Meta):
-        app_label = _app_label
-        db_table = app_table_name(_app_label, db_table_name("Name"))
-        unique_together = ('family_name', 'given_name', 'additional_name')
-
     family_name = fields.char_field()
     given_name = fields.char_field()
     additional_name = fields.char_field(blank=True, null=True)
     honorific_prefix = fields.char_field(blank=True, null=True)
     honorific_suffix = fields.char_field(blank=True, null=True)
 
+    class Meta(VersionedModel.Meta):
+        """Model meta class declaration."""
+        app_label = _app_label
+        db_table = db_table(_app_label, "Name")
+        unique_together = ('family_name', 'given_name', 'additional_name')
+
+    @property
+    def formatted_additional_name(self):
+        return self.additional_name if self.additional_name is not None else ''
+
     @property
     def full_name(self):
-        return '%s %s %s' % (self.given_name, self.family_name, self.additional_name)
+        return '{} {} {}'.format(
+            self.given_name, self.family_name, self.formatted_additional_name)
 
 
 class FormattedName(VersionedModel):
@@ -65,14 +58,17 @@ class FormattedName(VersionedModel):
 
     Specifies the formatted  name fields.
     """
-    class Meta(VersionedModel.Meta):
-        app_label = _app_label
-        db_table = app_table_name(_app_label, db_table_name("FormattedName"))
-
     name = fields.char_field(unique=True)
 
+    class Meta(VersionedModel.Meta):
+        """Model meta class declaration."""
+        app_label = _app_label
+        db_table = db_table(_app_label, "FormattedName")
+
     def __str__(self):
-        return self.name
+        # TODO: in python 2.7 calling super results in recursion
+        return '{0} {1.name!s}'.format(
+            super(FormattedName, self).__str__(), self)
 
 
 class NicknameType(NamedModel):
@@ -82,8 +78,10 @@ class NicknameType(NamedModel):
     Sample values may include 'work, 'home', 'unknown'.
     """
     class Meta(NamedModel.Meta):
+        """Model meta class declaration."""
         app_label = _app_label
-        db_table = app_table_name(_app_label, db_table_name("NicknameType"))
+        db_table = db_table(_app_label, "NicknameType")
+
 
 class LogoType(NamedModel):
     """Logo type model class.
@@ -92,8 +90,9 @@ class LogoType(NamedModel):
     Sample values may include 'unknown'.
     """
     class Meta(NamedModel.Meta):
+        """Model meta class declaration."""
         app_label = _app_label
-        db_table = app_table_name(_app_label, db_table_name("LogoType"))
+        db_table = db_table(_app_label, "LogoType")
 
 
 class PhotoType(NamedModel):
@@ -103,8 +102,9 @@ class PhotoType(NamedModel):
     Sample values may include 'unknown'.
     """
     class Meta(NamedModel.Meta):
+        """Model meta class declaration."""
         app_label = _app_label
-        db_table = app_table_name(_app_label, db_table_name("PhotoType"))
+        db_table = db_table(_app_label, "PhotoType")
 
 
 class UrlType(NamedModel):
@@ -114,8 +114,9 @@ class UrlType(NamedModel):
     Sample values may include 'unknown'.
     """
     class Meta(NamedModel.Meta):
+        """Model meta class declaration."""
         app_label = _app_label
-        db_table = app_table_name(_app_label, db_table_name("UrlType"))
+        db_table = db_table(_app_label, "UrlType")
 
 
 class PhoneType(NamedModel):
@@ -124,8 +125,9 @@ class PhoneType(NamedModel):
     Enable phone type classification.  Values may include "text",
     "fax", "cell", "unknown" """
     class Meta(NamedModel.Meta):
+        """Model meta class declaration."""
         app_label = _app_label
-        db_table = app_table_name(_app_label, db_table_name("PhoneType"))
+        db_table = db_table(_app_label, "PhoneType")
 
 
 class EmailType(NamedModel):
@@ -134,8 +136,9 @@ class EmailType(NamedModel):
     Enable email classification.
     """
     class Meta(NamedModel.Meta):
+        """Model meta class declaration."""
         app_label = _app_label
-        db_table = app_table_name(_app_label, db_table_name("EmailType"))
+        db_table = db_table(_app_label, "EmailType")
 
 
 class InstantMessagingType(NamedModel):
@@ -146,6 +149,6 @@ class InstantMessagingType(NamedModel):
     """
     # @TODO: what are some of the possible instance messaging types?
     class Meta(NamedModel.Meta):
+        """Model meta class declaration."""
         app_label = _app_label
-        db_table = app_table_name(_app_label,
-                                  db_table_name("InstantMessagingType"))
+        db_table = db_table(_app_label, "InstantMessagingType")

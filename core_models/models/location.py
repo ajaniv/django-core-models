@@ -5,29 +5,14 @@
 core_modelslocation models module.
 
 """
+from __future__ import absolute_import
 
-from core.models import app_table_name, db_table_name
-from core import fields
-from core.models import NamedModel, VersionedModel
+from core_utils import fields
+from core_utils.models import NamedModel, VersionedModel, db_table
 
-from .apps import CoreModelsConfig
+from ..apps import CoreModelsConfig
 
 _app_label = CoreModelsConfig.name
-
-__all__ = [
-    'GeographicLocationType',
-    'GeographicLocation',
-    'TimezoneType',
-    'Timezone',
-    'LanguageType',
-    'Language',
-    'Country',
-    'Region',
-    'State',
-    'Province',
-    'AddressType',
-    'Address'
-    ]
 
 
 class GeographicLocationType(NamedModel):
@@ -37,9 +22,9 @@ class GeographicLocationType(NamedModel):
     Values may include "unknown".
     """
     class Meta(NamedModel.Meta):
+        """Model meta class declaration."""
         app_label = _app_label
-        db_table = app_table_name(_app_label,
-                                  db_table_name("GeographicLocationType"))
+        db_table = db_table(_app_label, "GeographicLocationType")
 
 
 class GeographicLocation(VersionedModel):
@@ -47,12 +32,13 @@ class GeographicLocation(VersionedModel):
 
     Captures geographic location data.
     """
-    class Meta(VersionedModel.Meta):
-        app_label = _app_label
-        db_table = app_table_name(_app_label,
-                                  db_table_name("GeographicLocation"))
     latitude = fields.latitude_field()
     longitude = fields.longitude_field()
+
+    class Meta(VersionedModel.Meta):
+        """Model meta class declaration."""
+        app_label = _app_label
+        db_table = db_table(_app_label, "GeographicLocation")
 
 
 class TimezoneType(NamedModel):
@@ -62,9 +48,9 @@ class TimezoneType(NamedModel):
     Values may include "unknown".
     """
     class Meta(NamedModel.Meta):
+        """Model meta class declaration."""
         app_label = _app_label
-        db_table = app_table_name(_app_label,
-                                  db_table_name("TimezoneType"))
+        db_table = db_table(_app_label, "TimezoneType")
 
 
 class Timezone(NamedModel):
@@ -73,11 +59,12 @@ class Timezone(NamedModel):
 
     Captures time zone attributes.
     """
-    class Meta(NamedModel.Meta):
-        app_label = _app_label
-        db_table = app_table_name(_app_label, db_table_name("Timezone"))
-
     time_zone = fields.time_zone_field()
+
+    class Meta(NamedModel.Meta):
+        """Model meta class declaration."""
+        app_label = _app_label
+        db_table = db_table(_app_label, "Timezone")
 
 
 class LanguageType(NamedModel):
@@ -87,9 +74,9 @@ class LanguageType(NamedModel):
     Values may include "unknown".
     """
     class Meta(NamedModel.Meta):
+        """Model meta class declaration."""
         app_label = _app_label
-        db_table = app_table_name(_app_label,
-                                  db_table_name("ContactLanguageType"))
+        db_table = db_table(_app_label, "ContactLanguageType")
 
 
 class Language(NamedModel):
@@ -97,11 +84,12 @@ class Language(NamedModel):
 
     Uses 2 characters as per ISO 639-1.
     """
-    class Meta(NamedModel.Meta):
-        app_label = _app_label
-        db_table = app_table_name(_app_label, db_table_name("Language"))
-
     iso_code = fields.char_field(max_length=2)
+
+    class Meta(NamedModel.Meta):
+        """Model meta class declaration."""
+        app_label = _app_label
+        db_table = db_table(_app_label, "Language")
 
 
 class Country(NamedModel):
@@ -109,11 +97,12 @@ class Country(NamedModel):
 
     Uses 2 characters as per  ISO 3166.
     """
-    class Meta(NamedModel.Meta):
-        app_label = _app_label
-        db_table = app_table_name(_app_label, db_table_name("Country"))
-
     iso_code = fields.char_field(max_length=2)
+
+    class Meta(NamedModel.Meta):
+        """Model meta class declaration."""
+        app_label = _app_label
+        db_table = db_table(_app_label, "Country")
 
 
 class Region(NamedModel):
@@ -122,6 +111,7 @@ class Region(NamedModel):
     Uses 3 characters as per ISO 3166.
     """
     class Meta(NamedModel.Meta):
+        """Model meta class declaration."""
         abstract = True
         app_label = _app_label
 
@@ -132,13 +122,15 @@ class Region(NamedModel):
 class State(Region):
     """State model class."""
     class Meta(Region.Meta):
-        db_table = app_table_name(_app_label, db_table_name("State"))
+        """Model meta class declaration."""
+        db_table = db_table(_app_label, "State")
 
 
 class Province(Region):
     """Province model class."""
-    class Meta(Region.Meta.Meta):
-        db_table = app_table_name(_app_label, db_table_name("Province"))
+    class Meta(Region.Meta):
+        """Model meta class declaration."""
+        db_table = db_table(_app_label, "Province")
 
 
 class AddressType(NamedModel):
@@ -148,8 +140,9 @@ class AddressType(NamedModel):
     Sample values may include 'unknown'.
     """
     class Meta(NamedModel.Meta):
+        """Model meta class declaration."""
         app_label = _app_label
-        db_table = app_table_name(_app_label, db_table_name("AddressType"))
+        db_table = db_table(_app_label, "AddressType")
 
 POSTAL_CODE_LENGTH = 10
 
@@ -162,25 +155,22 @@ class Address(VersionedModel):
     Contact(1)  -------> ContactAddress(0..*)
     """
     class Meta(VersionedModel.Meta):
+        """Model meta class declaration."""
         app_label = _app_label
-        db_table = app_table_name(_app_label, db_table_name("Address"))
+        db_table = db_table(_app_label, "Address")
         unique_together = ('city', 'country', 'postal_code', 'state',
                            'province', 'street_address',
                            'extended_address', 'post_office_box')
 
     # Labe:l allows to override  name specified in contact
-    label = fields.char_field(
-                              null=True, blank=True)
-    post_office_box = fields.char_field(
-                                        null=True, blank=True)
+    label = fields.char_field(null=True, blank=True)
+    post_office_box = fields.char_field(null=True, blank=True)
 
     # street_address/address line 1: e.g.75 Carol St.
-    street_address = fields.char_field(
-                                       null=True, blank=True)
+    street_address = fields.char_field(null=True, blank=True)
 
     # extended_address/address line 2: e.g., apartment or suite number
-    extended_address = fields.char_field(
-                                         null=True, blank=True)
+    extended_address = fields.char_field(null=True, blank=True)
     # locality: (e.g., city)
     city = fields.char_field()
     # region:  (e.g., state or province)
@@ -197,6 +187,22 @@ class Address(VersionedModel):
     geographic_location = fields.foreign_key_field(GeographicLocation,
                                                    blank=True, null=True)
 
+    @property
+    def region(self):
+        """Return region."""
+        return self.state if self.state else self.province
+
+    @property
+    def street_or_post_office_box(self):
+        """Return region."""
+        return (self.street_address
+                if self.street_address else self.post_office_box)
+
     def __str__(self):
-        return "%s, %s %s" % (self.city, self.state_province,
-                              str(self.country))
+        return '{0} {1} {2} {3} {4} {5}'.format(
+            super(Address, self).__str__(),
+            self.street_or_post_office_box,
+            self.city.name,
+            self.region,
+            self.postal_code,
+            self.country.name)
