@@ -1,21 +1,20 @@
 """
 .. module::  core_models.image
-   :synopsis:  core_models image  models
+   :synopsis:  core_models image  model module.
 
-core_models image models.
+*core_models* image  model module.
 """
+from __future__ import absolute_import
 
 import os
+
+from core_utils import constants, fields
+from core_utils.models import NamedModel, NamedModelManager, db_table
+from core_utils.utils import current_site
 from django.conf import settings
-
 from utils.image import encode_file
-from core.models import app_table_name, db_table_name
-from core.utils import current_site
-from core import fields
-from core import constants
-from core.models import NamedModel, NamedModelManager
 
-from .apps import CoreModelsConfig
+from ..apps import CoreModelsConfig
 
 _app_label = CoreModelsConfig.name
 
@@ -31,32 +30,23 @@ VISUAL_ORIENTATION = (ORIENTATION_PORTRAIT,
                       ORIENTATION_LANDSCAPE,
                       constants.UNKNOWN)
 
-__all__ = [
-    'IMAGE_FORMAT_GIF',
-    'IMAGE_FORMAT_JPEG',
-    'IMAGE_FORMAT_PNG',
-    'IMAGE_FORMATS',
-    'ORIENTATION_PORTRAIT',
-    'ORIENTATION_LANDSCAPE',
-    'VISUAL_ORIENTATION',
-    'ImageFormat',
-    'DocumentOrientation',
-    'ImageManager',
-    'Image'
-    ]
-
 
 class ImageFormat(NamedModel):
+    """Image format model class.
+    """
     class Meta(NamedModel.Meta):
+        """Model meta class declaration."""
         app_label = _app_label
-        db_table = app_table_name(_app_label, db_table_name('ImageFormat'))
+        db_table = db_table(_app_label, 'ImageFormat')
 
 
 class DocumentOrientation(NamedModel):
+    """Document orientation model class.
+    """
     class Meta(NamedModel.Meta):
+        """Model meta class declaration."""
         app_label = _app_label
-        db_table = app_table_name(_app_label,
-                                  db_table_name('DocumentOrientation'))
+        db_table = db_table(_app_label, 'DocumentOrientation')
 
 
 class ImageManager(NamedModelManager):
@@ -103,14 +93,8 @@ def _image_upload_path(instance, filename):
 
 
 class Image(NamedModel):
+    """Image model class.
     """
-    Image class
-    """
-    class Meta(NamedModel.Meta):
-        app_label = _app_label
-        db_table = app_table_name(_app_label, db_table_name('Image'))
-
-    objects = ImageManager()
     image = fields.image_field(upload_to=_image_upload_path,
                                height_field='height',
                                width_field='width')
@@ -120,6 +104,13 @@ class Image(NamedModel):
     width = fields.small_integer_field(default=0)
     height = fields.small_integer_field(default=0)
 
+    objects = ImageManager()
+
+    class Meta(NamedModel.Meta):
+        """Model meta class declaration."""
+        app_label = _app_label
+        db_table = db_table(_app_label, 'Image')
+
     def __init__(self, *args, **kwargs):
         super(Image, self).__init__(*args, **kwargs)
         # @TODO: revisit read only text fields
@@ -127,7 +118,10 @@ class Image(NamedModel):
 #                              ad_image_help_texts)
 
     def __str__(self):
-        return '{:s}({:s})'.format(self.full_name, self.image_type.full_name)
+        return '{0} {1} {2}'.format(
+            super(Image, self).__str__(),
+            self.image_format.name,
+            self.image_orientation.name)
 
     def encode(self):
         """

@@ -5,18 +5,12 @@
 core_models models module.
 
 """
+from __future__ import absolute_import
 
-from core.models import app_table_name, db_table_name
-from core.models import VersionedModel, NamedModel
-from core import fields
+from core_utils import fields
+from core_utils.models import NamedModel, VersionedModel, db_table
 
-from .demographics import *  # @UnusedWildImport
-from .image import *  # @UnusedWildImport
-from .location import *  # @UnusedWildImport
-from .organization import *  # @UnusedWildImport
-from .social_media import *  # @UnusedWildImport
-
-from .apps import CoreModelsConfig
+from ..apps import CoreModelsConfig
 
 _app_label = CoreModelsConfig.name
 
@@ -26,10 +20,12 @@ class Annotation(VersionedModel):
 
     Capture annotations/notes.
     """
-    class Meta(VersionedModel.Meta):
-        app_label = _app_label
-        db_table = app_table_name(_app_label, db_table_name("Title"))
     annotation = fields.annotation_field()
+
+    class Meta(VersionedModel.Meta):
+        """Model meta class declaration."""
+        app_label = _app_label
+        db_table = db_table(_app_label, "Annotation")
 
 
 class Category(NamedModel):
@@ -40,6 +36,6 @@ class Category(NamedModel):
     """
     # @TODO: what are some of the possible instance messaging types?
     class Meta(NamedModel.Meta):
+        """Model meta class declaration."""
         app_label = _app_label
-        db_table = app_table_name(_app_label,
-                                  db_table_name("Category"))
+        db_table = db_table(_app_label, "Category")

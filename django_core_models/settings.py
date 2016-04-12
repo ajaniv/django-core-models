@@ -20,7 +20,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '+79a(gf+_)(lvv@)fucg6j6g8(hrp@sh2yvzmn9!=!g-_@*jz5'
+# SECRET_KEY = 'ubd(v=i$@^plvy!-yyo*&@xi!y0514r4wkjp49k+e@r&*)7u-_'
+ENV_SECRET_KEY = 'DJANGO_SECRET_KEY'
+SECRET_KEY = os.environ[ENV_SECRET_KEY]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'core_utils',
+    'core_models'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -74,12 +79,12 @@ WSGI_APPLICATION = 'django_core_models.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 
 # Password validation
@@ -119,3 +124,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+SITE_ID = 1
