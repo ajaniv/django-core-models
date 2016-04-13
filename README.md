@@ -16,6 +16,8 @@ It was developed using Django 1.9.4 for python 2.7 and python 3.5. Detailed docu
 Build Status
 ------------
 
+[![image](https://travis-ci.org/ajaniv/django-core-utils.svg?branch=master)](https://travis-ci.org/ajaniv/django-core-utils)
+
 Domains
 -------
 

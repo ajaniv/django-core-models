@@ -7,9 +7,12 @@
 """
 from __future__ import absolute_import
 
-from .demographics import FEMALE, GENDER, MALE, Gender
-from .image import (IMAGE_FORMAT_GIF, IMAGE_FORMAT_JPEG, IMAGE_FORMAT_PNG,
-                    IMAGE_FORMATS, ORIENTATION_LANDSCAPE, ORIENTATION_PORTRAIT,
+from .demographics import (GENDER_FEMALE, GENDER_MALE,
+                           GENDER_UNKNOWN, GENDER, Gender)
+from .image import (IMAGE_FORMAT_GIF, IMAGE_FORMAT_JPEG,
+                    IMAGE_FORMAT_PNG, IMAGE_FORMAT_UNKNOWN,
+                    IMAGE_FORMATS, ORIENTATION_LANDSCAPE,
+                    ORIENTATION_PORTRAIT, ORIENTATION_UNKNOWN,
                     VISUAL_ORIENTATION, DocumentOrientation, Image,
                     ImageFormat, ImageManager)
 from .location import (Address, AddressType, Country, GeographicLocation,
