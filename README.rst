@@ -26,6 +26,8 @@ Detailed documentation is in the "docs" directory.
 Build Status
 ------------
 
+.. image:: https://travis-ci.org/ajaniv/django-core-utils.svg?branch=master
+    :target: https://travis-ci.org/ajaniv/django-core-utils
 
 Domains
 -------
@@ -130,3 +132,14 @@ Notes
   with gitconfig when running:
   
   ``git ls-files -z``    
+  
+ * In order to configure command line docker environment:
+
+    #. docker-machine restart default
+    #. eval $(docker-machine env default)
+
+* To run unit tests in docker sqlite environment: `docker-compose -f docker-compose-sqlite.yml up --abort-on-container-exit` .
+* To run unit tests in docker postgres environment: `docker-compose -f docker-compose-postgres.yml up --abort-on-container-exit` .
+* To run unit tests in docker mysql environment: `docker-compose -f docker-compose-mysql.yml up --abort-on-container-exit` .
+* To remove all contrainers: `docker rm $(docker ps -a -q)`
+* To remove all images: `docker rmi -f $(docker images -q)`

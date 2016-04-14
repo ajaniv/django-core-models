@@ -14,9 +14,10 @@ from ..apps import CoreModelsConfig
 
 _app_label = CoreModelsConfig.name
 
-MALE = 'Male'
-FEMALE = 'Female'
-GENDER = (MALE, FEMALE, UNKNOWN)
+GENDER_MALE = 'Male'
+GENDER_FEMALE = 'Female'
+GENDER_UNKNOWN = UNKNOWN
+GENDER = (GENDER_MALE, GENDER_FEMALE, GENDER_UNKNOWN)
 
 
 class Gender(NamedModel):

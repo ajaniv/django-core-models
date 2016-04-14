@@ -16,6 +16,8 @@ It was developed using Django 1.9.4 for python 2.7 and python 3.5. Detailed docu
 Build Status
 ------------
 
+[![image](https://travis-ci.org/ajaniv/django-core-utils.svg?branch=master)](https://travis-ci.org/ajaniv/django-core-utils)
+
 Domains
 -------
 
@@ -109,4 +111,14 @@ Dependencies
 
     `git ls-files -z`
 
+> -   In order to configure command line docker environment:
+>
+>     > 1.  docker-machine restart default
+>     > 2.  eval $(docker-machine env default)
+>
+-   To run unit tests in docker sqlite environment: docker-compose -f docker-compose-sqlite.yml up --abort-on-container-exit .
+-   To run unit tests in docker postgres environment: docker-compose -f docker-compose-postgres.yml up --abort-on-container-exit .
+-   To run unit tests in docker mysql environment: docker-compose -f docker-compose-mysql.yml up --abort-on-container-exit .
+-   To remove all contrainers: docker rm $(docker ps -a -q)
+-   To remove all images: docker rmi -f $(docker images -q)
 

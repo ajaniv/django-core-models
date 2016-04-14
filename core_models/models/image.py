@@ -8,11 +8,12 @@ from __future__ import absolute_import
 
 import os
 
+from django.conf import settings
+from utils.image import encode_file
+
 from core_utils import constants, fields
 from core_utils.models import NamedModel, NamedModelManager, db_table
 from core_utils.utils import current_site
-from django.conf import settings
-from utils.image import encode_file
 
 from ..apps import CoreModelsConfig
 
@@ -21,14 +22,16 @@ _app_label = CoreModelsConfig.name
 IMAGE_FORMAT_GIF = 'gif'
 IMAGE_FORMAT_JPEG = 'jpeg'
 IMAGE_FORMAT_PNG = 'png'
+IMAGE_FORMAT_UNKNOWN = constants.UNKNOWN
 IMAGE_FORMATS = (IMAGE_FORMAT_GIF, IMAGE_FORMAT_JPEG,
-                 IMAGE_FORMAT_PNG, constants.UNKNOWN)
+                 IMAGE_FORMAT_PNG, IMAGE_FORMAT_UNKNOWN)
 
 ORIENTATION_PORTRAIT = 'Portrait'
 ORIENTATION_LANDSCAPE = 'Landscape'
+ORIENTATION_UNKNOWN = constants.UNKNOWN
 VISUAL_ORIENTATION = (ORIENTATION_PORTRAIT,
                       ORIENTATION_LANDSCAPE,
-                      constants.UNKNOWN)
+                      ORIENTATION_UNKNOWN)
 
 
 class ImageFormat(NamedModel):
@@ -78,9 +81,11 @@ class ImageManager(NamedModelManager):
 
 
 def _image_upload_path(instance, filename):
-    domain_parts = current_site().domain.split('.')
+    site = getattr(instance, 'site', current_site())
+    domain_parts = site.domain.split('.')
     base_name = 'unknown'
-    if settings.USE_MEDIA_ROOT:   # Used under AWS
+    # @TODO: revisit the logic below
+    if hasattr(settings, 'USE_MEDIA_ROOT'):   # Used under AWS
         media = 'media'
     else:
         media = ''

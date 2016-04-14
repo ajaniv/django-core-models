@@ -52,12 +52,17 @@ class Name(VersionedModel):
         return '{} {} {}'.format(
             self.given_name, self.family_name, self.formatted_additional_name)
 
+    def __str__(self):
+        return '{0} {1.family_name!s} {1.given_name!s}'.format(
+            super(Name, self).__str__(), self)
+
 
 class FormattedName(VersionedModel):
     """Formatted name model class.
 
     Specifies the formatted  name fields.
     """
+    # @TODO: review unique attribute for name
     name = fields.char_field(unique=True)
 
     class Meta(VersionedModel.Meta):

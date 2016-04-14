@@ -32,6 +32,7 @@ class GeographicLocation(VersionedModel):
 
     Captures geographic location data.
     """
+    # @TODO: Add foreign key to GeographicLocationType?
     latitude = fields.latitude_field()
     longitude = fields.longitude_field()
 
@@ -59,7 +60,8 @@ class Timezone(NamedModel):
 
     Captures time zone attributes.
     """
-    time_zone = fields.time_zone_field()
+    # @TODO: Add foreign key to TimezoneType?
+    timezone = fields.timezone_field()
 
     class Meta(NamedModel.Meta):
         """Model meta class declaration."""
@@ -84,6 +86,7 @@ class Language(NamedModel):
 
     Uses 2 characters as per ISO 639-1.
     """
+    # @TODO: Add foreign key to LanguageType?
     iso_code = fields.char_field(max_length=2)
 
     class Meta(NamedModel.Meta):
@@ -97,12 +100,16 @@ class Country(NamedModel):
 
     Uses 2 characters as per  ISO 3166.
     """
+    ISO_3166_2_US = "US"
     iso_code = fields.char_field(max_length=2)
 
     class Meta(NamedModel.Meta):
         """Model meta class declaration."""
         app_label = _app_label
         db_table = db_table(_app_label, "Country")
+
+    def is_usa(self):
+        return self.iso_code == self.ISO_3166_2_US
 
 
 class Region(NamedModel):
@@ -115,7 +122,8 @@ class Region(NamedModel):
         abstract = True
         app_label = _app_label
 
-    iso_code = fields.char_field(max_length=3)
+    # two char country code, "-", three char region code
+    iso_code = fields.char_field(max_length=6)
     country = fields.foreign_key_field(Country)
 
 
@@ -145,6 +153,9 @@ class AddressType(NamedModel):
         db_table = db_table(_app_label, "AddressType")
 
 POSTAL_CODE_LENGTH = 10
+STREET_ADDRESS_LENGTH = 255
+EXTENDED_ADDRESS_LENGTH = 255
+CITY_LENGTH = 255
 
 
 class Address(VersionedModel):
@@ -154,25 +165,28 @@ class Address(VersionedModel):
     A contact may be associated with 0 or more addresses as follows:
     Contact(1)  -------> ContactAddress(0..*)
     """
+    # @TODO: Add foreign key to AddressType?
     class Meta(VersionedModel.Meta):
         """Model meta class declaration."""
         app_label = _app_label
         db_table = db_table(_app_label, "Address")
-        unique_together = ('city', 'country', 'postal_code', 'state',
-                           'province', 'street_address',
+        unique_together = ('street_address', 'city', 'postal_code',
+                           'country', 'state', 'province',
                            'extended_address', 'post_office_box')
 
     # Labe:l allows to override  name specified in contact
     label = fields.char_field(null=True, blank=True)
-    post_office_box = fields.char_field(null=True, blank=True)
+    post_office_box = fields.char_field(max_length=32, null=True, blank=True)
 
     # street_address/address line 1: e.g.75 Carol St.
-    street_address = fields.char_field(null=True, blank=True)
+    street_address = fields.char_field(max_length=STREET_ADDRESS_LENGTH,
+                                       null=True, blank=True)
 
     # extended_address/address line 2: e.g., apartment or suite number
-    extended_address = fields.char_field(null=True, blank=True)
+    extended_address = fields.char_field(max_length=EXTENDED_ADDRESS_LENGTH,
+                                         null=True, blank=True)
     # locality: (e.g., city)
-    city = fields.char_field()
+    city = fields.char_field(max_length=CITY_LENGTH)
     # region:  (e.g., state or province)
     state = fields.foreign_key_field(State, blank=True, null=True)
     province = fields.foreign_key_field(Province, blank=True, null=True)
@@ -181,7 +195,7 @@ class Address(VersionedModel):
     postal_code = fields.char_field(max_length=POSTAL_CODE_LENGTH)
 
     # time_zone: allow the capture of time zone per address
-    time_zone = fields.foreign_key_field(Timezone, blank=True, null=True)
+    timezone = fields.foreign_key_field(Timezone, blank=True, null=True)
 
     # geographic_location: allow the capture of geo location per address
     geographic_location = fields.foreign_key_field(GeographicLocation,
@@ -202,7 +216,37 @@ class Address(VersionedModel):
         return '{0} {1} {2} {3} {4} {5}'.format(
             super(Address, self).__str__(),
             self.street_or_post_office_box,
-            self.city.name,
-            self.region,
+            self.city,
+            self.region.name,
             self.postal_code,
             self.country.name)
+
+    def _validate_street_and_post_office_box(self):
+        if self.post_office_box is None and self.street_address is None:
+            raise ValueError("post_office_box and street_address are none")
+        if self.post_office_box and self.street_address:
+            raise ValueError("post_office_box and street_address are set")
+
+    def _validate_state_and_province(self):
+        if self.state is None and self.province is None:
+            raise ValueError("State and province are none")
+        if self.state and self.province:
+            raise ValueError("State and province are set")
+
+    def _validate_country(self):
+        if self.country is not None:
+            if self.country.is_usa():
+                if self.state is None:
+                    raise ValueError("country is USA state is not set")
+            else:
+                if self.province is None:
+                    raise ValueError("country is not USA  province is not set")
+
+    def save(self, *args, **kwargs):
+        """Save an instance.
+        """
+        self._validate_street_and_post_office_box()
+        self._validate_state_and_province()
+        self._validate_country()
+
+        super(Address, self).save(*args, **kwargs)

@@ -1,5 +1,5 @@
 """
-.. module::  core_models.tests
+.. module::  core_models.test_demographics
    :synopsis: core models demographics unit test module.
 
 *core models* demographics unit test module.
@@ -9,7 +9,7 @@ from __future__ import print_function
 from core_utils.tests.factories import NamedModelFactory
 from core_utils.tests.test_util import NamedModelTestCase
 
-from ..models import Gender, GENDER, MALE, FEMALE
+from ..models import GENDER, GENDER_FEMALE, GENDER_MALE, Gender
 
 
 class GenderModelFactory(NamedModelFactory):
@@ -24,25 +24,13 @@ class GenderTestCase(NamedModelTestCase):
     """Gender model unit test class.
     """
     def test_gender_crud(self):
-        for name in GENDER:
-            instance = GenderModelFactory(name=name)
-            self.verify_instance(instance)
-        gender_count = Gender.objects.count()
-        self.assertEqual(
-            len(GENDER),
-            gender_count, "Missing gender instances")
-        male = Gender.objects.get(name=MALE)
-        male.name = 'new gender'
-        male.save()
-        self.assertEqual(male.version, 2, "Gender version mismatch")
-        male.delete()
-        self.assertEqual(
-            Gender.objects.count() + 1,
-            gender_count, "Missing gender instances")
+        self.verify_named_model_crud(names=GENDER,
+                                     factory_class=GenderModelFactory,
+                                     get_by_name=GENDER_MALE)
 
     def test_sex(self):
-        gender = GenderModelFactory(name=MALE)
-        self.assertEqual(gender.sex, MALE)
-        gender.sex = FEMALE
+        gender = GenderModelFactory(name=GENDER_MALE)
+        self.assertEqual(gender.sex, GENDER_MALE)
+        gender.sex = GENDER_FEMALE
         gender.save()
-        self.assertTrue(Gender.objects.get(name=FEMALE))
+        self.assertTrue(Gender.objects.get(name=GENDER_FEMALE))
