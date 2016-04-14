@@ -153,6 +153,9 @@ class AddressType(NamedModel):
         db_table = db_table(_app_label, "AddressType")
 
 POSTAL_CODE_LENGTH = 10
+STREET_ADDRESS_LENGTH = 255
+EXTENDED_ADDRESS_LENGTH = 255
+CITY_LENGTH = 255
 
 
 class Address(VersionedModel):
@@ -167,21 +170,23 @@ class Address(VersionedModel):
         """Model meta class declaration."""
         app_label = _app_label
         db_table = db_table(_app_label, "Address")
-        unique_together = ('city', 'country', 'postal_code', 'state',
-                           'province', 'street_address',
+        unique_together = ('street_address', 'city', 'postal_code',
+                           'country', 'state', 'province',
                            'extended_address', 'post_office_box')
 
     # Labe:l allows to override  name specified in contact
     label = fields.char_field(null=True, blank=True)
-    post_office_box = fields.char_field(null=True, blank=True)
+    post_office_box = fields.char_field(max_length=32, null=True, blank=True)
 
     # street_address/address line 1: e.g.75 Carol St.
-    street_address = fields.char_field(null=True, blank=True)
+    street_address = fields.char_field(max_length=STREET_ADDRESS_LENGTH,
+                                       null=True, blank=True)
 
     # extended_address/address line 2: e.g., apartment or suite number
-    extended_address = fields.char_field(null=True, blank=True)
+    extended_address = fields.char_field(max_length=EXTENDED_ADDRESS_LENGTH,
+                                         null=True, blank=True)
     # locality: (e.g., city)
-    city = fields.char_field()
+    city = fields.char_field(max_length=CITY_LENGTH)
     # region:  (e.g., state or province)
     state = fields.foreign_key_field(State, blank=True, null=True)
     province = fields.foreign_key_field(Province, blank=True, null=True)

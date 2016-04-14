@@ -206,7 +206,7 @@ class StateModelFactory(NamedModelFactory):
 
     country = factory.SubFactory(CountryModelFactory)
     name = STATE_ALABAMA
-    iso_code = STATE_ALABAMA
+    iso_code = ISO_3166_2_ALABAMA
 
 
 class StateTestCase(NamedModelTestCase):
