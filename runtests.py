@@ -16,7 +16,7 @@ DJANGO_SETTINGS_MODULE = 'DJANGO_SETTINGS_MODULE'
 os.environ[DJANGO_SETTINGS_MODULE] = os.environ.get(
     DJANGO_SETTINGS_MODULE, 'django_core_models.settings_test')
 
-test_dir = os.path.join(os.path.dirname(__file__), 'core_models')
+test_dir = os.path.join(os.path.dirname(__file__), 'applications')
 sys.path.insert(0, test_dir)
 
 

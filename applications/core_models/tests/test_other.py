@@ -5,14 +5,18 @@
 *core models* other unit test module.
 """
 from __future__ import print_function
-
+import logging
 import factory.fuzzy
 
 from core_utils.tests.factories import NamedModelFactory, VersionedModelFactory
 from core_utils.tests.test_util import (NamedModelTestCase,
                                         VersionedModelTestCase)
 
+from core_utils import constants
 from ..models import Annotation, Category
+
+logger = logging.getLogger(__name__)
+
 
 ANNOTATION_LENGTH = 128
 
@@ -51,3 +55,14 @@ class CategoryTestCase(NamedModelTestCase):
             names=("name_1", "name_2"),
             factory_class=CategoryModelFactory,
             get_by_name="name_1")
+
+
+class TestLoggingConfig(NamedModelTestCase):
+    def test_name_not_found(self):
+        logger.warning('Verify logger filtering')
+        name = 'myname'
+        with self.assertRaises(Category.DoesNotExist):
+            Category.objects.named_instance(name=name)
+
+        self.assertTrue(CategoryModelFactory(name=constants.UNKNOWN))
+        self.assertTrue(Category.objects.named_instance(name=name))
