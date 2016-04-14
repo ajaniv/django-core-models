@@ -1,11 +1,12 @@
 """
-.. module::  django_core_models.settings_postgres
+.. module::  config.common.postgres
    :synopsis:  Django postgres settings file.
 
 Django postgres settings file.
 
 """
 import os
+from __future__ import unicode_literals
 ENV_POSTGRES_NAME = 'POSTGRES_NAME'
 ENV_POSTGRES_USER = 'POSTGRES_USER'
 ENV_POSTGRES_PASSWORD = 'POSTGRES_PASSWORD'

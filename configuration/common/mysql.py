@@ -1,10 +1,11 @@
 """
-.. module::  django_core_models.settings_mysql
+.. module::  config.common.mysql
    :synopsis:  Django mysql settings file.
 
 Django mysql settings file.
 
 """
+from __future__ import unicode_literals
 import os
 ENV_MYSQL_NAME = 'MYSQL_NAME'
 ENV_MYSQL_USER = 'MYSQL_USER'
