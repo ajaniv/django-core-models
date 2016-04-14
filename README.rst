@@ -133,7 +133,7 @@ Notes
   
   ``git ls-files -z``    
   
- * In order to configure command line docker environment:
+* In order to configure command line docker environment:
 
     #. docker-machine restart default
     #. eval $(docker-machine env default)
@@ -141,5 +141,5 @@ Notes
 * To run unit tests in docker sqlite environment: `docker-compose -f docker-compose-sqlite.yml up --abort-on-container-exit` .
 * To run unit tests in docker postgres environment: `docker-compose -f docker-compose-postgres.yml up --abort-on-container-exit` .
 * To run unit tests in docker mysql environment: `docker-compose -f docker-compose-mysql.yml up --abort-on-container-exit` .
-* To remove all contrainers: `docker rm $(docker ps -a -q)`
+* To remove all containers: `docker rm $(docker ps -a -q)`
 * To remove all images: `docker rmi -f $(docker images -q)`
