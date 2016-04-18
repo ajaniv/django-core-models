@@ -7,7 +7,7 @@ Django log settings file.
 """
 import os
 from .root import CURRENT_ENV, LOCAL_ENV, DEV_ENV, LOG_DIR
-from utils.core import mkdir
+from python_core_utils.core import mkdir
 
 
 LOG_LEVEL_INFO = 'INFO'
@@ -79,17 +79,17 @@ LOGGING = {
             'level': LOG_LEVEL,
             'propagate': True
         },
-        'apps': {
+        'django_core_models': {
             'handlers': ['log_file', 'console'],
             'level': LOG_LEVEL,
             'propagate': True
         },
-        'core_utils': {
+        'django_core_utils': {
             'handlers': ['log_file', 'console'],
             'level': LOG_LEVEL,
             'propagate': True
         },
-        'utils': {
+        'python_core_utils': {
             'handlers': ['log_file', 'console'],
             'level': LOG_LEVEL,
             'propagate': True

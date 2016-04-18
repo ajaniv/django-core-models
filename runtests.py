@@ -13,9 +13,9 @@ from django.conf import settings
 
 DJANGO_SETTINGS_MODULE = 'DJANGO_SETTINGS_MODULE'
 os.environ[DJANGO_SETTINGS_MODULE] = os.environ.get(
-    DJANGO_SETTINGS_MODULE, 'django_core_models.settings_test')
+    DJANGO_SETTINGS_MODULE, 'django_core_models_settings.settings_test')
 
-test_dir = os.path.join(os.path.dirname(__file__), 'model_apps')
+test_dir = os.path.join(os.path.dirname(__file__), 'django_core_models')
 sys.path.insert(0, test_dir)
 
 

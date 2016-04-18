@@ -16,7 +16,7 @@ import django
 
 DJANGO_SETTINGS_MODULE = "DJANGO_SETTINGS_MODULE"
 os.environ[DJANGO_SETTINGS_MODULE] = os.environ.get(
-    DJANGO_SETTINGS_MODULE, "django_core_models.settings")
+    DJANGO_SETTINGS_MODULE, "django_core_models_settings.settings")
 
 _username = 'admin'
 _password = _username + '123'
