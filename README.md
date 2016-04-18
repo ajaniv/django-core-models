@@ -4,14 +4,15 @@ core-models
 *core-models* is a Django project which defines common models for applications requiring contact related functionality. During the development of a contact application inspired by [VCARD RFC6350](https://tools.ietf.org/html/rfc6350/) quite a few low level models which were candidate for reuse by applications in related domains were identified. The choices were:
 
 -   Leave them bundled with the contact application.
--   Create a separate application for each of the underlying domains (i.e. Image, Demographics).
--   Create a single application with several model modules, one per domain.
+-   Create a separate application for each of the underlying domains (i.e. Image, Demographics). This is the implementation choice that was taken at this time.
+
+The application were implemented with internationalization in mind. This approach is manifested in the *models*, *text*, *forms* modules per application.
 
 The intention is to create a data driven application, where no code deployments will be required to support underlying data changes (i.e. new country). Each of the abstractions is derived from *VersionedModel*, providing an audit trail of which user made the change, and when it was made.
 
-The choice was made to create a single *core-models* application with a models package containing the required functionality, with the expectation that over time the implementation may be factored to independent domain specific applications.
+It was developed using Django 1.9.4 for python 2.7, python 3.5, sqlite, MySql and Postgres. *tox*, *Travis*, and *Docker* are used for the testing.
 
-It was developed using Django 1.9.4 for python 2.7 and python 3.5. Detailed documentation is in the "docs" directory.
+Detailed documentation may be found in the "docs" directory.
 
 Build Status
 ------------
@@ -20,6 +21,11 @@ Build Status
 
 Domains
 -------
+
+### Core
+
+-   Annotation
+-   Category
 
 ### Demographics
 
@@ -67,19 +73,20 @@ Domains
 -   PhotoType
 -   UrlType
 
-### Other
-
--   Annotation
--   Category
-
 Quick start
 -----------
 
-1.  Add "core-models" to your INSTALLED\_APPS setting like this:
+1.  Add the relevant applications to your INSTALLED\_APPS setting like this:
 
         INSTALLED_APPS = [
             ...
-            'core_models',
+            'model_apps.core.apps.CoreModelsConfig',
+            'model_apps.demographics.apps.DemographicsConfig',
+            'model_apps.image.apps.ImageConfig',
+            'model_apps.location.apps.LocationConfig',
+            'model_apps.organization.apps.OrganizationConfig',
+            'model_apps.social_media.apps.SocialMediaConfig',
+
         ]
 
 Dependencies
@@ -121,4 +128,5 @@ Dependencies
 -   To run unit tests in docker mysql environment: docker-compose -f docker-compose-mysql.yml up --abort-on-container-exit .
 -   To remove all containers: docker rm $(docker ps -a -q)
 -   To remove all images: docker rmi -f $(docker images -q)
+-   To create admin super user: create\_super\_user.py
 

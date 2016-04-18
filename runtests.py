@@ -4,7 +4,6 @@
 
 """
 
-# flake8: noqa
 import os
 import sys
 
@@ -16,7 +15,7 @@ DJANGO_SETTINGS_MODULE = 'DJANGO_SETTINGS_MODULE'
 os.environ[DJANGO_SETTINGS_MODULE] = os.environ.get(
     DJANGO_SETTINGS_MODULE, 'django_core_models.settings_test')
 
-test_dir = os.path.join(os.path.dirname(__file__), 'applications')
+test_dir = os.path.join(os.path.dirname(__file__), 'model_apps')
 sys.path.insert(0, test_dir)
 
 

@@ -8,12 +8,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
-from configuration.common.root import (CURRENT_ENV, DEV_ENV,
-                                       LOCAL_ENV, STAGING_ENV, PROD_ENV)
+from configs.common.root import (CURRENT_ENV, DEV_ENV,
+                                 LOCAL_ENV, STAGING_ENV, PROD_ENV)
 
 
 if CURRENT_ENV in (DEV_ENV, LOCAL_ENV):
-    from configuration.dev import *  # @UnusedWildImport
+    from configs.dev import *  # @UnusedWildImport
 elif CURRENT_ENV == STAGING_ENV:
     # @TODO define staging env
     pass
