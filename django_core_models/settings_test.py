@@ -6,6 +6,6 @@ django_core_models test settings module.
 """
 from .settings import *  # @UnusedWildImport
 
-DEBUG = True
-TEMPLATE_DEBUG = True
+# Uncomment FORCE_DEBUG to see db statements;
+# It also requires change to django.db log level to debug
 # FORCE_DEBUG = True
