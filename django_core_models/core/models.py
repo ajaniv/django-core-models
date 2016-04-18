@@ -29,8 +29,8 @@ class Annotation(VersionedModel):
         """Model meta class declaration."""
         app_label = _app_label
         db_table = db_table(_app_label, _annotation)
-        verbose_name = _(humanize(_annotation_verbose))
-        verbose_name_plural = _(pluralize(humanize(_annotation_verbose)))
+        verbose_name = _(_annotation_verbose)
+        verbose_name_plural = _(pluralize(_annotation_verbose))
 
 
 _category = "Category"
@@ -48,5 +48,5 @@ class Category(NamedModel):
         """Model meta class declaration."""
         app_label = _app_label
         db_table = db_table(_app_label, _category)
-        verbose_name = _(humanize(_category_verbose))
-        verbose_name_plural = _(pluralize(humanize(_category_verbose)))
+        verbose_name = _(_category_verbose)
+        verbose_name_plural = _(pluralize(_category_verbose))

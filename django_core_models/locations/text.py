@@ -34,15 +34,16 @@ address_help_texts = {
     "state": _("State."),
     "street_address": _("Street address."),
     "timezone": _("Timezone."),
-
     }
 
 city_labels = {
-    "country": _("Country"),
+    "province": _("Province"),
+    "state": _("State"),
     }
 
 city_help_texts = {
-    "country": _("Country."),
+    "province": _("Province."),
+    "state": _("State."),
     }
 
 country_labels = {

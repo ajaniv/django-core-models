@@ -65,7 +65,7 @@ class CountryAdmin(NamedModelAdmin):
 
 def _city_fields():
     return (("name",),
-            ("country",),
+            ("state", "province"),
             ("alias",),
             ("description",),)
 
@@ -82,9 +82,9 @@ class CityAdmin(NamedModelAdmin):
     ) + NamedModelAdmin.get_field_sets()
 
 _geographic_location_fields = (
-    ("name",),
     ("latitude",),
     ("longitude",),
+    ("name",),
     ("alias",),
     ("description",),)
 
@@ -121,8 +121,8 @@ class LanguageAdmin(NamedModelAdmin):
 
 
 _timezone_fields = (
-    ("name",),
     ("timezone",),
+    ("name",),
     ("alias",),
     ("description",),)
 

@@ -14,7 +14,7 @@ from django_core_utils.tests.factories import (NamedModelFactory,
 from django_core_utils.tests.test_util import (NamedModelTestCase,
                                                VersionedModelTestCase)
 
-from ..models import (Address, AddressType, Country, GeographicLocation,
+from ..models import (Address, AddressType, City, Country, GeographicLocation,
                       GeographicLocationType, Language, LanguageType, Province,
                       State, Timezone, TimezoneType)
 
@@ -410,3 +410,49 @@ class FrenchAdressTestCase(VersionedModelTestCase):
     def test_country_no_province(self):
         with self.assertRaises(ValueError):
             FrenchAddressModelFactory(province=None)
+
+
+class USCityModelFactory(NamedModelFactory):
+    """US city model factory class.
+    """
+    class Meta(object):
+        """Model meta class."""
+        model = City
+
+    name = CITY_ALABAMA
+    state = factory.SubFactory(StateModelFactory)
+
+
+class USACityTestCase(NamedModelTestCase):
+    """US city model unit test class.
+    """
+    def test_us_city_crud(self):
+        self.verify_named_model_crud(
+            names=("name_1", "name_2"),
+            factory_class=USCityModelFactory,
+            get_by_name="name_1")
+
+
+class FrenchCityModelFactory(NamedModelFactory):
+    """French city model factory class.
+    """
+    class Meta(object):
+        """Model meta class."""
+        model = Address
+
+    name = CITY_FRANCE
+    province = factory.SubFactory(
+        ProvinceModelFactory,
+        name=PROVINCE_LOWER_NORMANDY,
+        iso_code=ISO_3166_2_Normandy,
+        country=_france)
+
+
+class FrenchCityTestCase(NamedModelTestCase):
+    """French city model unit test class.
+    """
+    def test_frency_city_crud(self):
+        self.verify_named_model_crud(
+            names=("name_1", "name_2"),
+            factory_class=USCityModelFactory,
+            get_by_name="name_1")
