@@ -1,4 +1,4 @@
-# Code style requirements
+# Code style requirements file
 flake8==2.5.4
 pep8==1.7.0
 pylint==1.5.5

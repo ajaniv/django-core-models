@@ -53,12 +53,12 @@ BASIC_DJANGO_APPS = [
 EXTENDED_DJANGO_APPS = []
 
 CUSTOM_APPS = [
-    'model_apps.core.apps.CoreModelsConfig',
-    'model_apps.demographics.apps.DemographicsConfig',
-    'model_apps.images.apps.ImageConfig',
-    'model_apps.locations.apps.LocationConfig',
-    'model_apps.organizations.apps.OrganizationConfig',
-    'model_apps.social_media.apps.SocialMediaConfig',
+    'django_core_models.core.apps.CoreModelsConfig',
+    'django_core_models.demographics.apps.DemographicsConfig',
+    'django_core_models.images.apps.ImageConfig',
+    'django_core_models.locations.apps.LocationConfig',
+    'django_core_models.organizations.apps.OrganizationConfig',
+    'django_core_models.social_media.apps.SocialMediaConfig',
     ]
 
 INSTALLED_APPS = BASIC_DJANGO_APPS + EXTENDED_DJANGO_APPS + CUSTOM_APPS
@@ -75,7 +75,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'django_core_models.urls'
+ROOT_URLCONF = 'django_core_models_settings.urls'
 
 TEMPLATES = [
     {
@@ -94,7 +94,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'django_core_models.wsgi.application'
+WSGI_APPLICATION = 'django_core_models_settings.wsgi.application'
 
 
 # Password validation

@@ -9,7 +9,7 @@ from __future__ import unicode_literals
 import os
 
 from .root import DB_DIR
-from utils.core import mkdir
+from python_core_utils.core import mkdir
 
 
 mkdir(DB_DIR)
