@@ -30,9 +30,9 @@ def _create_super_user(username, email, password):
         User.objects.create_superuser(username=username,
                                       email=email,
                                       password=password)
-        print ("user '%s' created" % username)
+        print("user '%s' created" % username)
     except IntegrityError:
-        print ("user '%s' already exists in the database" % username)
+        print("user '%s' already exists in the database" % username)
 
 
 if __name__ == "__main__":
