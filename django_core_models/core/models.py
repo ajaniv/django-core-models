@@ -11,21 +11,21 @@ from django.utils.translation import ugettext_lazy as _
 from inflection import humanize, pluralize, underscore
 
 from django_core_utils import fields
-from django_core_utils.models import NamedModel, VersionedModel, db_table
+from django_core_utils.models import NamedModel, OptionalNamedModel, db_table
 
 _app_label = "core"
 _annotation = "Annotation"
 _annotation_verbose = humanize(underscore(_annotation))
 
 
-class Annotation(VersionedModel):
+class Annotation(OptionalNamedModel):
     """Annotation model class.
 
     Capture annotations/notes.
     """
     annotation = fields.annotation_field()
 
-    class Meta(VersionedModel.Meta):
+    class Meta(OptionalNamedModel.Meta):
         """Model meta class declaration."""
         app_label = _app_label
         db_table = db_table(_app_label, _annotation)
