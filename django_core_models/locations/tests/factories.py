@@ -70,12 +70,19 @@ country_usa_sub_factory = factory.SubFactory(
     iso_code=CountryModelFactory.ISO_3166_2_USA,
     name=CountryModelFactory.COUNTRY_USA)
 
-country_usa = CountryModelFactory(
-    name=CountryModelFactory.COUNTRY_USA,
-    iso_code=CountryModelFactory.ISO_3166_2_USA)
-country_france = CountryModelFactory(
-    name=CountryModelFactory.COUNTRY_FRANCE,
-    iso_code=CountryModelFactory.ISO_3166_2_FR)
+
+def country_usa():
+    """Return instance of country USA."""
+    return CountryModelFactory(
+        name=CountryModelFactory.COUNTRY_USA,
+        iso_code=CountryModelFactory.ISO_3166_2_USA)
+
+
+def country_france():
+    """Return instance of country France."""
+    return CountryModelFactory(
+        name=CountryModelFactory.COUNTRY_FRANCE,
+        iso_code=CountryModelFactory.ISO_3166_2_FR)
 
 
 class GeographicLocationTypeModelFactory(NamedModelFactory):

@@ -21,10 +21,10 @@ from .factories import (CountryModelFactory, LanguageModelFactory,
 class ValidationTestCase(BaseAppDjangoTestCase):
     """Base validation unit test class."""
     def country_usa(self):
-        return factories.country_usa
+        return factories.country_usa()
 
     def country_france(self):
-        return factories.country_france
+        return factories.country_france()
 
 valid_post_office_boxes = (
     'PO Box 001', 'P.O. Box 002', 'po b 001', 'po bin 001',

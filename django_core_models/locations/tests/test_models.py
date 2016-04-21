@@ -145,7 +145,7 @@ class ProvinceTestCase(NamedModelTestCase):
     def test_state_fields(self):
         instance = ProvinceModelFactory(
             name=ProvinceModelFactory.PROVINCE_LOWER_NORMANDY,
-            country=country_france,
+            country=country_france(),
             iso_code=ProvinceModelFactory.ISO_3166_2_Normandy)
         self.verify_instance(instance)
         self.assertEqual(instance.iso_code,
@@ -171,7 +171,7 @@ class StateTestCase(NamedModelTestCase):
     def test_state_fields(self):
         instance = StateModelFactory(
             name=StateModelFactory.STATE_ALABAMA,
-            country=country_usa,
+            country=country_usa(),
             iso_code=StateModelFactory.ISO_3166_2_ALABAMA)
         self.verify_instance(instance)
         self.assertEqual(instance.iso_code,
