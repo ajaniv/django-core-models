@@ -96,7 +96,7 @@ Dependencies
 
 ### Runtime
 
--   pycountry
+-   [pycountry](https://pypi.python.org/pypi/pycountry).
 -   [django-core-utils](https://github.com/ajaniv/django-core-utils/).
 -   [python-core-utils](https://github.com/ajaniv/python-core-utils/).
 
