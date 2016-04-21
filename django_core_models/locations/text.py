@@ -51,7 +51,7 @@ country_labels = {
     }
 
 country_help_texts = {
-    "iso_code": _("ISO code."),
+    "iso_code": _("ISO 3166-1 alpha-2."),
     }
 
 geographic_location_labels = {

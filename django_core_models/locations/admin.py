@@ -21,6 +21,7 @@ from .models import (Address, AddressType, City, Country, GeographicLocation,
                      GeographicLocationType, Language, LanguageType, Province,
                      State, Timezone, TimezoneType)
 
+DISPLAY_ADDRESS_SIZE = 60
 _address_fields = (
     ("label",),
     ("street_address", "post_office_box"),
@@ -38,12 +39,22 @@ class AddressAdmin(VersionedModelAdmin):
     Address model admin class
     """
     form = AddressAdminForm
+    list_display = ("id", "label", "get_address",
+                    "version", "update_time", "update_user")
+    list_display_links = ("id", "get_address", )
 
     fieldsets = (
         ('Address',
          {'fields': _address_fields}),
     ) + NamedModelAdmin.get_field_sets()
 
+    def get_address(self, instance):
+        """return instance address."""
+        return str(instance)[:DISPLAY_ADDRESS_SIZE]
+    get_address.short_description = "address"
+
+_iso_list_display = ("id", "get_name", "alias", "iso_code",
+                     "version", "update_time", "update_user")
 _country_fields = (
     ("name",),
     ("iso_code",),
@@ -56,6 +67,8 @@ class CountryAdmin(NamedModelAdmin):
     Country model admin class
     """
     form = CountryAdminForm
+
+    list_display = _iso_list_display
 
     fieldsets = (
         ('Country',
@@ -76,10 +89,18 @@ class CityAdmin(NamedModelAdmin):
     """
     form = CityAdminForm
 
+    list_display = ("id", "get_name", "alias", "get_region",
+                    "version", "update_time", "update_user")
+
     fieldsets = (
         ('City',
          {'fields': _city_fields()}),
     ) + NamedModelAdmin.get_field_sets()
+
+    def get_region(self, instance):
+        """return instance region."""
+        return instance.region
+    get_region.short_description = "region"
 
 _geographic_location_fields = (
     ("latitude",),
@@ -94,12 +115,36 @@ class GeographicLocationAdmin(NamedModelAdmin):
     Geographic location model admin class
     """
     form = GeographicLocationAdminForm
+    list_display = ("id", "get_name", "alias", "get_latitude", "get_longitude",
+                    "version", "update_time", "update_user")
 
     fieldsets = (
         ('Geographic location',
          {'fields': _geographic_location_fields}),
     ) + NamedModelAdmin.get_field_sets()
 
+    def _formatted_value(self, value):
+        return "{0:9.5f}".format(value)
+
+    def _text(self, value):
+        return ("<div style='width:65px;'>" +
+                "<div style='text-align:right;white-space:pre'>" +
+                value + "</div></div>")
+
+    def get_latitude(self, instance):
+        """return latitude."""
+        value = self._formatted_value(instance.latitude)
+        return self._text(value)
+    get_latitude.short_description = "latitude"
+    get_latitude.allow_tags = True
+
+    def get_longitude(self, instance):
+        """return longitude."""
+        value = self._formatted_value(instance.longitude)
+        return self._text(value)
+
+    get_longitude.short_description = "longitude"
+    get_longitude.allow_tags = True
 
 _language_fields = (
     ("name",),
@@ -113,6 +158,7 @@ class LanguageAdmin(NamedModelAdmin):
     Language model admin class
     """
     form = LanguageAdminForm
+    list_display = _iso_list_display
 
     fieldsets = (
         ('Language',
@@ -132,7 +178,8 @@ class TimezoneAdmin(NamedModelAdmin):
     Timezone model admin class
     """
     form = TimezoneAdminForm
-
+    list_display = ("id", "get_name", "alias", "timezone",
+                    "version", "update_time", "update_user")
     fieldsets = (
         ('Timezone',
          {'fields': _timezone_fields}),
@@ -146,12 +193,16 @@ def _region_fields():
             ("alias",),
             ("description",),)
 
+_region_list_display = ("id", "get_name", "alias", "iso_code", "country",
+                        "version", "update_time", "update_user")
+
 
 class StateAdmin(NamedModelAdmin):
     """
     State model admin class
     """
     form = StateAdminForm
+    list_display = _region_list_display
 
     fieldsets = (
         ('State',
@@ -164,6 +215,7 @@ class ProvinceAdmin(NamedModelAdmin):
     Province model admin class
     """
     form = ProvinceAdminForm
+    list_display = _region_list_display
 
     fieldsets = (
         ('Province',
