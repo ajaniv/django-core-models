@@ -17,12 +17,17 @@ from django_core_utils.admin import (NamedModelAdmin, admin_site_register,
 from .forms import ImageAdminForm
 from .models import DocumentOrientation, Image, ImageFormat
 
+DISPLAY_IMAGE_SIZE = 40
+
 
 class ImageAdmin(NamedModelAdmin):
     """
     Image model admin class
     """
     form = ImageAdminForm
+    list_display = ("id", "get_name", "get_alias", "get_image",
+                    "version", "update_time", "update_user")
+    list_display_links = ("id", "get_name", )
 
     fieldsets = (('Image',
                   {'fields': (("name",),
@@ -35,6 +40,11 @@ class ImageAdmin(NamedModelAdmin):
                    )}),) + NamedModelAdmin.get_field_sets()
 
     readonly_fields = NamedModelAdmin.readonly_fields + ("width", "height")
+
+    def get_image(self, instance):
+        """return instance image."""
+        return str(instance.image)[:DISPLAY_IMAGE_SIZE]
+    get_image.short_description = "image"
 
 
 _named_classes = (DocumentOrientation, ImageFormat, )

@@ -29,6 +29,8 @@ class OrganizationAdmin(NamedModelAdmin):
     Organization unit model admin class
     """
     form = OrganizationAdminForm
+    list_display = ("id", "get_name", "get_alias", "organization_type",
+                    "version", "update_time", "update_user")
 
     fieldsets = (
         ('Organization unit',
@@ -48,6 +50,8 @@ class OrganizationUnitAdmin(NamedModelAdmin):
     Organization unit model admin class
     """
     form = OrganizationUnitAdminForm
+    list_display = ("id", "get_name", "get_alias", "organization",
+                    "version", "update_time", "update_user")
 
     fieldsets = (
         ('Organization unit',

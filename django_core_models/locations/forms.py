@@ -26,11 +26,11 @@ class AddressAdminForm(forms.VersionedModelAdminForm):
         """Form meta class."""
         model = Address
         labels = dict_merge(
-            forms.NamedModelAdminForm.Meta.labels,
+            forms.VersionedModelAdminForm.Meta.labels,
             address_labels)
 
         help_texts = dict_merge(
-            forms.NamedModelAdminForm.Meta.help_texts,
+            forms.VersionedModelAdminForm.Meta.help_texts,
             address_help_texts)
 
 

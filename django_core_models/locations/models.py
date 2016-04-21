@@ -11,9 +11,17 @@ from django.utils.translation import ugettext_lazy as _
 from inflection import humanize, pluralize, underscore
 
 from django_core_utils import fields
-from django_core_utils.models import NamedModel, VersionedModel, db_table
+from django_core_utils.models import (NamedModel, OptionalNamedModel,
+                                      VersionedModel, db_table)
+
+from .validation import (country_state_province_validation, country_validation,
+                         language_validation, post_office_box_validation,
+                         postal_code_validation, province_validation,
+                         state_and_province_validation, state_validation,
+                         street_and_post_office_box_validation)
 
 _app_label = "locations"
+
 _country = "Country"
 _country_verbose = humanize(underscore(_country))
 
@@ -24,7 +32,7 @@ class Country(NamedModel):
     Uses 2 characters as per  ISO 3166.
     """
     ISO_3166_2_US = "US"
-    iso_code = fields.char_field(max_length=2)
+    iso_code = fields.char_field(max_length=2, unique=True)
 
     class Meta(NamedModel.Meta):
         """Model meta class declaration."""
@@ -36,23 +44,12 @@ class Country(NamedModel):
     def is_usa(self):
         return self.iso_code == self.ISO_3166_2_US
 
-_city = "City"
-_city_verbose = humanize(underscore(_city))
+    def clean(self):
+        """Perform cross field validation.
+        """
+        super(Country, self).clean()
+        country_validation(self)
 
-
-class City(NamedModel):
-    """City model class.
-
-    """
-
-    country = fields.foreign_key_field(Country)
-
-    class Meta(NamedModel.Meta):
-        """Model meta class declaration."""
-        app_label = _app_label
-        db_table = db_table(_app_label, _city)
-        verbose_name = _(_city_verbose)
-        verbose_name_plural = _(pluralize(_city_verbose))
 
 _geographic_location_type = "GeographicLocationType"
 _geographic_location_type_verbose = humanize(
@@ -77,7 +74,7 @@ _geographic_location_verbose = humanize(
     underscore(_geographic_location))
 
 
-class GeographicLocation(NamedModel):
+class GeographicLocation(OptionalNamedModel):
     """Geographic location model class.
 
     Captures geographic location data.
@@ -92,6 +89,10 @@ class GeographicLocation(NamedModel):
         db_table = db_table(_app_label, _geographic_location)
         verbose_name = _(_geographic_location_verbose)
         verbose_name_plural = _(pluralize(_geographic_location_verbose))
+
+    def __str__(self):
+        value = "{0:9.5f} {1:9.5f}".format(self.latitude, self.longitude)
+        return value
 
 _language_type = "LanguageType"
 _language_type_verbose = humanize(underscore(_language_type))
@@ -120,7 +121,7 @@ class Language(NamedModel):
     Uses 2 characters as per ISO 639-1.
     """
     # @TODO: Add foreign key to LanguageType?
-    iso_code = fields.char_field(max_length=2)
+    iso_code = fields.char_field(max_length=2, unique=True)
 
     class Meta(NamedModel.Meta):
         """Model meta class declaration."""
@@ -128,6 +129,12 @@ class Language(NamedModel):
         db_table = db_table(_app_label, _language)
         verbose_name = _(_language_verbose)
         verbose_name_plural = _(pluralize(_language_verbose))
+
+    def clean(self):
+        """Perform cross field validation.
+        """
+        super(Language, self).clean()
+        language_validation(self)
 
 
 _timezone_type = "TimezoneType"
@@ -151,7 +158,7 @@ _timezone = "Timezone"
 _timezone_verbose = humanize(underscore(_timezone))
 
 
-class Timezone(NamedModel):
+class Timezone(OptionalNamedModel):
     """
     Time zone model class.
 
@@ -167,6 +174,9 @@ class Timezone(NamedModel):
         verbose_name = _(_timezone_verbose)
         verbose_name_plural = _(pluralize(_timezone_verbose))
 
+    def __str__(self):
+        return '{0}'.format(self.timezone)
+
 
 class Region(NamedModel):
     """Abstract class for state and province model.
@@ -174,7 +184,7 @@ class Region(NamedModel):
     Uses 3 characters as per ISO 3166.
     """
     # two char country code, "-", three char region code
-    iso_code = fields.char_field(max_length=6)
+    iso_code = fields.char_field(max_length=6, unique=True)
     country = fields.foreign_key_field(Country)
 
     class Meta(NamedModel.Meta):
@@ -195,6 +205,12 @@ class Province(Region):
         verbose_name = _(_province_verbose)
         verbose_name_plural = _(pluralize(_province_verbose))
 
+    def clean(self):
+        """Perform cross field validation.
+        """
+        super(Province, self).clean()
+        province_validation(self)
+
 
 _state = "State"
 _state_verbose = humanize(underscore(_state))
@@ -208,6 +224,46 @@ class State(Region):
         verbose_name = _(_state_verbose)
         verbose_name_plural = _(pluralize(_state_verbose))
 
+    def clean(self):
+        """Perform cross field validation.
+        """
+        super(State, self).clean()
+        state_validation(self)
+
+_city = "City"
+_city_verbose = humanize(underscore(_city))
+
+
+class City(NamedModel):
+    """City model class.
+
+    In this context, city is 'stand alone' and not embedded within address.
+    """
+    state = fields.foreign_key_field(State, blank=True, null=True)
+    province = fields.foreign_key_field(Province, blank=True, null=True)
+
+    class Meta(NamedModel.Meta):
+        """Model meta class declaration."""
+        app_label = _app_label
+        db_table = db_table(_app_label, _city)
+        verbose_name = _(_city_verbose)
+        verbose_name_plural = _(pluralize(_city_verbose))
+
+    def clean(self):
+        """Perform cross field validation.
+        """
+        super(City, self).clean()
+        state_and_province_validation(self.state, self.province)
+
+    @property
+    def region(self):
+        """Return region."""
+        return self.state if self.state else self.province
+
+    def save(self, *args, **kwargs):
+        """Save an instance.
+        """
+        super(City, self).save(*args, **kwargs)
 
 _address_type = "AddressType"
 _address_type_verbose = humanize(underscore(_address_type))
@@ -254,6 +310,7 @@ class Address(VersionedModel):
     extended_address = fields.char_field(max_length=EXTENDED_ADDRESS_LENGTH,
                                          null=True, blank=True)
     # locality: (e.g., city)
+    # note that it is not a foreign key to City - this needs to be revisited
     city = fields.char_field(max_length=CITY_LENGTH)
     # region:  (e.g., state or province)
     state = fields.foreign_key_field(State, blank=True, null=True)
@@ -283,7 +340,8 @@ class Address(VersionedModel):
     @property
     def region(self):
         """Return region."""
-        return self.state if self.state else self.province
+        return (self.state
+                if self.state else self.province)
 
     @property
     def street_or_post_office_box(self):
@@ -292,40 +350,21 @@ class Address(VersionedModel):
                 if self.street_address else self.post_office_box)
 
     def __str__(self):
-        return '{0} {1} {2} {3} {4} {5}'.format(
-            super(Address, self).__str__(),
+        return '{0} {1} {2} {3} {4}'.format(
             self.street_or_post_office_box,
             self.city,
-            self.region.name,
+            self.region.display_name,
             self.postal_code,
-            self.country.name)
+            self.country.display_name)
 
-    def _validate_street_and_post_office_box(self):
-        if self.post_office_box is None and self.street_address is None:
-            raise ValueError("post_office_box and street_address are none")
-        if self.post_office_box and self.street_address:
-            raise ValueError("post_office_box and street_address are set")
-
-    def _validate_state_and_province(self):
-        if self.state is None and self.province is None:
-            raise ValueError("State and province are none")
-        if self.state and self.province:
-            raise ValueError("State and province are set")
-
-    def _validate_country(self):
-        if self.country is not None:
-            if self.country.is_usa():
-                if self.state is None:
-                    raise ValueError("country is USA state is not set")
-            else:
-                if self.province is None:
-                    raise ValueError("country is not USA  province is not set")
-
-    def save(self, *args, **kwargs):
-        """Save an instance.
+    def clean(self):
+        """Perform cross field validation.
         """
-        self._validate_street_and_post_office_box()
-        self._validate_state_and_province()
-        self._validate_country()
-
-        super(Address, self).save(*args, **kwargs)
+        super(Address, self).clean()
+        street_and_post_office_box_validation(self.post_office_box,
+                                              self.street_address)
+        post_office_box_validation(self.country, self.post_office_box)
+        state_and_province_validation(self.state, self.province)
+        country_state_province_validation(
+            self.country, self.state, self.province)
+        postal_code_validation(self.country, self.postal_code)

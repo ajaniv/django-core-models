@@ -6,9 +6,11 @@ core-models
 -   Leave them bundled with the contact application.
 -   Create a separate application for each of the underlying domains (i.e. Image, Demographics). This is the implementation choice that was taken at this time.
 
-The application were implemented with internationalization in mind. This approach is manifested in the *models*, *text*, *forms* modules per application.
+The applications were implemented with internationalization in mind. This approach is manifested in the *models*, *text*, *forms* application modules.
 
 The intention is to create a data driven application, where no code deployments will be required to support underlying data changes (i.e. new country). Each of the abstractions is derived from *VersionedModel*, providing an audit trail of which user made the change, and when it was made.
+
+*pycountry* is used to validate language, country, state, and province data.
 
 It was developed using Django 1.9.4 for python 2.7, python 3.5, sqlite, MySql and Postgres. *tox*, *Travis*, and *Docker* are used for the testing.
 
@@ -94,6 +96,7 @@ Dependencies
 
 ### Runtime
 
+-   pycountry
 -   [django-core-utils](https://github.com/ajaniv/django-core-utils/).
 -   [python-core-utils](https://github.com/ajaniv/python-core-utils/).
 

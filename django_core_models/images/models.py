@@ -115,6 +115,8 @@ _image_verbose = humanize(underscore(_image))
 class Image(NamedModel):
     """Image model class.
     """
+    # @TODO: Should image name be optional, and image derived
+    #  from OptionalNamedModel?
     image = fields.image_field(upload_to=_image_upload_path,
                                height_field='height',
                                width_field='width')

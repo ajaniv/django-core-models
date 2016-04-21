@@ -34,15 +34,16 @@ address_help_texts = {
     "state": _("State."),
     "street_address": _("Street address."),
     "timezone": _("Timezone."),
-
     }
 
 city_labels = {
-    "country": _("Country"),
+    "province": _("Province"),
+    "state": _("State"),
     }
 
 city_help_texts = {
-    "country": _("Country."),
+    "province": _("Province."),
+    "state": _("State."),
     }
 
 country_labels = {
@@ -50,7 +51,7 @@ country_labels = {
     }
 
 country_help_texts = {
-    "iso_code": _("ISO code."),
+    "iso_code": _("ISO 3166-1 alpha-2."),
     }
 
 geographic_location_labels = {
