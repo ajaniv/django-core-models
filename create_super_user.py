@@ -24,6 +24,7 @@ _username = 'admin'
 _password = _username + '123'
 _domain = 'example.com'
 
+
 def _usage():
     print('%s -h -u <username> -p <password> -d <domain>' % sys.argv[0])
 
