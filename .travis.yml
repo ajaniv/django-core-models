@@ -31,7 +31,7 @@ matrix:
 
 before_install:
 - if [[ $COMPOSE_FILE ]]; 
-  then ./docker_update.sh;
+  then ./docker/docker_update.sh;
   fi
 
 
