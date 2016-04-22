@@ -4,8 +4,8 @@ services:
   web-sqlite:
     build:
       context: .
-      dockerfile: docker-sqlite-dockerfile-test.yml
-    command: docker/run_tests.sh -d 1
+      dockerfile: docker-sqlite-dockerfile.yml
+    command: docker/run.sh -d 1
     volumes:
       - .:/code
     ports:

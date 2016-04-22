@@ -111,7 +111,44 @@ Dependencies
 -   tox
 -   virtualenv
 
-### Notes
+Docker unit test execution
+--------------------------
+
+To run unit tests in docker environment:
+
+-   sqlite: docker-compose -f docker-sqlite-compose-test.yml up --abort-on-container-exit .
+-   postgres: docker-compose -f docker-postgres-compose-test.yml up --abort-on-container-exit .
+-   mysql: docker-compose -f docker-mysql-compose-test.yml up --abort-on-container-exit .
+
+Docker container execution
+--------------------------
+
+To run browser against a docker container:
+
+-   sqlite: docker-compose -f docker-sqlite-compose.yml up -d .
+-   postgres: docker-compose -f docker-postgres-compose.yml up -d .
+-   mysql: docker-compose -f docker-mysql-compose.yml up -d.
+
+Set the browser address to the ip address returned from docker-machine ip. For example: http://192.168.99.100:8000/
+
+Docker notes
+------------
+
+-   In order to configure command line docker environment:
+
+    > 1.  docker-machine restart default
+    > 2.  eval $(docker-machine env default)
+
+-   To remove all containers: docker rm $(docker ps -a -q)
+-   To remove all images: docker rmi -f $(docker images -q)
+
+Todo
+----
+
+-   Organize docker files under a sub-directory without getting directory access exceptions.
+
+Other
+-----
 
 -   pandoc was used to convert from .rst to .md:
 
@@ -121,15 +158,5 @@ Dependencies
 
     `git ls-files -z`
 
--   In order to configure command line docker environment:
-
-    > 1.  docker-machine restart default
-    > 2.  eval $(docker-machine env default)
-
--   To run unit tests in docker sqlite environment: docker-compose -f docker-compose-sqlite.yml up --abort-on-container-exit .
--   To run unit tests in docker postgres environment: docker-compose -f docker-compose-postgres.yml up --abort-on-container-exit .
--   To run unit tests in docker mysql environment: docker-compose -f docker-compose-mysql.yml up --abort-on-container-exit .
--   To remove all containers: docker rm $(docker ps -a -q)
--   To remove all images: docker rmi -f $(docker images -q)
 -   To create admin super user: create\_super\_user.py
 

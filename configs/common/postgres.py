@@ -5,8 +5,8 @@
 Django postgres settings file.
 
 """
-import os
 from __future__ import unicode_literals
+import os
 ENV_POSTGRES_NAME = 'POSTGRES_NAME'
 ENV_POSTGRES_USER = 'POSTGRES_USER'
 ENV_POSTGRES_PASSWORD = 'POSTGRES_PASSWORD'
