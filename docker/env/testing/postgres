@@ -1,4 +1,4 @@
-#Docker postgres environment file
+#Docker postgres testing environment file
 DB_ENGINE=postgres
 POSTGRES_NAME=test_db
 POSTGRES_USER=postgres

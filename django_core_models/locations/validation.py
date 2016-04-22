@@ -24,89 +24,99 @@ def _invalid_name(entity):
     return "%(value)s " + base + "  Expected %(expected)s."
 
 
+def _check_instance(entity, instance):
+    if instance is None:
+        raise ValidationError(_("%s is not defined." % entity))
+
 # Note: there are some minor differences in pycountry api which makes it
 # a little bit tricky to eliminate what appears as redundant logic
 
 
-def country_validation(country):
+def country_validation(instance):
     """Perform country validation.
     """
-    entity = "country"
+    entity = "Country"
+    _check_instance(entity, instance)
     try:
-        official = pycountry.countries.get(alpha2=country.iso_code)
+        official = pycountry.countries.get(alpha2=instance.iso_code)
     except KeyError:
         raise ValidationError(
             _(_invalid_iso(entity)),
-            params={'value': country.iso_code})
+            params={'value': instance.iso_code})
 
-    if official.official_name != country.name:
+    if official.official_name != instance.name:
         raise ValidationError(
             _(_invalid_name(entity)),
-            params={'value': country.name,
+            params={'value': instance.name,
                     'expected': official.official_name})
 
 
-def language_validation(language):
+def language_validation(instance):
     """Perform language validation.
     """
 
-    entity = "language"
+    entity = "Language"
+    _check_instance(entity, instance)
     try:
         official = pycountry.languages.get(
-            iso639_1_code=language.iso_code)
+            iso639_1_code=instance.iso_code)
     except KeyError:
         raise ValidationError(
             _(_invalid_iso(entity)),
-            params={'value': language.iso_code})
+            params={'value': instance.iso_code})
 
-    if official.name != language.name:
+    if official.name != instance.name:
         raise ValidationError(
             _(_invalid_name(entity)),
-            params={'value': language.name,
+            params={'value': instance.name,
                     'expected': official.name})
 
 
-def state_validation(state):
+def state_validation(instance):
     """Perform state validation."""
-    entity = "state"
+    entity = "State"
+
+    _check_instance(entity, instance)
     try:
-        official = pycountry.subdivisions.get(code=state.iso_code)
+        official = pycountry.subdivisions.get(code=instance.iso_code)
     except KeyError:
         raise ValidationError(_(_invalid_iso(entity)),
-                              params={'value': state.iso_code})
+                              params={'value': instance.iso_code})
 
-    if official.name != state.name:
+    if official.name != instance.name:
         raise ValidationError(
             _(_invalid_name(entity)),
-            params={'value': state.name,
+            params={'value': instance.name,
                     'expected': official.name})
 
-    if not state.country.is_usa():
+    if not instance.country.is_usa():
         raise ValidationError(_("%(country)s is an invalid for %(state)s."),
-                              params={'country': state.country.name,
-                                      'state': state.name})
+                              params={'country': instance.country.name,
+                                      'state': instance.name})
 
 
-def province_validation(province):
+def province_validation(instance):
     """Perform province validation."""
-    entity = "province"
+
+    entity = "Province"
+    _check_instance(entity, instance)
     try:
-        official = pycountry.subdivisions.get(code=province.iso_code)
+        official = pycountry.subdivisions.get(code=instance.iso_code)
     except KeyError:
         raise ValidationError(_(_invalid_iso(entity)),
-                              params={'value': province.iso_code})
+                              params={'value': instance.iso_code})
 
-    if official.name != province.name:
+    if official.name != instance.name:
         raise ValidationError(
             _(_invalid_name(entity)),
-            params={'value': province.name,
+            params={'value': instance.name,
                     'expected': official.name})
 
-    if province.country.iso_code != official.country_code:
+    if instance.country.iso_code != official.country_code:
         raise ValidationError(
             _("%(country)s is an invalid country for %(province)s."),
-            params={'country': province.country.name,
-                    'province': province.name})
+            params={'country': instance.country.name,
+                    'province': instance.name})
 
 
 def state_and_province_validation(state, province):
@@ -171,11 +181,13 @@ re_usa_postal_code = re.compile(r"""
 
 def postal_code_validation(country, value):
     """Validate postal code."""
-    msg = "%(value)s is an invalid postal code."
+
+    _check_instance("Country", country)
     if value:
         if country.is_usa():
             # should be invalid - '67890 A'
             if (re_usa_postal_code.match(value) is None or
                     re.search('[a-zA-Z]+', value)):  # @IgnorePep8
+                msg = "%(value)s is an invalid postal code."
                 raise ValidationError(_(msg),
                                       params={'value': value})

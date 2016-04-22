@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 #Script to run django unit tests within a dockerized environment
 
 usage() { echo "Usage: $0  [-w <seconds>] [-t <mysql|postgres|sqlite> -d <db_host>" 1>&2; exit 1; }
@@ -37,7 +37,7 @@ echo "Delay in seconds:" $DELAY
 sleep $DELAY
 
 if [ "$TYPE" = "mysql" ]; then
-	python mysql_init.py -d $DB_HOST
+	python scripts/mysql_init.py -d $DB_HOST
 fi
 
 python manage.py test --setting=django_core_models_settings.settings_test

@@ -9,8 +9,8 @@ services:
   web-postgres:
     build: 
       context: .
-      dockerfile: docker-dockerfile-postgres.yml
-    command: ./docker_run_tests.sh -w 3 -t postgres -d db-postgres
+      dockerfile: docker-postgres-dockerfile-test.yml
+    command: docker/run_tests.sh -w 3 -t postgres -d db-postgres
     volumes:
       - .:/code
     ports:
@@ -18,5 +18,5 @@ services:
     depends_on:
       - db-postgres
     env_file: 
-      - docker_env/common
-      - docker_env/postgres
+      - docker/env/common
+      - docker/env/testing/postgres

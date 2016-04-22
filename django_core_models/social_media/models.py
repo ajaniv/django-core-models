@@ -40,8 +40,8 @@ class FormattedName(VersionedModel):
 
     Specifies the formatted  name fields.
     """
-    # @TODO: review unique attribute for name
-    name = fields.char_field(unique=True)
+    # Note: MySql does not allow unique char fields to exceed 255
+    name = fields.char_field()
 
     class Meta(VersionedModel.Meta):
         """Model meta class declaration."""

@@ -10,15 +10,15 @@ services:
     # In a 'real' environment passwords will be defined in the environment
     # by only using the key
     - MYSQL_ROOT_PASSWORD=rootpassword
-    - MYSQL_USER=test_user
-    - MYSQL_PASSWORD=test_user
+    - MYSQL_USER=mysql
+    - MYSQL_PASSWORD=mysql
     - MYSQL_DATABASE=django_core_utils
     
   web-mysql:
     build: 
       context: .
-      dockerfile: docker-dockerfile-mysql.yml
-    command: ./docker_run_tests.sh -w 3 -t mysql -d db-mysql
+      dockerfile: docker-mysql-dockerfile.yml
+    command: docker/run.sh -w 5 -t mysql -d db-mysql
     volumes:
       - .:/code
     ports:
@@ -26,7 +26,7 @@ services:
     depends_on:
       - db-mysql
     env_file: 
-      - docker_env/common
-      - docker_env/mysql
+      - docker/env/common
+      - docker/env/dev/mysql
       
   
