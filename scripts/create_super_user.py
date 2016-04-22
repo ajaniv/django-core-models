@@ -3,7 +3,7 @@
 .. module::  create_super_user
    :synopsis:  crate default super user.
 
-crate default super user
+create default super user
 
 """
 # @TODO: provide the ability to pass parameters on the command line
@@ -26,18 +26,19 @@ _domain = 'example.com'
 
 
 def _usage():
-    print('%s -h -u <username> -p <password> -d <domain>' % sys.argv[0])
+    tmpl = '%s -h -u <username> -p <password> -d <domain> -s <settings>'
+    print(tmpl % sys.argv[0])
 
 
 def _args_error(exit_code=1):
     _usage()
     sys.exit(exit_code)
 
-
 try:
     opts, args = getopt.getopt(sys.argv[1:],
-                               "hu:p:d:",
-                               ["help", "username=", "password=", "domain="])
+                               "hu:p:d:s:",
+                               ["help", "username=", "password=",
+                                "domain=", "settings="])
 except getopt.GetoptError:
     _args_error()
 
@@ -49,6 +50,9 @@ for opt, arg in opts:
         _domain = arg
     elif opt in ("-p", "--password"):
         _password = arg
+    elif opt in ("-s", "--settings"):
+        _settings = arg
+        os.environ[DJANGO_SETTINGS_MODULE] = _settings
     elif opt in ("-u", "--username"):
         _username = arg
 
