@@ -1,3 +1,3 @@
 # Docker postgres testing requirements file
--r docker_testing.txt
--r postgres.txt
+-r testing.txt
+-r ../postgres.txt
