@@ -1,2 +1,0 @@
-#Docker sqlite environment file
-DB_ENGINE=sqlite

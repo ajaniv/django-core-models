@@ -1,7 +1,0 @@
-#Docker postgres environment file
-DB_ENGINE=postgres
-POSTGRES_NAME=test_db
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-POSTGRES_HOST=db-postgres
-POSTGRES_PORT=5432
