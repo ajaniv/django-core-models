@@ -1,0 +1,133 @@
+[
+	{
+		"model": "social_media.phonetype",
+		"pk": 1,
+		"fields": 
+		{
+			"uuid": "f74fab0f-eb1c-4996-843f-e696af60cdb2",
+			"version": 1,
+			"enabled": true,
+			"deleted": false,
+			"creation_time": "2016-04-23T19:31:45.534Z",
+			"update_time": "2016-04-23T19:31:45.534Z",
+			"creation_user": 
+			[
+				"admin"
+			],
+
+			"update_user": 
+			[
+				"admin"
+			],
+
+			"effective_user": 
+			[
+				"admin"
+			],
+
+			"site": 1,
+			"alias": "",
+			"description": "",
+			"name": "Work"
+		}
+	},
+
+	{
+		"model": "social_media.phonetype",
+		"pk": 2,
+		"fields": 
+		{
+			"uuid": "4e14eaa3-de17-435b-b210-a6484bc085dc",
+			"version": 1,
+			"enabled": true,
+			"deleted": false,
+			"creation_time": "2016-04-23T19:31:54.609Z",
+			"update_time": "2016-04-23T19:31:54.609Z",
+			"creation_user": 
+			[
+				"admin"
+			],
+
+			"update_user": 
+			[
+				"admin"
+			],
+
+			"effective_user": 
+			[
+				"admin"
+			],
+
+			"site": 1,
+			"alias": "",
+			"description": "",
+			"name": "Mobile"
+		}
+	},
+
+	{
+		"model": "social_media.phonetype",
+		"pk": 3,
+		"fields": 
+		{
+			"uuid": "d77a02a5-63aa-4156-b614-4749a6ea921b",
+			"version": 1,
+			"enabled": true,
+			"deleted": false,
+			"creation_time": "2016-04-23T19:32:02.070Z",
+			"update_time": "2016-04-23T19:32:02.070Z",
+			"creation_user": 
+			[
+				"admin"
+			],
+
+			"update_user": 
+			[
+				"admin"
+			],
+
+			"effective_user": 
+			[
+				"admin"
+			],
+
+			"site": 1,
+			"alias": "",
+			"description": "",
+			"name": "UNKNOWN"
+		}
+	},
+
+	{
+		"model": "social_media.phonetype",
+		"pk": 4,
+		"fields": 
+		{
+			"uuid": "312e414b-0dc9-45e5-909c-393250ea295f",
+			"version": 1,
+			"enabled": true,
+			"deleted": false,
+			"creation_time": "2016-04-23T19:32:11.589Z",
+			"update_time": "2016-04-23T19:32:11.589Z",
+			"creation_user": 
+			[
+				"admin"
+			],
+
+			"update_user": 
+			[
+				"admin"
+			],
+
+			"effective_user": 
+			[
+				"admin"
+			],
+
+			"site": 1,
+			"alias": "",
+			"description": "",
+			"name": "Home"
+		}
+	}
+]

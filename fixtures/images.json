@@ -1,0 +1,199 @@
+[
+	{
+		"model": "images.documentorientation",
+		"pk": 1,
+		"fields": 
+		{
+			"uuid": "fa9d4e41-e43d-4b63-904b-ae718da82e0f",
+			"version": 1,
+			"enabled": true,
+			"deleted": false,
+			"creation_time": "2016-04-23T18:51:15.120Z",
+			"update_time": "2016-04-23T18:51:15.121Z",
+			"creation_user": 
+			[
+				"admin"
+			],
+
+			"update_user": 
+			[
+				"admin"
+			],
+
+			"effective_user": 
+			[
+				"admin"
+			],
+
+			"site": 1,
+			"alias": "",
+			"description": "",
+			"name": "Landscape"
+		}
+	},
+
+	{
+		"model": "images.documentorientation",
+		"pk": 2,
+		"fields": 
+		{
+			"uuid": "34ae3059-4808-4db8-ae06-1928c908690a",
+			"version": 1,
+			"enabled": true,
+			"deleted": false,
+			"creation_time": "2016-04-23T18:51:24.029Z",
+			"update_time": "2016-04-23T18:51:24.030Z",
+			"creation_user": 
+			[
+				"admin"
+			],
+
+			"update_user": 
+			[
+				"admin"
+			],
+
+			"effective_user": 
+			[
+				"admin"
+			],
+
+			"site": 1,
+			"alias": "",
+			"description": "",
+			"name": "Portrait"
+		}
+	},
+
+	{
+		"model": "images.imageformat",
+		"pk": 1,
+		"fields": 
+		{
+			"uuid": "1551f9e1-fd79-4159-a632-1f327c177f03",
+			"version": 1,
+			"enabled": true,
+			"deleted": false,
+			"creation_time": "2016-04-23T17:42:37.799Z",
+			"update_time": "2016-04-23T17:42:37.799Z",
+			"creation_user": 
+			[
+				"admin"
+			],
+
+			"update_user": 
+			[
+				"admin"
+			],
+
+			"effective_user": 
+			[
+				"admin"
+			],
+
+			"site": 1,
+			"alias": "",
+			"description": "",
+			"name": "gif"
+		}
+	},
+
+	{
+		"model": "images.imageformat",
+		"pk": 2,
+		"fields": 
+		{
+			"uuid": "7a8c2494-c15e-4449-8f2b-0d236288a6c4",
+			"version": 1,
+			"enabled": true,
+			"deleted": false,
+			"creation_time": "2016-04-23T17:43:01.867Z",
+			"update_time": "2016-04-23T17:43:01.867Z",
+			"creation_user": 
+			[
+				"admin"
+			],
+
+			"update_user": 
+			[
+				"admin"
+			],
+
+			"effective_user": 
+			[
+				"admin"
+			],
+
+			"site": 1,
+			"alias": "",
+			"description": "",
+			"name": "jpeg"
+		}
+	},
+
+	{
+		"model": "images.imageformat",
+		"pk": 3,
+		"fields": 
+		{
+			"uuid": "6fd741ef-7bbb-4712-8744-1eb191d638ef",
+			"version": 1,
+			"enabled": true,
+			"deleted": false,
+			"creation_time": "2016-04-23T17:43:41.949Z",
+			"update_time": "2016-04-23T17:43:41.949Z",
+			"creation_user": 
+			[
+				"admin"
+			],
+
+			"update_user": 
+			[
+				"admin"
+			],
+
+			"effective_user": 
+			[
+				"admin"
+			],
+
+			"site": 1,
+			"alias": "",
+			"description": "",
+			"name": "png"
+		}
+	},
+
+	{
+		"model": "images.imageformat",
+		"pk": 4,
+		"fields": 
+		{
+			"uuid": "026825d5-f7f5-486d-85d3-ede94830b983",
+			"version": 5,
+			"enabled": true,
+			"deleted": false,
+			"creation_time": "2016-04-23T17:43:49.901Z",
+			"update_time": "2016-04-23T18:07:15.225Z",
+			"creation_user": 
+			[
+				"admin"
+			],
+
+			"update_user": 
+			[
+				"admin"
+			],
+
+			"effective_user": 
+			[
+				"admin"
+			],
+
+			"site": 1,
+			"alias": "",
+			"description": "",
+			"name": "UNKNOWN"
+		}
+	}
+]

@@ -142,10 +142,18 @@ Docker notes
 -   To remove all containers: docker rm $(docker ps -a -q)
 -   To remove all images: docker rmi -f $(docker images -q)
 
-Todo
-----
+Data management
+---------------
 
--   Organize docker files under a sub-directory without getting directory access exceptions.
+Fixtures were used to help test aspects of application usability. These are not automatically loaded during migration or testing. Sample fixtures are stored in the fixtures directory.
+
+Fixture files can be created per application as outlined below:
+
+-   python manage.py dumpdata --natural-foreign --natural-primary -o fixtures/locations.json locations
+
+Fixtures can be loaded per application as outlined below:
+
+-   python manage.py loaddata fixtures/locations.json
 
 Other
 -----
@@ -159,4 +167,9 @@ Other
     `git ls-files -z`
 
 -   To create admin super user: create\_super\_user.py
+
+Todo
+----
+
+-   Organize docker files under a sub-directory without getting directory access exceptions.
 
