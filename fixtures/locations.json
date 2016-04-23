@@ -1,0 +1,520 @@
+[
+	{
+		"model": "locations.country",
+		"pk": 1,
+		"fields": 
+		{
+			"uuid": "9b0d0142-4d11-454d-8e1c-20efb41069a8",
+			"version": 1,
+			"enabled": true,
+			"deleted": false,
+			"creation_time": "2016-04-23T18:53:09.174Z",
+			"update_time": "2016-04-23T18:53:09.175Z",
+			"creation_user": 
+			[
+				"admin"
+			],
+
+			"update_user": 
+			[
+				"admin"
+			],
+
+			"effective_user": 
+			[
+				"admin"
+			],
+
+			"site": 1,
+			"alias": "USA",
+			"description": "",
+			"name": "United States of America",
+			"iso_code": "US"
+		}
+	},
+
+	{
+		"model": "locations.country",
+		"pk": 2,
+		"fields": 
+		{
+			"uuid": "71ac36c4-1d87-4304-abfe-3bea38aef96a",
+			"version": 1,
+			"enabled": true,
+			"deleted": false,
+			"creation_time": "2016-04-23T18:53:22.337Z",
+			"update_time": "2016-04-23T18:53:22.337Z",
+			"creation_user": 
+			[
+				"admin"
+			],
+
+			"update_user": 
+			[
+				"admin"
+			],
+
+			"effective_user": 
+			[
+				"admin"
+			],
+
+			"site": 1,
+			"alias": "France",
+			"description": "",
+			"name": "French Republic",
+			"iso_code": "FR"
+		}
+	},
+
+	{
+		"model": "locations.country",
+		"pk": 3,
+		"fields": 
+		{
+			"uuid": "8c631902-c2bd-43ac-927e-897966751fa8",
+			"version": 1,
+			"enabled": true,
+			"deleted": false,
+			"creation_time": "2016-04-23T19:13:31.581Z",
+			"update_time": "2016-04-23T19:13:31.581Z",
+			"creation_user": 
+			[
+				"admin"
+			],
+
+			"update_user": 
+			[
+				"admin"
+			],
+
+			"effective_user": 
+			[
+				"admin"
+			],
+
+			"site": 1,
+			"alias": "Great Britain",
+			"description": "",
+			"name": "United Kingdom of Great Britain and Northern Ireland",
+			"iso_code": "GB"
+		}
+	},
+
+	{
+		"model": "locations.language",
+		"pk": 1,
+		"fields": 
+		{
+			"uuid": "5b87cf4c-2dcc-4620-aab1-b35527ddc882",
+			"version": 1,
+			"enabled": true,
+			"deleted": false,
+			"creation_time": "2016-04-23T19:05:11.132Z",
+			"update_time": "2016-04-23T19:05:11.132Z",
+			"creation_user": 
+			[
+				"admin"
+			],
+
+			"update_user": 
+			[
+				"admin"
+			],
+
+			"effective_user": 
+			[
+				"admin"
+			],
+
+			"site": 1,
+			"alias": "",
+			"description": "",
+			"name": "English",
+			"iso_code": "en"
+		}
+	},
+
+	{
+		"model": "locations.language",
+		"pk": 2,
+		"fields": 
+		{
+			"uuid": "2d263567-1e7d-44ff-9dbe-1ffae0be5e72",
+			"version": 1,
+			"enabled": true,
+			"deleted": false,
+			"creation_time": "2016-04-23T19:05:22.542Z",
+			"update_time": "2016-04-23T19:05:22.542Z",
+			"creation_user": 
+			[
+				"admin"
+			],
+
+			"update_user": 
+			[
+				"admin"
+			],
+
+			"effective_user": 
+			[
+				"admin"
+			],
+
+			"site": 1,
+			"alias": "",
+			"description": "",
+			"name": "French",
+			"iso_code": "fr"
+		}
+	},
+
+	{
+		"model": "locations.timezone",
+		"pk": 1,
+		"fields": 
+		{
+			"uuid": "c0bc813b-7246-4b83-97de-545e8fc37a1b",
+			"version": 1,
+			"enabled": true,
+			"deleted": false,
+			"creation_time": "2016-04-23T19:30:06.826Z",
+			"update_time": "2016-04-23T19:30:06.826Z",
+			"creation_user": 
+			[
+				"admin"
+			],
+
+			"update_user": 
+			[
+				"admin"
+			],
+
+			"effective_user": 
+			[
+				"admin"
+			],
+
+			"site": 1,
+			"alias": "NY Timezone",
+			"description": "",
+			"name": "America/New_York",
+			"timezone": "America/New_York"
+		}
+	},
+
+	{
+		"model": "locations.province",
+		"pk": 1,
+		"fields": 
+		{
+			"uuid": "70c46265-e307-4edd-bf5c-b9687855f980",
+			"version": 1,
+			"enabled": true,
+			"deleted": false,
+			"creation_time": "2016-04-23T19:01:38.548Z",
+			"update_time": "2016-04-23T19:01:38.548Z",
+			"creation_user": 
+			[
+				"admin"
+			],
+
+			"update_user": 
+			[
+				"admin"
+			],
+
+			"effective_user": 
+			[
+				"admin"
+			],
+
+			"site": 1,
+			"alias": "",
+			"description": "",
+			"name": "Basse-Normandie",
+			"iso_code": "FR-P",
+			"country": 2
+		}
+	},
+
+	{
+		"model": "locations.province",
+		"pk": 2,
+		"fields": 
+		{
+			"uuid": "8c55811e-a457-481c-87d9-48853ca95ea7",
+			"version": 1,
+			"enabled": true,
+			"deleted": false,
+			"creation_time": "2016-04-23T19:04:05.550Z",
+			"update_time": "2016-04-23T19:04:05.550Z",
+			"creation_user": 
+			[
+				"admin"
+			],
+
+			"update_user": 
+			[
+				"admin"
+			],
+
+			"effective_user": 
+			[
+				"admin"
+			],
+
+			"site": 1,
+			"alias": "",
+			"description": "",
+			"name": "Nord - Pas-de-Calais",
+			"iso_code": "FR-O",
+			"country": 2
+		}
+	},
+
+	{
+		"model": "locations.province",
+		"pk": 3,
+		"fields": 
+		{
+			"uuid": "4b065ea0-eeae-40f3-94ba-6c98370e6339",
+			"version": 1,
+			"enabled": true,
+			"deleted": false,
+			"creation_time": "2016-04-23T19:25:09.710Z",
+			"update_time": "2016-04-23T19:25:09.710Z",
+			"creation_user": 
+			[
+				"admin"
+			],
+
+			"update_user": 
+			[
+				"admin"
+			],
+
+			"effective_user": 
+			[
+				"admin"
+			],
+
+			"site": 1,
+			"alias": "",
+			"description": "",
+			"name": "London, City of",
+			"iso_code": "GB-LND",
+			"country": 3
+		}
+	},
+
+	{
+		"model": "locations.state",
+		"pk": 1,
+		"fields": 
+		{
+			"uuid": "8c1e8be6-44aa-4eea-9621-5beecdd9c81f",
+			"version": 1,
+			"enabled": true,
+			"deleted": false,
+			"creation_time": "2016-04-23T18:54:28.057Z",
+			"update_time": "2016-04-23T18:54:28.057Z",
+			"creation_user": 
+			[
+				"admin"
+			],
+
+			"update_user": 
+			[
+				"admin"
+			],
+
+			"effective_user": 
+			[
+				"admin"
+			],
+
+			"site": 1,
+			"alias": "",
+			"description": "",
+			"name": "New York",
+			"iso_code": "US-NY",
+			"country": 1
+		}
+	},
+
+	{
+		"model": "locations.state",
+		"pk": 2,
+		"fields": 
+		{
+			"uuid": "c752bf17-a946-4ec5-8679-a97f5148a1fd",
+			"version": 1,
+			"enabled": true,
+			"deleted": false,
+			"creation_time": "2016-04-23T19:00:32.957Z",
+			"update_time": "2016-04-23T19:00:32.957Z",
+			"creation_user": 
+			[
+				"admin"
+			],
+
+			"update_user": 
+			[
+				"admin"
+			],
+
+			"effective_user": 
+			[
+				"admin"
+			],
+
+			"site": 1,
+			"alias": "",
+			"description": "",
+			"name": "New Jersey",
+			"iso_code": "US-NJ",
+			"country": 1
+		}
+	},
+
+	{
+		"model": "locations.state",
+		"pk": 3,
+		"fields": 
+		{
+			"uuid": "70a61d35-ef4e-43f2-aa1f-b98a0eaa06e7",
+			"version": 1,
+			"enabled": true,
+			"deleted": false,
+			"creation_time": "2016-04-23T19:01:07.971Z",
+			"update_time": "2016-04-23T19:01:07.971Z",
+			"creation_user": 
+			[
+				"admin"
+			],
+
+			"update_user": 
+			[
+				"admin"
+			],
+
+			"effective_user": 
+			[
+				"admin"
+			],
+
+			"site": 1,
+			"alias": "",
+			"description": "",
+			"name": "Alabama",
+			"iso_code": "US-AL",
+			"country": 1
+		}
+	},
+
+	{
+		"model": "locations.city",
+		"pk": 1,
+		"fields": 
+		{
+			"uuid": "2df4bd6a-41e5-43ff-8c29-d80ba384398e",
+			"version": 1,
+			"enabled": true,
+			"deleted": false,
+			"creation_time": "2016-04-23T19:07:23.440Z",
+			"update_time": "2016-04-23T19:07:23.441Z",
+			"creation_user": 
+			[
+				"admin"
+			],
+
+			"update_user": 
+			[
+				"admin"
+			],
+
+			"effective_user": 
+			[
+				"admin"
+			],
+
+			"site": 1,
+			"alias": "",
+			"description": "",
+			"name": "New York",
+			"state": 1,
+			"province": null
+		}
+	},
+
+	{
+		"model": "locations.city",
+		"pk": 2,
+		"fields": 
+		{
+			"uuid": "90e476b2-5f16-44cc-909d-77952b391330",
+			"version": 1,
+			"enabled": true,
+			"deleted": false,
+			"creation_time": "2016-04-23T19:07:35.148Z",
+			"update_time": "2016-04-23T19:07:35.149Z",
+			"creation_user": 
+			[
+				"admin"
+			],
+
+			"update_user": 
+			[
+				"admin"
+			],
+
+			"effective_user": 
+			[
+				"admin"
+			],
+
+			"site": 1,
+			"alias": "",
+			"description": "",
+			"name": "Mobile",
+			"state": 3,
+			"province": null
+		}
+	},
+
+	{
+		"model": "locations.city",
+		"pk": 3,
+		"fields": 
+		{
+			"uuid": "572ad1cc-b0ec-44ea-a2f6-de75bf5a5f65",
+			"version": 1,
+			"enabled": true,
+			"deleted": false,
+			"creation_time": "2016-04-23T19:25:23.268Z",
+			"update_time": "2016-04-23T19:25:23.268Z",
+			"creation_user": 
+			[
+				"admin"
+			],
+
+			"update_user": 
+			[
+				"admin"
+			],
+
+			"effective_user": 
+			[
+				"admin"
+			],
+
+			"site": 1,
+			"alias": "",
+			"description": "",
+			"name": "London",
+			"state": null,
+			"province": 3
+		}
+	}
+]

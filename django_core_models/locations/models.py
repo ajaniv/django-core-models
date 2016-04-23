@@ -179,7 +179,7 @@ class Timezone(OptionalNamedModel):
 
 
 class Region(NamedModel):
-    """Abstract class for state and province model.
+    """Abstract class for state, province, county model.
 
     Uses 3 characters as per ISO 3166.
     """
@@ -198,7 +198,9 @@ _province_verbose = humanize(underscore(_province))
 
 
 class Province(Region):
-    """Province model class."""
+    """Province model class.
+
+    Also used for countries  where county is an administration unit."""
     class Meta(Region.Meta):
         """Model meta class declaration."""
         db_table = db_table(_app_label, _province)
