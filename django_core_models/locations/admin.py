@@ -9,6 +9,7 @@ from __future__ import absolute_import
 
 from django.contrib import admin
 
+from django_core_models_libs.admin_utils import iso_fields, iso_list_display
 from django_core_utils.admin import (NamedModelAdmin, VersionedModelAdmin,
                                      admin_site_register,
                                      named_model_admin_class_attrs)
@@ -53,14 +54,6 @@ class AddressAdmin(VersionedModelAdmin):
         return str(instance)[:DISPLAY_ADDRESS_SIZE]
     get_address.short_description = "address"
 
-_iso_list_display = ("id", "get_name", "alias", "iso_code",
-                     "version", "update_time", "update_user")
-_country_fields = (
-    ("name",),
-    ("iso_code",),
-    ("alias",),
-    ("description",),)
-
 
 class CountryAdmin(NamedModelAdmin):
     """
@@ -68,11 +61,11 @@ class CountryAdmin(NamedModelAdmin):
     """
     form = CountryAdminForm
 
-    list_display = _iso_list_display
+    list_display = iso_list_display
 
     fieldsets = (
         ('Country',
-         {'fields': _country_fields}),
+         {'fields': iso_fields}),
     ) + NamedModelAdmin.get_field_sets()
 
 
@@ -146,23 +139,17 @@ class GeographicLocationAdmin(NamedModelAdmin):
     get_longitude.short_description = "longitude"
     get_longitude.allow_tags = True
 
-_language_fields = (
-    ("name",),
-    ("iso_code",),
-    ("alias",),
-    ("description",),)
-
 
 class LanguageAdmin(NamedModelAdmin):
     """
     Language model admin class
     """
     form = LanguageAdminForm
-    list_display = _iso_list_display
+    list_display = iso_list_display
 
     fieldsets = (
         ('Language',
-         {'fields': _language_fields}),
+         {'fields': iso_fields}),
     ) + NamedModelAdmin.get_field_sets()
 
 
