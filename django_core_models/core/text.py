@@ -16,3 +16,11 @@ annotation_labels = {
 annotation_help_texts = {
     "annotation": _("Text annotation."),
     }
+
+currency_labels = {
+    "iso_code": _("ISO code"),
+    }
+
+currency_help_texts = {
+    "iso_code": _("ISO 4217 currency code."),
+    }

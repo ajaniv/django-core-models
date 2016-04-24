@@ -4,34 +4,19 @@
 
 *core models* application models unit test module.
 """
-from __future__ import print_function
+from __future__ import absolute_import, print_function
 
 import logging
 
-import factory.fuzzy
-
 from django_core_utils import constants
-from django_core_utils.tests.factories import (NamedModelFactory,
-                                               VersionedModelFactory)
 from django_core_utils.tests.test_util import (NamedModelTestCase,
                                                VersionedModelTestCase)
 
-from ..models import Annotation, Category
+from ..models import Category
+from .factories import (AnnotationModelFactory, CategoryModelFactory,
+                        CurrencyModelFactory)
 
 logger = logging.getLogger(__name__)
-
-
-ANNOTATION_LENGTH = 128
-
-
-class AnnotationModelFactory(VersionedModelFactory):
-    """Annotation model factory class.
-    """
-    class Meta(object):
-        """Model meta class."""
-        model = Annotation
-
-    annotation = factory.fuzzy.FuzzyText(length=ANNOTATION_LENGTH)
 
 
 class AnnotationTestCase(VersionedModelTestCase):
@@ -42,16 +27,8 @@ class AnnotationTestCase(VersionedModelTestCase):
             factory_class=AnnotationModelFactory)
 
 
-class CategoryModelFactory(NamedModelFactory):
-    """Category model factory class.
-    """
-    class Meta(object):
-        """Model meta class."""
-        model = Category
-
-
 class CategoryTestCase(NamedModelTestCase):
-    """Annotation model unit test class.
+    """Category model unit test class.
     """
     def test_category_crud(self):
         self.verify_named_model_crud(
@@ -61,6 +38,8 @@ class CategoryTestCase(NamedModelTestCase):
 
 
 class TestLoggingConfig(NamedModelTestCase):
+    """Logging configuration testcase class.
+    """
     def test_name_not_found(self):
         logger.warning('Verify logger filtering')
         name = 'myname'
@@ -69,3 +48,29 @@ class TestLoggingConfig(NamedModelTestCase):
 
         self.assertTrue(CategoryModelFactory(name=constants.UNKNOWN))
         self.assertTrue(Category.objects.named_instance(name=name))
+
+
+class CurrencyTestCase(NamedModelTestCase):
+    """Currency model unit test class.
+    """
+
+    def test_currency_crud(self):
+        currencies = [CurrencyModelFactory(name=name, iso_code=iso_code)
+                      for name, iso_code in zip(
+                          CurrencyModelFactory.names,
+                          CurrencyModelFactory.iso_codes)]
+        self.verify_named_instances_crud(
+            currencies,
+            factory_class=CurrencyModelFactory,
+            get_by_name=CurrencyModelFactory.CURRENCY_USD)
+
+    def test_currency_fields(self):
+        instance = CurrencyModelFactory(
+            name=CurrencyModelFactory.CURRENCY_EURO,
+            iso_code=CurrencyModelFactory.ISO_4217_EUR)
+
+        self.verify_instance(instance)
+        instance.full_clean()
+        self.assertEqual(instance.iso_code,
+                         CurrencyModelFactory.ISO_4217_EUR,
+                         "currency initialization error")

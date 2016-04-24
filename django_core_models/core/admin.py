@@ -9,13 +9,14 @@ from __future__ import absolute_import
 
 from django.contrib import admin
 
+from django_core_models_libs.admin_utils import iso_fields, iso_list_display
 from django_core_utils.admin import (NamedModelAdmin, OptionalNamedModelAdmin,
                                      admin_site_register,
                                      named_model_admin_class_attrs)
 from python_core_utils.core import class_name
 
-from .forms import AnnotationAdminForm
-from .models import Annotation, Category
+from .forms import AnnotationAdminForm, CurrencyAdminForm
+from .models import Annotation, Category, Currency
 
 DISPLAY_ANNOTATION_SIZE = 32
 
@@ -47,6 +48,25 @@ class AnnotationAdmin(OptionalNamedModelAdmin):
          {'fields': _annotation_fields}),
     ) + OptionalNamedModelAdmin.get_field_sets()
 
+_currency_fields = (
+    ("name",),
+    ("iso_code",),
+    ("alias",),
+    ("description",),)
+
+
+class CurrencyAdmin(NamedModelAdmin):
+    """
+    Currency model admin class
+    """
+    form = CurrencyAdminForm
+
+    list_display = iso_list_display
+
+    fieldsets = (
+        ('Currency',
+         {'fields': iso_fields}),
+    ) + NamedModelAdmin.get_field_sets()
 
 _named_classes = (Category,)
 
@@ -56,8 +76,8 @@ for clasz in _named_classes:
         (NamedModelAdmin,),
         named_model_admin_class_attrs(class_name(clasz)))
 
-_other_model_classes = (Annotation,)
-_other_admin_classes = (AnnotationAdmin,)
+_other_model_classes = (Annotation, Currency)
+_other_admin_classes = (AnnotationAdmin, CurrencyAdmin)
 
 for model_class, admin_class in zip(_other_model_classes,
                                     _other_admin_classes):
