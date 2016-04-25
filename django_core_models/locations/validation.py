@@ -40,6 +40,17 @@ def country_validation(instance):
                     'expected': official.official_name})
 
 
+def geographic_location_validation(instance):
+    """Perform geographic location validation.
+    """
+    entity = "GeographicLocation"
+    check_instance(entity, instance)
+    if instance.range is not None and instance.range_unit is None:
+        raise ValidationError(_("Range unit is required when range is set."))
+    if instance.range is None and instance.range_unit:
+        raise ValidationError(_("Unit is set when range is not defined."))
+
+
 def language_validation(instance):
     """Perform language validation.
     """

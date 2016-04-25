@@ -14,11 +14,7 @@ from django_core_utils import fields
 from django_core_utils.models import (NamedModel, OptionalNamedModel,
                                       VersionedModel, db_table)
 
-from .validation import (country_state_province_validation, country_validation,
-                         language_validation, post_office_box_validation,
-                         postal_code_validation, province_validation,
-                         state_and_province_validation, state_validation,
-                         street_and_post_office_box_validation)
+from . import validation
 
 _app_label = "locations"
 
@@ -48,8 +44,23 @@ class Country(NamedModel):
         """Perform cross field validation.
         """
         super(Country, self).clean()
-        country_validation(self)
+        validation.country_validation(self)
 
+_distance_unit = "DistanceUnit"
+_distance_unit_verbose = humanize(underscore(_distance_unit))
+
+
+class DistanceUnit(NamedModel):
+    """Distance unit model class.
+
+    Designed for values such as meter, yard, mile, kilometer
+    """
+    class Meta(NamedModel.Meta):
+        """Model meta class declaration."""
+        app_label = _app_label
+        db_table = db_table(_app_label, _distance_unit)
+        verbose_name = _(_distance_unit_verbose)
+        verbose_name_plural = _(pluralize(_distance_unit_verbose))
 
 _geographic_location_type = "GeographicLocationType"
 _geographic_location_type_verbose = humanize(
@@ -80,8 +91,18 @@ class GeographicLocation(OptionalNamedModel):
     Captures geographic location data.
     """
     # @TODO: Add foreign key to GeographicLocationType?
+    GEO_RANGE_MAX_DIGITS = 5
+    GEO_RANGE_DECIMAL_PLACES = 2
+    GEO_RANGE_DEFAULT = 10.0
+
     latitude = fields.latitude_field()
     longitude = fields.longitude_field()
+    range = fields.decimal_field(
+        blank=True, null=True,
+        default=None,
+        max_digits=GEO_RANGE_MAX_DIGITS,
+        decimal_places=GEO_RANGE_DECIMAL_PLACES)
+    range_unit = fields.foreign_key_field(DistanceUnit, blank=True, null=True)
 
     class Meta(NamedModel.Meta):
         """Model meta class declaration."""
@@ -93,6 +114,12 @@ class GeographicLocation(OptionalNamedModel):
     def __str__(self):
         value = "{0:9.5f} {1:9.5f}".format(self.latitude, self.longitude)
         return value
+
+    def clean(self):
+        """Perform cross field validation.
+        """
+        super(GeographicLocation, self).clean()
+        validation.geographic_location_validation(self)
 
 _language_type = "LanguageType"
 _language_type_verbose = humanize(underscore(_language_type))
@@ -134,7 +161,7 @@ class Language(NamedModel):
         """Perform cross field validation.
         """
         super(Language, self).clean()
-        language_validation(self)
+        validation.language_validation(self)
 
 
 _timezone_type = "TimezoneType"
@@ -211,7 +238,7 @@ class Province(Region):
         """Perform cross field validation.
         """
         super(Province, self).clean()
-        province_validation(self)
+        validation.province_validation(self)
 
 
 _state = "State"
@@ -230,7 +257,7 @@ class State(Region):
         """Perform cross field validation.
         """
         super(State, self).clean()
-        state_validation(self)
+        validation.state_validation(self)
 
 _city = "City"
 _city_verbose = humanize(underscore(_city))
@@ -255,7 +282,7 @@ class City(NamedModel):
         """Perform cross field validation.
         """
         super(City, self).clean()
-        state_and_province_validation(self.state, self.province)
+        validation.state_and_province_validation(self.state, self.province)
 
     @property
     def region(self):
@@ -363,10 +390,11 @@ class Address(VersionedModel):
         """Perform cross field validation.
         """
         super(Address, self).clean()
-        street_and_post_office_box_validation(self.post_office_box,
-                                              self.street_address)
-        post_office_box_validation(self.country, self.post_office_box)
-        state_and_province_validation(self.state, self.province)
-        country_state_province_validation(
+        validation.street_and_post_office_box_validation(self.post_office_box,
+                                                         self.street_address)
+        validation.post_office_box_validation(self.country,
+                                              self.post_office_box)
+        validation.state_and_province_validation(self.state, self.province)
+        validation.country_state_province_validation(
             self.country, self.state, self.province)
-        postal_code_validation(self.country, self.postal_code)
+        validation.postal_code_validation(self.country, self.postal_code)

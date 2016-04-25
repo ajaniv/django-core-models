@@ -71,6 +71,14 @@ def country_france():
         iso_code=CountryModelFactory.ISO_3166_2_FR)
 
 
+class DistanceUnitModelFactory(NamedModelFactory):
+    """Distance unit model factory class.
+    """
+    class Meta(object):
+        """Model meta class."""
+        model = models.DistanceUnit
+
+
 class GeographicLocationTypeModelFactory(NamedModelFactory):
     """Geographic location type model factory class.
     """
