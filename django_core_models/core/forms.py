@@ -10,8 +10,9 @@ from __future__ import absolute_import
 from django_core_utils import forms
 from python_core_utils.core import dict_merge
 
-from .models import Annotation
-from .text import annotation_help_texts, annotation_labels
+from .models import Annotation, Currency
+from .text import (annotation_help_texts, annotation_labels,
+                   currency_help_texts, currency_labels)
 
 
 class AnnotationAdminForm(forms.VersionedModelAdminForm):
@@ -27,3 +28,18 @@ class AnnotationAdminForm(forms.VersionedModelAdminForm):
         help_texts = dict_merge(
             forms.VersionedModelAdminForm.Meta.help_texts,
             annotation_help_texts)
+
+
+class CurrencyAdminForm(forms.NamedModelAdminForm):
+    """Currency  model admin form class.
+    """
+    class Meta(forms.NamedModelAdminForm.Meta):
+        """Form meta class."""
+        model = Currency
+        labels = dict_merge(
+            forms.NamedModelAdminForm.Meta.labels,
+            currency_labels)
+
+        help_texts = dict_merge(
+            forms.NamedModelAdminForm.Meta.help_texts,
+            currency_help_texts)

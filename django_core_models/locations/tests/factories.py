@@ -10,25 +10,11 @@ import decimal
 
 import factory
 
+from django_core_models_libs.factory_utils import ISOMixin
 from django_core_utils.tests.factories import (NamedModelFactory,
                                                VersionedModelFactory)
 
 from .. import models
-
-
-class ISOMixin(object):
-    """ISO  mixin class."""
-    @classmethod
-    def name(cls, n):
-        if n >= len(cls.names):
-            n = 0
-        return cls.names[n]
-
-    @classmethod
-    def iso_code(cls, n):
-        if n >= len(cls.iso_codes):
-            n = 0
-        return cls.iso_codes[n]
 
 
 class AddressTypeModelFactory(NamedModelFactory):
@@ -83,6 +69,14 @@ def country_france():
     return CountryModelFactory(
         name=CountryModelFactory.COUNTRY_FRANCE,
         iso_code=CountryModelFactory.ISO_3166_2_FR)
+
+
+class DistanceUnitModelFactory(NamedModelFactory):
+    """Distance unit model factory class.
+    """
+    class Meta(object):
+        """Model meta class."""
+        model = models.DistanceUnit
 
 
 class GeographicLocationTypeModelFactory(NamedModelFactory):

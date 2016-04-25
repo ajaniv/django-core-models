@@ -5,50 +5,50 @@
 *location* application validation module.
 
 """
+from __future__ import absolute_import
+
 import re
 
 import pycountry
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
+from django_core_models_libs.validation_utils import (check_instance,
+                                                      invalid_iso,
+                                                      invalid_name)
 
-def _invalid_iso(entity):
-    """Generate invalid iso template."""
-    base = "is an invalid %s iso code" % entity
-    return "%(value)s " + base
-
-
-def _invalid_name(entity):
-    """Generate invalid name template."""
-    base = "is an invalid %s name." % entity
-    return "%(value)s " + base + "  Expected %(expected)s."
-
-
-def _check_instance(entity, instance):
-    if instance is None:
-        raise ValidationError(_("%s is not defined." % entity))
 
 # Note: there are some minor differences in pycountry api which makes it
 # a little bit tricky to eliminate what appears as redundant logic
-
 
 def country_validation(instance):
     """Perform country validation.
     """
     entity = "Country"
-    _check_instance(entity, instance)
+    check_instance(entity, instance)
     try:
         official = pycountry.countries.get(alpha2=instance.iso_code)
     except KeyError:
         raise ValidationError(
-            _(_invalid_iso(entity)),
+            _(invalid_iso(entity)),
             params={'value': instance.iso_code})
 
     if official.official_name != instance.name:
         raise ValidationError(
-            _(_invalid_name(entity)),
+            _(invalid_name(entity)),
             params={'value': instance.name,
                     'expected': official.official_name})
+
+
+def geographic_location_validation(instance):
+    """Perform geographic location validation.
+    """
+    entity = "GeographicLocation"
+    check_instance(entity, instance)
+    if instance.range is not None and instance.range_unit is None:
+        raise ValidationError(_("Range unit is required when range is set."))
+    if instance.range is None and instance.range_unit:
+        raise ValidationError(_("Unit is set when range is not defined."))
 
 
 def language_validation(instance):
@@ -56,18 +56,18 @@ def language_validation(instance):
     """
 
     entity = "Language"
-    _check_instance(entity, instance)
+    check_instance(entity, instance)
     try:
         official = pycountry.languages.get(
             iso639_1_code=instance.iso_code)
     except KeyError:
         raise ValidationError(
-            _(_invalid_iso(entity)),
+            _(invalid_iso(entity)),
             params={'value': instance.iso_code})
 
     if official.name != instance.name:
         raise ValidationError(
-            _(_invalid_name(entity)),
+            _(invalid_name(entity)),
             params={'value': instance.name,
                     'expected': official.name})
 
@@ -76,16 +76,16 @@ def state_validation(instance):
     """Perform state validation."""
     entity = "State"
 
-    _check_instance(entity, instance)
+    check_instance(entity, instance)
     try:
         official = pycountry.subdivisions.get(code=instance.iso_code)
     except KeyError:
-        raise ValidationError(_(_invalid_iso(entity)),
+        raise ValidationError(_(invalid_iso(entity)),
                               params={'value': instance.iso_code})
 
     if official.name != instance.name:
         raise ValidationError(
-            _(_invalid_name(entity)),
+            _(invalid_name(entity)),
             params={'value': instance.name,
                     'expected': official.name})
 
@@ -99,16 +99,16 @@ def province_validation(instance):
     """Perform province validation."""
 
     entity = "Province"
-    _check_instance(entity, instance)
+    check_instance(entity, instance)
     try:
         official = pycountry.subdivisions.get(code=instance.iso_code)
     except KeyError:
-        raise ValidationError(_(_invalid_iso(entity)),
+        raise ValidationError(_(invalid_iso(entity)),
                               params={'value': instance.iso_code})
 
     if official.name != instance.name:
         raise ValidationError(
-            _(_invalid_name(entity)),
+            _(invalid_name(entity)),
             params={'value': instance.name,
                     'expected': official.name})
 
@@ -182,7 +182,7 @@ re_usa_postal_code = re.compile(r"""
 def postal_code_validation(country, value):
     """Validate postal code."""
 
-    _check_instance("Country", country)
+    check_instance("Country", country)
     if value:
         if country.is_usa():
             # should be invalid - '67890 A'

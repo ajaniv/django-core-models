@@ -5,7 +5,7 @@
 *location* application models unit test module.
 """
 from __future__ import print_function
-
+import decimal
 from django.core.exceptions import ValidationError
 from pytz import timezone
 
@@ -13,6 +13,7 @@ from django_core_utils.tests.test_util import (NamedModelTestCase,
                                                VersionedModelTestCase)
 
 from .factories import (AddressTypeModelFactory, CountryModelFactory,
+                        DistanceUnitModelFactory,
                         FrenchAddressModelFactory, FrenchCityModelFactory,
                         GeographicLocationModelFactory,
                         GeographicLocationTypeModelFactory,
@@ -58,6 +59,16 @@ class CountryTestCase(NamedModelTestCase):
                          "country initialization error")
 
 
+class DistanceUnitTestCase(NamedModelTestCase):
+    """Distance unit model unit test class.
+    """
+    def test_address_type_crud(self):
+        self.verify_named_model_crud(
+            names=("name_1", "name_2"),
+            factory_class=DistanceUnitModelFactory,
+            get_by_name="name_1")
+
+
 class FrenchCityTestCase(NamedModelTestCase):
     """French city model unit test class.
     """
@@ -90,11 +101,19 @@ class GeographicLocationTestCase(NamedModelTestCase):
     def test_geographic_location_fields(self):
         latitude = GeographicLocationModelFactory.FUZZY_LATITUDE
         longitude = GeographicLocationModelFactory.FUZZY_LONGITUDE
+        range_unit = DistanceUnitModelFactory(name='Mile')
+        range_value = decimal.Decimal('10.5')
         instance = GeographicLocationModelFactory(
             latitude=latitude,
-            longitude=longitude)
+            longitude=longitude,
+            range=range_value,
+            range_unit=range_unit)
         self.assertAlmostEquals(instance.latitude, latitude)
         self.assertAlmostEquals(instance.longitude, longitude)
+        self.assertEqual(instance.range_unit, range_unit,
+                         'invalid geolocation range_unit initialization')
+        self.assertEqual(instance.range, range_value,
+                         'invalid geolocation range initialization')
 
 
 class LanguageTypeTestCase(NamedModelTestCase):
