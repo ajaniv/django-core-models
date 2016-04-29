@@ -1,8 +1,8 @@
 """
-.. module::  django_core_models.validation_utils
-   :synopsis:  django_core validation utilities  module.
+.. module::  django_core_models_libs.validation_utils
+   :synopsis:  django_core_models validation utilities  module.
 
-django_core validation utilities  module.
+django_core_models validation utilities  module.
 
 """
 from django.core.exceptions import ValidationError

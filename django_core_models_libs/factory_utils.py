@@ -1,8 +1,8 @@
 """
-.. module::  django_core_models.factory_utils
-   :synopsis:  django_core factory  utilities  module.
+.. module::  django_core_models_libs.factory_utils
+   :synopsis:  django_core_models factory  utilities  module.
 
-django_core factory utilities  module.
+django_core_models factory utilities  module.
 
 """
 
