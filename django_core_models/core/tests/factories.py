@@ -1,5 +1,5 @@
 """
-.. module::  core.models.factoreis
+.. module::  django_core_models.core.tests.factories
    :synopsis: core models application unit test factories module.
 
 *core models* application unit test factories module.

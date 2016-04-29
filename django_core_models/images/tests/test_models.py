@@ -9,7 +9,7 @@ from __future__ import print_function
 import factory
 
 from django_core_utils.tests.factories import NamedModelFactory
-from django_core_utils.tests.test_util import NamedModelTestCase
+from django_core_utils.tests.test_utils import NamedModelTestCase
 
 from ..models import (IMAGE_FORMAT_GIF, IMAGE_FORMATS, ORIENTATION_LANDSCAPE,
                       VISUAL_ORIENTATION, DocumentOrientation, Image,
