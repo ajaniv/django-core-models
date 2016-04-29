@@ -1,5 +1,5 @@
 """
-.. module::  config.common.root
+.. module::  configs.common.root
    :synopsis:  Django root settings file.
 
 Django root settings file.

@@ -1,5 +1,5 @@
 """
-.. module::  config.common.sqlite
+.. module::  configs.common.sqlite
    :synopsis:  Django sqlite settings file.
 
 Django sqlite settings file.

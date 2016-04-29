@@ -1,5 +1,5 @@
 """
-.. module::  config.common.django
+.. module::  configs.common.django
    :synopsis:  Django  settings file.
 
 
@@ -50,7 +50,9 @@ BASIC_DJANGO_APPS = [
     'django.contrib.sites',
     ]
 
-EXTENDED_DJANGO_APPS = []
+EXTENDED_DJANGO_APPS = [
+    'rest_framework',
+    ]
 
 CUSTOM_APPS = [
     'django_core_models.core.apps.CoreModelsConfig',
