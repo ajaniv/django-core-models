@@ -115,12 +115,12 @@ class Gender(NamedModel):
     def sex(self, value):
         self.name = value
 
-_household_size = "HouseHoldSize"
+_household_size = "HouseholdSize"
 _household_size_verbose = humanize(underscore(_household_size))
 
 
-class HouseHoldSize(NamedModel):
-    """HouseHoldSize demographics model class.
+class HouseholdSize(NamedModel):
+    """HouseholdSize demographics model class.
     """
     class Meta(NamedModel.Meta):
         """Model meta class declaration."""
@@ -128,6 +128,7 @@ class HouseHoldSize(NamedModel):
         db_table = db_table(_app_label, _household_size)
         verbose_name = _(_household_size_verbose)
         verbose_name_plural = _(pluralize(_household_size_verbose))
+
 _income = "Income"
 _income_verbose = humanize(underscore(_income))
 

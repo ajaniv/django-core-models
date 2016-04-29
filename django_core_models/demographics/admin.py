@@ -12,10 +12,10 @@ from django_core_utils.admin import (NamedModelAdmin, admin_site_register,
 from python_core_utils.core import class_name
 
 from .models import (Age, ChildCount, DemographicRegion, EducationLevel,
-                     Ethnicity, HouseHoldSize, Gender, Income)
+                     Ethnicity, HouseholdSize, Gender, Income)
 
 _named_classes = (Age, ChildCount, DemographicRegion, EducationLevel,
-                  Ethnicity, HouseHoldSize, Gender, Income,)
+                  Ethnicity, HouseholdSize, Gender, Income,)
 
 for clasz in _named_classes:
     admin_site_register(
