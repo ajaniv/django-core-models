@@ -30,7 +30,7 @@ urlpatterns = [
 
 urlpatterns_api = [
     url(r'^api/root/', include('django_core_models.urls')),
-    url(r'^api/core_models/', include('django_core_models.core.urls')),
+    url(r'^api/core-models/', include('django_core_models.core.urls')),
 ]
 
 urlpatterns_rest_framework = [
