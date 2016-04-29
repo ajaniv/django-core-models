@@ -9,8 +9,11 @@ quite a few low level models which were candidate for reuse by
 applications in related domains were identified.  The  choices were:
 
 * Leave them bundled with the contact application.
+* Separate the domains (i.e. location, demographics) into multiple packages.  A POC
+  verified that this approach is feasible.
 * Create a separate application for each of the underlying domains (i.e. Image, Demographics).
-  This is the implementation choice that was taken at this time.
+  This is the implementation choice that was taken at this time, primarily driven by the focus
+  on ease of reuse.
 
 The applications were implemented with internationalization in mind.  This approach is
 manifested in the *models*, *text*, *forms* application modules.
@@ -22,7 +25,7 @@ to support underlying data changes (i.e. new country).  Each of the abstractions
 *pycountry* is used to validate language, country, state, and province data.
 
 It was developed using Django 1.9.4 for python 2.7, python 3.5, sqlite, MySql and Postgres.
-*tox*, *Travis*, and *Docker* are used for the testing.
+*tox*, *Travis*, *Docker* and *coverage* are used for unit test execution.
 
 Detailed documentation may be found in the "docs" directory.
 
