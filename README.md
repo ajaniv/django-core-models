@@ -11,8 +11,7 @@ The applications were implemented with internationalization in mind. This approa
 
 The implementation uses Django admin facilities for data management, support, and other internal end user requirements. The intention is to have a companion set of browser based (i.e. AngularJS) and mobile applications support external end user needs.
 
-A companion set of REST API end points is available using  
-[djangorestframework](http://www.django-rest-framework.org/). These were developed by reusing components from [django-core-utils](https://github.com/ajaniv/django-core-utils/).
+A companion set of REST API end points is available using [djangorestframework](http://www.django-rest-framework.org/). These were developed by reusing components from [django-core-utils](https://github.com/ajaniv/django-core-utils/).
 
 The requirement was to create a data driven application, where no code deployments will be required to support underlying data changes (i.e. new country). Each of the abstractions is derived from [*VersionedModel*](https://github.com/ajaniv/django-core-utils/), providing an audit trail of which user made the change, and when it was made.
 
@@ -113,7 +112,7 @@ Dependencies
 ### Development/Runtime
 
 -   [pycountry](https://pypi.python.org/pypi/pycountry).
--   [djangorestframework](http://www.django-rest-framework.org/)
+-   [djangorestframework](http://www.django-rest-framework.org/).
 -   [django-core-utils](https://github.com/ajaniv/django-core-utils/).
 -   [python-core-utils](https://github.com/ajaniv/python-core-utils/).
 
@@ -141,39 +140,31 @@ Rest API
 
 These sample scenarios were executed using the [http](https://github.com/jkbrzt/httpie) command line utility:
 
-\* create a currency with basic authentication:  
-http -v -a admin:admin123 --json POST http://127.0.0.1:8000/currencies/ name="US Dollar" iso\_code="USD" creation\_user=1 effective\_user=1 update\_user=1 site=1
-
-\* Specify api version:  
-http -v -a admin:admin123 --json POST http://127.0.0.1:8000/api/core-models/currencies/ name="US Dollar" iso\_code="USD" creation\_user=1 effective\_user=1 update\_user=1 site=1 'Accept: application/json; version=1.0'
-
-\* Specify minimal set of required fields while the remainder are derived from the request context:  
-http -v -a admin:admin123 --json POST http://127.0.0.1:8000/api/core-models/currencies/ name="Yen" iso\_code="JPY" 'Accept: application/json; version=1.0'
+-   create a currency with basic authentication: http -v -a admin:admin123 --json POST http://127.0.0.1:8000/currencies/ name="US Dollar" iso\_code="USD" creation\_user=1 effective\_user=1 update\_user=1 site=1
+-   Specify api version: http -v -a admin:admin123 --json POST http://127.0.0.1:8000/api/core-models/currencies/ name="US Dollar" iso\_code="USD" creation\_user=1 effective\_user=1 update\_user=1 site=1 'Accept: application/json; version=1.0'
+-   Specify minimal set of required fields while the remainder are derived from the request context: http -v -a admin:admin123 --json POST <http://127.0.0.1:8000/api/core-models/currencies/> name="Yen" iso\_code="JPY" 'Accept: application/json; version=1.0'\`
 
 ### Browser scenarios
 
 These scenarios were executed using a browser:
 
-\* Show list of currencies:  
-http://127.0.0.1:8000/api/core-models/currencies/
+-   Show list of currencies: http://127.0.0.1:8000/api/core-models/currencies/
+-   Show list of API end points: http://127.0.0.1:8000/api/root/end-points/
 
-\* Show list of API end points:  
-http://127.0.0.1:8000/api/root/end-points/
+    Returns:
 
-> Returns:
->
->     Api Root
->     GET /api/root/end-points/
->     HTTP 200 OK
->     Allow: OPTIONS, GET
->     Content-Type: application/json
->     Vary: Accept
->
->     {
->         "currencies": "http://127.0.0.1:8000/api/core-models/currencies/",
->         "categories": "http://127.0.0.1:8000/api/core-models/categories/",
->         "users": "http://127.0.0.1:8000/api/root/users/"
->     }
+        Api Root
+        GET /api/root/end-points/
+        HTTP 200 OK
+        Allow: OPTIONS, GET
+        Content-Type: application/json
+        Vary: Accept
+
+        {
+            "currencies": "http://127.0.0.1:8000/api/core-models/currencies/",
+            "categories": "http://127.0.0.1:8000/api/core-models/categories/",
+            "users": "http://127.0.0.1:8000/api/root/users/"
+        }
 
 Docker unit test execution
 --------------------------
@@ -237,3 +228,4 @@ Todo
 
 -   Organize docker files under a sub-directory without getting directory access exceptions.
 
+Want to learn about [my favorite programming language](http://www.python.org)?

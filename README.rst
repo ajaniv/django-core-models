@@ -23,9 +23,8 @@ The implementation uses Django admin facilities for data management, support, an
 end user requirements.  The intention is to have a companion set of browser based (i.e. AngularJS) and mobile applications 
 support external end user needs.
 
-A companion set of REST API end points is available using
- `djangorestframework <http://www.django-rest-framework.org/>`_. These were developed by reusing components
- from `django-core-utils  <https://github.com/ajaniv/django-core-utils/>`_.
+A companion set of REST API end points is available using `djangorestframework`_. 
+These were developed by reusing components from `django-core-utils`_.
 
 The requirement was to create a data driven application, where no code deployments will be required
 to support underlying data changes (i.e. new country).  Each of the abstractions is derived from
@@ -51,12 +50,14 @@ Domains
 
 Core
 ^^^^
+
 * Annotation
 * Category
 * Currency
 
 Demographics
 ^^^^^^^^^^^^
+
 * Age
 * ChildCount
 * DemographicRegion
@@ -68,6 +69,7 @@ Demographics
 
 Image
 ^^^^^
+
 * DocumentOrientation
 * Image
 * ImageFormat
@@ -75,6 +77,7 @@ Image
 
 Location
 ^^^^^^^^
+
 * Address
 * AddressType
 * City
@@ -93,6 +96,7 @@ Location
 
 Organization
 ^^^^^^^^^^^^
+
 * Organization
 * OrganizationType
 * OrganizationUnit
@@ -102,6 +106,7 @@ Organization
 
 Social Media
 ^^^^^^^^^^^^
+
 * EmailType
 * FormattedName
 * Group
@@ -137,14 +142,16 @@ Dependencies
 
 Development/Runtime
 ^^^^^^^^^^^^^^^^^^^
+
 * `pycountry <https://pypi.python.org/pypi/pycountry>`_.
-* `djangorestframework <http://www.django-rest-framework.org/>`_
-* `django-core-utils  <https://github.com/ajaniv/django-core-utils/>`_.
+* `djangorestframework`_.
+* `django-core-utils`_.
 * `python-core-utils  <https://github.com/ajaniv/python-core-utils/>`_.
 
 
 Testing
 ^^^^^^^
+
 * `django-core-utils-tests  <https://github.com/ajaniv/django-core-utils-tests/>`_.
 
 
@@ -158,10 +165,10 @@ Development
 
 Rest API
 --------
+
 * Key design principle avoid duplicate field, instance level validation.
   There is an additional performance hit with creation of instance for validation
   by using the underlying Django model clean method.
-
 * 'api' is used to distinguish between the Rest api  and other urls. Following the 'api' is the  application designation such as '/api/core_models/'
 * API versioning is implemented using headers and defaults to 1.
 * One is able to specify a subset of the required fields for both POST and PUT; the remainder are
@@ -173,21 +180,16 @@ Command line scenarios
 ^^^^^^^^^^^^^^^^^^^^^^
 These sample scenarios were executed using the `http <https://github.com/jkbrzt/httpie>`_ command line utility:
 
-* create a currency with basic authentication:
- `http -v -a admin:admin123 --json POST http://127.0.0.1:8000/currencies/ name="US Dollar" iso_code="USD" creation_user=1 effective_user=1 update_user=1 site=1`
-* Specify api version:
- `http -v -a admin:admin123 --json POST http://127.0.0.1:8000/api/core-models/currencies/ name="US Dollar" iso_code="USD" creation_user=1 effective_user=1 update_user=1 site=1 'Accept: application/json; version=1.0'`
-* Specify minimal set of required fields while the remainder are derived from the request context:
- `http -v -a admin:admin123 --json POST http://127.0.0.1:8000/api/core-models/currencies/ name="Yen" iso_code="JPY" 'Accept: application/json; version=1.0'`
+* create a currency with basic authentication: `http -v -a admin:admin123 --json POST http://127.0.0.1:8000/currencies/ name="US Dollar" iso_code="USD" creation_user=1 effective_user=1 update_user=1 site=1`
+* Specify api version: `http -v -a admin:admin123 --json POST http://127.0.0.1:8000/api/core-models/currencies/ name="US Dollar" iso_code="USD" creation_user=1 effective_user=1 update_user=1 site=1 'Accept: application/json; version=1.0'`
+* Specify minimal set of required fields while the remainder are derived from the request context: http -v -a admin:admin123 --json POST http://127.0.0.1:8000/api/core-models/currencies/ name="Yen" iso_code="JPY" 'Accept: application/json; version=1.0'`
 
 Browser scenarios
 ^^^^^^^^^^^^^^^^^^^^^^
 These scenarios were executed using a browser:
 
-* Show list of currencies:
- `http://127.0.0.1:8000/api/core-models/currencies/`
-* Show list of API end points:
- `http://127.0.0.1:8000/api/root/end-points/`
+* Show list of currencies: `http://127.0.0.1:8000/api/core-models/currencies/`
+* Show list of API end points: `http://127.0.0.1:8000/api/root/end-points/`
  
   Returns::
 
@@ -203,6 +205,7 @@ These scenarios were executed using a browser:
 	    "categories": "http://127.0.0.1:8000/api/core-models/categories/",
 	    "users": "http://127.0.0.1:8000/api/root/users/"
 	}
+
 
 Docker unit test execution
 --------------------------
@@ -269,3 +272,10 @@ Todo
 ----
 
 * Organize docker files under a sub-directory without getting directory access exceptions.
+* Revisit approach to hand crafted models, admin, djangorestframework serializers, and unit tests.
+  While some of these can be generated dynamically, often one faces incomparability issues with underlying
+  django and djangorestframework upgrades.
+
+
+.. _djangorestframework: http://www.django-rest-framework.org/
+.. _django-core-utils: https://github.com/ajaniv/django-core-utils/
