@@ -21,8 +21,8 @@ class AnnotationApiTestCase(NamdedModelApiTestCase):
     url_list = "annotation-list"
     url_detail = "annotation-detail"
 
-    name = "my annotation"
-    annotation = "some text"
+    name = factories.AnnotationModelFactory.name
+    annotation = factories.AnnotationModelFactory.annotation
 
     def post_required_data(self, user=None, site=None):
         """Return named model post request required data."""
@@ -69,7 +69,7 @@ class CategoryApiTestCase(NamdedModelApiTestCase):
     url_detail = "category-detail"
     url_list = "category-list"
 
-    name = "Industrials"
+    name = factories.CategoryModelFactory.name
 
     def test_create_category(self):
         self.verify_create_defaults()

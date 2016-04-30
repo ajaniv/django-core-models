@@ -1,13 +1,14 @@
 """
 ..  module:: django_core_models.core.views
-    :synopsis: Django django_core_models core application views  module.
+    :synopsis: django_core_models core application views  module.
 
-Django django_core_models core application views  module.
+*django_core_models* core application views  module.
 """
 from __future__ import absolute_import
 from rest_framework.decorators import api_view
-from django.views.decorators.csrf import csrf_exempt
-from django_core_utils.views import instance_list, instance_detail, ObjectListView, ObjectDetailView
+
+from django_core_utils.views import (instance_list, instance_detail,
+                                     ObjectListView, ObjectDetailView)
 from . import models
 from . import serializers
 

@@ -1,8 +1,8 @@
 """
-.. module::  core.forms
-   :synopsis:  Django core application forms  module.
+.. module::  django_core_models.core.forms
+   :synopsis:  django_core_models core application forms  module.
 
-Django core application forms  module.
+django_core_models core application forms  module.
 
 """
 from __future__ import absolute_import

@@ -1,8 +1,8 @@
 """
-.. module::  core.models
-   :synopsis:  core application models module
+.. module::  django_core_models.core.models
+   :synopsis:  django_core_models core application models module
 
-*core*  application models module.
+django_core_models *core*  application models module.
 
 """
 from __future__ import absolute_import

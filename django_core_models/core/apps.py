@@ -1,8 +1,8 @@
 """
-.. module::  core.apps
-   :synopsis:  Django core application configuration  module.
+.. module::  django_core_models.core.apps
+   :synopsis:  django_core_models  core application configuration  module.
 
-Django core  application configuration  module.
+django_core_models core  application configuration  module.
 
 """
 from django.apps import AppConfig

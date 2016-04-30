@@ -20,16 +20,19 @@ ANNOTATION_LENGTH = 128
 class AnnotationModelFactory(VersionedModelFactory):
     """Annotation model factory class.
     """
+    name = "my annotation"
+    annotation = factory.fuzzy.FuzzyText(length=ANNOTATION_LENGTH)
+
     class Meta(object):
         """Model meta class."""
         model = models.Annotation
-
-    annotation = factory.fuzzy.FuzzyText(length=ANNOTATION_LENGTH)
 
 
 class CategoryModelFactory(NamedModelFactory):
     """Category model factory class.
     """
+    name = "Industrials"
+
     class Meta(object):
         """Model meta class."""
         model = models.Category

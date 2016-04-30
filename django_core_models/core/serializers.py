@@ -1,8 +1,8 @@
 """
 ..  module:: django_core_models.core.serializers
-    :synopsis: Django django_core_models core application serializers  module.
+    :synopsis: django_core_models core application serializers  module.
 
-Django django_core_models core application serializers module.
+*django_core_models* core application serializers module.
 """
 from __future__ import absolute_import
 from django_core_utils.serializers import (NamedModelSerializer,

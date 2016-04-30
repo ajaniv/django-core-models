@@ -1,8 +1,8 @@
 """
-.. module::  core.validation
-   :synopsis:  core validation module
+.. module::  django_core_models.core.validation
+   :synopsis:  django_core_models core validation module
 
-*core* application validation module.
+django_core_models *core* application validation module.
 
 """
 from __future__ import absolute_import

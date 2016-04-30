@@ -1,8 +1,8 @@
 """
-..  module:: core.text
-    :synopsis: Django core application text  module.
+..  module:: django_core_models.core.text
+    :synopsis: django_core_models core application text  module.
 
-Django core application text  module.
+django_core_models core application text  module.
 """
 from django.utils.translation import ugettext_lazy as _
 
