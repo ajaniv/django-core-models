@@ -22,6 +22,10 @@ _age_verbose = humanize(underscore(_age))
 
 class Age(NamedModel):
     """Age demographics model class.
+
+    Sample name field values may include:
+    -  age < 12
+    -  50 < age < 60
     """
     class Meta(NamedModel.Meta):
         """Model meta class declaration."""
@@ -36,6 +40,9 @@ _child_count_verbose = humanize(underscore(_child_count))
 
 class ChildCount(NamedModel):
     """ChildCount demographics model class.
+    Sample name field values may include:
+    -  0
+    -  1
     """
     class Meta(NamedModel.Meta):
         """Model meta class declaration."""
@@ -50,6 +57,10 @@ _demographic_region_verbose = humanize(underscore(_demographic_region))
 
 class DemographicRegion(NamedModel):
     """DemographicRegion demographics model class.
+
+    Sample name field values may include:
+    -  North East
+    -  South
     """
     class Meta(NamedModel.Meta):
         """Model meta class declaration."""
@@ -64,6 +75,10 @@ _education_level_verbose = humanize(underscore(_education_level))
 
 class EducationLevel(NamedModel):
     """EducationLevel demographics model class.
+
+    Sample name field values may include:
+    - No schooling completed
+    - Nursery school to 8th grade
     """
     class Meta(NamedModel.Meta):
         """Model meta class declaration."""
@@ -78,6 +93,10 @@ _ethnicity_verbose = humanize(underscore(_ethnicity))
 
 class Ethnicity(NamedModel):
     """Ethnicity demographics model class.
+
+    Sample name field values may include:
+    - White
+    - Hispanic or Latino
     """
     class Meta(NamedModel.Meta):
         """Model meta class declaration."""
@@ -121,6 +140,10 @@ _household_size_verbose = humanize(underscore(_household_size))
 
 class HouseholdSize(NamedModel):
     """HouseholdSize demographics model class.
+
+    Sample name field values may include:
+    - 1
+    - 2
     """
     class Meta(NamedModel.Meta):
         """Model meta class declaration."""
@@ -135,6 +158,10 @@ _income_verbose = humanize(underscore(_income))
 
 class Income(NamedModel):
     """Income demographics model class.
+
+    Sample name field values may include:
+    - income < 10000
+    - 10000 < income < 20000
     """
     class Meta(NamedModel.Meta):
         """Model meta class declaration."""
