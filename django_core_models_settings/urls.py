@@ -27,10 +27,11 @@ urlpatterns = [
 
 ]
 
-
 urlpatterns_api = [
     url(r'^api/root/', include('django_core_models.urls')),
     url(r'^api/core-models/', include('django_core_models.core.urls')),
+    url(r'^api/demographics/',
+        include('django_core_models.demographics.urls')),
 ]
 
 urlpatterns_rest_framework = [

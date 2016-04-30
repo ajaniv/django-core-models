@@ -14,6 +14,8 @@ from .. import models
 class AgeModelFactory(NamedModelFactory):
     """Age model factory class.
     """
+    name = "age < 12"
+
     class Meta(object):
         """Model meta class."""
         model = models.Age
@@ -22,6 +24,8 @@ class AgeModelFactory(NamedModelFactory):
 class ChildCountModelFactory(NamedModelFactory):
     """Child count model factory class.
     """
+    name = "4"
+
     class Meta(object):
         """Model meta class."""
         model = models.ChildCount
@@ -30,6 +34,8 @@ class ChildCountModelFactory(NamedModelFactory):
 class DemographicRegionModelFactory(NamedModelFactory):
     """Demographic region model factory class.
     """
+    name = "NorthEast"
+
     class Meta(object):
         """Model meta class."""
         model = models.DemographicRegion
@@ -38,6 +44,8 @@ class DemographicRegionModelFactory(NamedModelFactory):
 class EducationLevelModelFactory(NamedModelFactory):
     """Education level model factory class.
     """
+    name = "No schooling completed"
+
     class Meta(object):
         """Model meta class."""
         model = models.EducationLevel
@@ -46,6 +54,8 @@ class EducationLevelModelFactory(NamedModelFactory):
 class EthnicityModelFactory(NamedModelFactory):
     """Ethnicity model factory class.
     """
+    name = "White"
+
     class Meta(object):
         """Model meta class."""
         model = models.Ethnicity
@@ -54,6 +64,8 @@ class EthnicityModelFactory(NamedModelFactory):
 class GenderModelFactory(NamedModelFactory):
     """Gender model factory class.
     """
+    name = "Female"
+
     class Meta(object):
         """Model meta class."""
         model = models.Gender
@@ -62,6 +74,8 @@ class GenderModelFactory(NamedModelFactory):
 class HouseholdSizeModelFactory(NamedModelFactory):
     """HouseholdSize model factory class.
     """
+    name = "1"
+
     class Meta(object):
         """Model meta class."""
         model = models.HouseholdSize
@@ -70,6 +84,8 @@ class HouseholdSizeModelFactory(NamedModelFactory):
 class IncomeModelFactory(NamedModelFactory):
     """Income model factory class.
     """
+    name = "10000 < income < 20000"
+
     class Meta(object):
         """Model meta class."""
         model = models.Income
