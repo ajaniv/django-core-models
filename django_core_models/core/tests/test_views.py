@@ -22,7 +22,7 @@ class AnnotationApiTestCase(NamdedModelApiTestCase):
     url_detail = "annotation-detail"
 
     name = factories.AnnotationModelFactory.name
-    annotation = factories.AnnotationModelFactory.annotation
+    annotation = factories.AnnotationModelFactory.annotation.fuzz()
 
     def post_required_data(self, user=None, site=None):
         """Return named model post request required data."""
