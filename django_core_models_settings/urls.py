@@ -32,6 +32,8 @@ urlpatterns_api = [
     url(r'^api/core-models/', include('django_core_models.core.urls')),
     url(r'^api/demographics/',
         include('django_core_models.demographics.urls')),
+    url(r'^api/images/',
+        include('django_core_models.images.urls')),
 ]
 
 urlpatterns_rest_framework = [
