@@ -4,7 +4,7 @@
 
 *core models* application views unit test module.
 """
-
+from __future__ import absolute_import, print_function
 from django_core_utils.tests.api_test_utils import NamdedModelApiTestCase
 from django_core_models_libs.test_utils import IsoApiTestCase
 from . import factories

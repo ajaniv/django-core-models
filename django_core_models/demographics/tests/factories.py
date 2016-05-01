@@ -4,7 +4,7 @@
 
 *demographics* application unit test factories module.
 """
-from __future__ import print_function
+from __future__ import absolute_import, print_function
 
 from django_core_utils.tests.factories import NamedModelFactory
 
