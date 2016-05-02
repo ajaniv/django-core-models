@@ -5,6 +5,7 @@
 *images* application views unit test module.
 """
 from __future__ import absolute_import, print_function
+import six
 from django_core_utils.tests.api_test_utils import NamdedModelApiTestCase
 from python_core_utils.image import encode_file
 from . import factories
@@ -79,15 +80,23 @@ class ImageApiTestCase(NamdedModelApiTestCase):
     # and cannot be used.
     name = "api-test-image"
 
+    def encode_image(self, file_name):
+        # @TODO: revisit this implementation
+        image_file = open(file_name, 'rb')
+        encoded_data = encode_file(image_file)
+        if six.PY3:
+            encoded_data_str = str(encoded_data, encoding='ascii')
+        else:
+            encoded_data_str = str(encoded_data)
+        return encoded_data_str
+
     def image_data(self, instance):
         instance = instance or self.factory_class()
-        # note that the file is left open for gc to handle
-        image_file = open(instance.image.file.name, 'rb')
-        encoded_data = encode_file(image_file)
-        encoded_data_str = str(encoded_data, encoding='ascii')
+
+        encoded_data = self.encode_image(instance.image.file.name)
         data = dict(image_format=instance.image_format.id,
                     image_orientation=instance.image_orientation.id,
-                    image=encoded_data_str)
+                    image=encoded_data)
         return data
 
     def post_required_data(self, ref_instance, user=None, site=None):
