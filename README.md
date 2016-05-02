@@ -223,9 +223,11 @@ Other
 
 -   To create admin super user: create\_super\_user.py
 
-Todo
-----
+To do
+-----
 
+-   Generate sphinix and/or markup documentation.
 -   Organize docker files under a sub-directory without getting directory access exceptions.
+-   Revisit approach to hand crafted models, admin, djangorestframework serializers, and unit tests. While some of these can be generated dynamically, often one faces incomparability issues with underlying django and djangorestframework upgrades.
+-   References to other objects when using the rest api are by primary key, and not url.
 
-Want to learn about [my favorite programming language](http://www.python.org)?
