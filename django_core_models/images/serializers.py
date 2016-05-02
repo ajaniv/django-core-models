@@ -40,5 +40,3 @@ class ImageSerializer(NamedModelSerializer):
             "image_orientation", "width", "height")
 
         read_only_fields = ("width", "height",)
-    
-    

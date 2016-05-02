@@ -8,6 +8,7 @@ from __future__ import absolute_import
 from django_core_utils.serializers import (NamedModelSerializer,
                                            OptionalNamedModelSerializer)
 
+from django_core_models_libs.serializer_utils import ISOSerializer
 from . import models
 
 
@@ -28,10 +29,9 @@ class CategorySerializer(NamedModelSerializer):
         model = models.Category
 
 
-class CurrencySerializer(NamedModelSerializer):
+class CurrencySerializer(ISOSerializer):
     """Currency model serializer class."""
 
-    class Meta(NamedModelSerializer.Meta):
+    class Meta(ISOSerializer.Meta):
         """Meta class definition."""
         model = models.Currency
-        fields = NamedModelSerializer.Meta.fields + ("iso_code",)

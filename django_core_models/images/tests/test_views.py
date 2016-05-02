@@ -106,10 +106,10 @@ class ImageApiTestCase(NamdedModelApiTestCase):
             model_class=self.model_class,
             expected_name=expected_name)
 
-        for attr in ("image_format", "image_orientation", "height", "width"):
-            self.assertEqual(getattr(instance, attr),
-                             getattr(ref_instance, attr),
-                             "attr %s equality check error" % attr)
+        if ref_instance:
+            self.assert_instance_equal(
+                ref_instance, instance,
+                ("image_format", "image_orientation", "height", "width"))
         return response, instance
 
     def test_create_image(self):
