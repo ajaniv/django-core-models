@@ -24,7 +24,7 @@ Detailed documentation may be found in the "docs" directory.
 Build Status
 ------------
 
-[![image](https://travis-ci.org/ajaniv/django-core-utils.svg?branch=master)](https://travis-ci.org/ajaniv/django-core-utils)
+[![image](https://travis-ci.org/ajaniv/django-core-models.svg?branch=master)](https://travis-ci.org/ajaniv/django-core-models)
 
 Domains
 -------
