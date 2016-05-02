@@ -1,5 +1,5 @@
 """
-.. module::  config.common.postgres
+.. module::  configs.common.postgres
    :synopsis:  Django postgres settings file.
 
 Django postgres settings file.

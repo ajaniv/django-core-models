@@ -1,5 +1,5 @@
 """
-.. module::  config.common.log
+.. module::  configs.common.log
    :synopsis:  Django log settings file.
 
 Django log settings file.

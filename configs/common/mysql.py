@@ -1,5 +1,5 @@
 """
-.. module::  config.common.mysql
+.. module::  configs.common.mysql
    :synopsis:  Django mysql settings file.
 
 Django mysql settings file.

@@ -9,8 +9,8 @@ import decimal
 from django.core.exceptions import ValidationError
 from pytz import timezone
 
-from django_core_utils.tests.test_util import (NamedModelTestCase,
-                                               VersionedModelTestCase)
+from django_core_utils.tests.test_utils import (NamedModelTestCase,
+                                                VersionedModelTestCase)
 
 from .factories import (AddressTypeModelFactory, CountryModelFactory,
                         DistanceUnitModelFactory,

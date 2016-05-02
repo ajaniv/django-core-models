@@ -77,6 +77,7 @@ def state_validation(instance):
     entity = "State"
 
     check_instance(entity, instance)
+    check_instance("Country", instance.country)
     try:
         official = pycountry.subdivisions.get(code=instance.iso_code)
     except KeyError:
@@ -100,6 +101,7 @@ def province_validation(instance):
 
     entity = "Province"
     check_instance(entity, instance)
+    check_instance("Country", instance.country)
     try:
         official = pycountry.subdivisions.get(code=instance.iso_code)
     except KeyError:

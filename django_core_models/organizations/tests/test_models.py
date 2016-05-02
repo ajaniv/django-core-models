@@ -10,7 +10,7 @@ from __future__ import print_function
 import factory
 
 from django_core_utils.tests.factories import NamedModelFactory
-from django_core_utils.tests.test_util import NamedModelTestCase
+from django_core_utils.tests.test_utils import NamedModelTestCase
 
 from ..models import (Organization, OrganizationType, OrganizationUnit, Role,
                       Title)

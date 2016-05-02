@@ -1,5 +1,5 @@
 """
-.. module::  core.models.tests
+.. module::  django_core_models.core.tests.test_models
    :synopsis: core models application models unit test module.
 
 *core models* application models unit test module.
@@ -9,8 +9,8 @@ from __future__ import absolute_import, print_function
 import logging
 
 from django_core_utils import constants
-from django_core_utils.tests.test_util import (NamedModelTestCase,
-                                               VersionedModelTestCase)
+from django_core_utils.tests.test_utils import (NamedModelTestCase,
+                                                VersionedModelTestCase)
 
 from ..models import Category
 from .factories import (AnnotationModelFactory, CategoryModelFactory,

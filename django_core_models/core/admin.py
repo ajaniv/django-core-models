@@ -1,8 +1,8 @@
 """
-.. module::  core.admin
-   :synopsis:  Django core application admin  module.
+.. module::  django_core_models.core.admin
+   :synopsis:  django_core_models core application admin  module.
 
-Django core application admin  module.
+django_core_models core application admin  module.
 
 """
 from __future__ import absolute_import

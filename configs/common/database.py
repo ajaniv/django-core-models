@@ -1,5 +1,5 @@
 """
-.. module::  config.common.db
+.. module::  configs.common.db
    :synopsis:  Django database settings file.
 
 Django database settings file.

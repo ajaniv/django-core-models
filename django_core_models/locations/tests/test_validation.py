@@ -8,7 +8,7 @@ from __future__ import print_function
 
 from django.core.exceptions import ValidationError
 
-from django_core_utils.tests.test_util import BaseAppDjangoTestCase
+from django_core_utils.tests.test_utils import BaseModelTestCase
 
 from . import factories
 from ..validation import (country_validation, language_validation,
@@ -18,7 +18,7 @@ from .factories import (CountryModelFactory, LanguageModelFactory,
                         ProvinceModelFactory, StateModelFactory)
 
 
-class ValidationTestCase(BaseAppDjangoTestCase):
+class ValidationTestCase(BaseModelTestCase):
     """Base validation unit test class."""
     def country_usa(self):
         return factories.country_usa()

@@ -10,8 +10,8 @@ import factory.fuzzy
 
 from django_core_utils.tests.factories import (NamedModelFactory,
                                                VersionedModelFactory)
-from django_core_utils.tests.test_util import (NamedModelTestCase,
-                                               VersionedModelTestCase)
+from django_core_utils.tests.test_utils import (NamedModelTestCase,
+                                                VersionedModelTestCase)
 
 from ..models import (EmailType, FormattedName, Group, InstantMessagingType,
                       LogoType, Name, NicknameType, PhoneType, PhotoType,
