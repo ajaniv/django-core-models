@@ -20,6 +20,8 @@ from .. import models
 class AddressTypeModelFactory(NamedModelFactory):
     """Address type model factory class.
     """
+    name = "Home"
+
     class Meta(object):
         """Model meta class."""
         model = models.AddressType
@@ -74,6 +76,8 @@ def country_france():
 class DistanceUnitModelFactory(NamedModelFactory):
     """Distance unit model factory class.
     """
+    name = "meter"
+
     class Meta(object):
         """Model meta class."""
         model = models.DistanceUnit
@@ -82,6 +86,8 @@ class DistanceUnitModelFactory(NamedModelFactory):
 class GeographicLocationTypeModelFactory(NamedModelFactory):
     """Geographic location type model factory class.
     """
+    name = "Major city"
+
     class Meta(object):
         """Model meta class."""
         model = models.GeographicLocationType
@@ -97,17 +103,20 @@ class GeographicLocationModelFactory(GeographicLocationMixin,
                                      NamedModelFactory):
     """Geographic location model factory class.
     """
+    latitude = GeographicLocationMixin.FUZZY_LATITUDE
+    longitude = GeographicLocationMixin.FUZZY_LONGITUDE
+    name = "London"
+
     class Meta(object):
         """Model meta class."""
         model = models.GeographicLocation
-
-    latitude = GeographicLocationMixin.FUZZY_LATITUDE
-    longitude = GeographicLocationMixin.FUZZY_LONGITUDE
 
 
 class LanguageTypeModelFactory(NamedModelFactory):
     """Language type model factory class.
     """
+    name = "Work"
+
     class Meta(object):
         """Model meta class."""
         model = models.LanguageType
@@ -197,6 +206,8 @@ state_alabama_sub_factory = factory.SubFactory(
 class TimezoneTypeModelFactory(NamedModelFactory):
     """Timezone type model factory class.
     """
+    name = "Timezone type"
+
     class Meta(object):
         """Model meta class."""
         model = models.TimezoneType

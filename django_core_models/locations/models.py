@@ -95,8 +95,8 @@ class GeographicLocation(OptionalNamedModel):
     GEO_RANGE_DECIMAL_PLACES = 2
     GEO_RANGE_DEFAULT = 10.0
 
-    latitude = fields.latitude_field()
-    longitude = fields.longitude_field()
+    latitude = fields.latitude_field(default=None)
+    longitude = fields.longitude_field(default=None)
     range = fields.decimal_field(
         blank=True, null=True,
         default=None,
