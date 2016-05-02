@@ -15,6 +15,31 @@ from django_core_models_libs.serializer_utils import ISOSerializer
 from . import models
 
 
+class AddressSerializer(VersionedModelSerializer):
+    """Address model serializer class."""
+    # these field definitions are required because of the unique_together
+    # definition on the model field and DRF handling of it.
+
+    extended_address = serializers.CharField(required=False, default='')
+    post_office_box = serializers.CharField(required=False, default='')
+    province = serializers.PrimaryKeyRelatedField(
+        queryset=models.Province.objects.all(),
+        required=False,
+        default=None)
+    state = serializers.PrimaryKeyRelatedField(
+        queryset=models.State.objects.all(),
+        required=False,
+        default=None)
+
+    class Meta(VersionedModelSerializer.Meta):
+        """Meta class definition."""
+        model = models.Address
+        fields = VersionedModelSerializer.Meta.fields + (
+            "label", "post_office_box", "street_address",
+            "extended_address", "city", "state", "province",
+            "country", "postal_code", "timezone", "geographic_location")
+
+
 class AddressTypeSerializer(NamedModelSerializer):
     """AddressType model serializer class."""
 
@@ -126,15 +151,3 @@ class StateSerializer(RegionSerializer):
     class Meta(RegionSerializer.Meta):
         """Meta class definition."""
         model = models.State
-
-
-class AddressSerializer(VersionedModelSerializer):
-    """Address model serializer class."""
-
-    class Meta(VersionedModelSerializer.Meta):
-        """Meta class definition."""
-        model = models.Address
-        fields = VersionedModelSerializer.Meta.fields + (
-            "label", "post_office_box", "street_address",
-            "extended_address", "city", "state", "province",
-            "country", "postal_code", "timezone", "geographic_location")
