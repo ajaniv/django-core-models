@@ -1,5 +1,5 @@
 """
-.. module::  location.tests.factories
+.. module::  django_core_models.location.tests.factories
    :synopsis: location application factories module.
 
 *location* application factories module.
