@@ -36,6 +36,8 @@ urlpatterns_api = [
         include('django_core_models.images.urls')),
     url(r'^api/locations/',
         include('django_core_models.locations.urls')),
+    url(r'^api/organizations/',
+        include('django_core_models.organizations.urls')),
 ]
 
 urlpatterns_rest_framework = [
