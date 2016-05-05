@@ -17,7 +17,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 _git_url_root = 'git+ssh://git@github.com/ajaniv/'
 setup(
-    name='django-core-models-test',
+    name='django-core-models',
     version='0.1.0',
     include_package_data=True,
     license='BSD License',  # example license
