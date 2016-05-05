@@ -1,5 +1,5 @@
 """
-.. module::  location.tests.test_validation
+.. module::  django_core_models.location.tests.test_validation
    :synopsis: location application validation unit test module.
 
 *location* application validation unit test module.

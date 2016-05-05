@@ -5,14 +5,14 @@
 *demographics* application views unit test module.
 """
 from __future__ import absolute_import, print_function
-from django_core_utils.tests.api_test_utils import NamdedModelApiTestCase
+from django_core_utils.tests.api_test_utils import NamedModelApiTestCase
 
 from . import factories
 from .. import models
 from .. import serializers
 
 
-class AgeApiTestCase(NamdedModelApiTestCase):
+class AgeApiTestCase(NamedModelApiTestCase):
     """Age API unit test class."""
     factory_class = factories.AgeModelFactory
     model_class = models.Age
@@ -39,7 +39,7 @@ class AgeApiTestCase(NamdedModelApiTestCase):
         self.verify_delete_default()
 
 
-class ChildCountApiTestCase(NamdedModelApiTestCase):
+class ChildCountApiTestCase(NamedModelApiTestCase):
     """ChildCount API unit test class."""
     factory_class = factories.ChildCountModelFactory
     model_class = models.ChildCount
@@ -66,7 +66,7 @@ class ChildCountApiTestCase(NamdedModelApiTestCase):
         self.verify_delete_default()
 
 
-class DemographicRegionApiTestCase(NamdedModelApiTestCase):
+class DemographicRegionApiTestCase(NamedModelApiTestCase):
     """DemographicRegion API unit test class."""
     factory_class = factories.DemographicRegionModelFactory
     model_class = models.DemographicRegion
@@ -93,7 +93,7 @@ class DemographicRegionApiTestCase(NamdedModelApiTestCase):
         self.verify_delete_default()
 
 
-class EducationLevelApiTestCase(NamdedModelApiTestCase):
+class EducationLevelApiTestCase(NamedModelApiTestCase):
     """EducationLevel API unit test class."""
     factory_class = factories.EducationLevelModelFactory
     model_class = models.EducationLevel
@@ -120,7 +120,7 @@ class EducationLevelApiTestCase(NamdedModelApiTestCase):
         self.verify_delete_default()
 
 
-class EthnicityApiTestCase(NamdedModelApiTestCase):
+class EthnicityApiTestCase(NamedModelApiTestCase):
     """Ethnicity API unit test class."""
     factory_class = factories.EthnicityModelFactory
     model_class = models.Ethnicity
@@ -147,7 +147,7 @@ class EthnicityApiTestCase(NamdedModelApiTestCase):
         self.verify_delete_default()
 
 
-class GenderApiTestCase(NamdedModelApiTestCase):
+class GenderApiTestCase(NamedModelApiTestCase):
     """Gender API unit test class."""
     factory_class = factories.GenderModelFactory
     model_class = models.Gender
@@ -174,7 +174,7 @@ class GenderApiTestCase(NamdedModelApiTestCase):
         self.verify_delete_default()
 
 
-class HouseholdSizeApiTestCase(NamdedModelApiTestCase):
+class HouseholdSizeApiTestCase(NamedModelApiTestCase):
     """HouseholdSize API unit test class."""
     factory_class = factories.HouseholdSizeModelFactory
     model_class = models.HouseholdSize
@@ -201,7 +201,7 @@ class HouseholdSizeApiTestCase(NamdedModelApiTestCase):
         self.verify_delete_default()
 
 
-class IncomeApiTestCase(NamdedModelApiTestCase):
+class IncomeApiTestCase(NamedModelApiTestCase):
     """Income API unit test class."""
     factory_class = factories.IncomeModelFactory
     model_class = models.Income

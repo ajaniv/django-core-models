@@ -6,24 +6,36 @@
 """
 from __future__ import print_function
 
-import factory.fuzzy
 
-from django_core_utils.tests.factories import (NamedModelFactory,
-                                               VersionedModelFactory)
 from django_core_utils.tests.test_utils import (NamedModelTestCase,
                                                 VersionedModelTestCase)
 
-from ..models import (EmailType, FormattedName, Group, InstantMessagingType,
-                      LogoType, Name, NicknameType, PhoneType, PhotoType,
-                      UrlType)
+from . import factories
 
 
-class GroupModelFactory(NamedModelFactory):
-    """Group model factory class.
+class EmailTypeTestCase(NamedModelTestCase):
+    """Email type model unit test class.
     """
-    class Meta(object):
-        """Model meta class."""
-        model = Group
+    def test_email_type_crud(self):
+        self.verify_named_model_crud(
+            names=("name_1", "name_2"),
+            factory_class=factories.EmailTypeModelFactory,
+            get_by_name="name_1")
+
+
+class FormattedNameTestCase(VersionedModelTestCase):
+    """Formatted name model unit test class.
+    """
+    def test_formatted_name_crud(self):
+        self.verify_versioned_model_crud(
+            factory_class=factories.FormattedNameModelFactory)
+
+    def test_str(self):
+        name = 'John Smith'
+        instance = factories.FormattedNameModelFactory(name=name)
+        self.assertTrue(
+            str(instance).endswith(
+                '{}'.format(name)))
 
 
 class GroupTestCase(NamedModelTestCase):
@@ -32,19 +44,28 @@ class GroupTestCase(NamedModelTestCase):
     def test_group_crud(self):
         self.verify_named_model_crud(
             names=("name_1", "name_2"),
-            factory_class=GroupModelFactory,
+            factory_class=factories.GroupModelFactory,
             get_by_name="name_1")
 
 
-class NameModelFactory(VersionedModelFactory):
-    """Name model factory class.
+class InstantMessagingTypeTestCase(NamedModelTestCase):
+    """Instant messaging type model unit test class.
     """
-    class Meta(object):
-        """Model meta class."""
-        model = Name
+    def test_instant_messaging_type_crud(self):
+        self.verify_named_model_crud(
+            names=("name_1", "name_2"),
+            factory_class=factories.InstantMessagingTypeModelFactory,
+            get_by_name="name_1")
 
-    family_name = factory.fuzzy.FuzzyText()
-    given_name = factory.fuzzy.FuzzyText()
+
+class LogoTypeTestCase(NamedModelTestCase):
+    """Logo type model unit test class.
+    """
+    def test_nickname_type_crud(self):
+        self.verify_named_model_crud(
+            names=("name_1", "name_2"),
+            factory_class=factories.LogoTypeModelFactory,
+            get_by_name="name_1")
 
 
 class NameTestCase(VersionedModelTestCase):
@@ -52,13 +73,14 @@ class NameTestCase(VersionedModelTestCase):
     """
     def test_name_crud(self):
         self.verify_versioned_model_crud(
-            factory_class=NameModelFactory)
+            factory_class=factories.NameModelFactory)
 
     def test_other_fields(self):
 
-        instance = NameModelFactory(additional_name='name_0',
-                                    honorific_prefix='name_1',
-                                    honorific_suffix='name_2')
+        instance = factories.NameModelFactory(
+            additional_name='name_0',
+            honorific_prefix='name_1',
+            honorific_suffix='name_2')
         attrs = ('additional_name', 'honorific_prefix', 'honorific_suffix')
         for index, attr in enumerate(attrs):
             self.assertEqual(
@@ -69,7 +91,7 @@ class NameTestCase(VersionedModelTestCase):
     def test_full_name(self):
         family_name = 'Smith'
         given_name = 'John'
-        instance = NameModelFactory(
+        instance = factories.NameModelFactory(
             family_name=family_name, given_name=given_name)
         self.assertTrue(
             instance.full_name.startswith(
@@ -78,44 +100,11 @@ class NameTestCase(VersionedModelTestCase):
     def test_str(self):
         family_name = 'Smith'
         given_name = 'John'
-        instance = NameModelFactory(
+        instance = factories.NameModelFactory(
             family_name=family_name, given_name=given_name)
         self.assertTrue(
             str(instance).endswith(
                 '{} {}'.format(family_name, given_name)))
-
-
-class FormattedNameModelFactory(VersionedModelFactory):
-    """Formatted name model factory class.
-    """
-    class Meta(object):
-        """Model meta class."""
-        model = FormattedName
-
-    name = factory.fuzzy.FuzzyText()
-
-
-class FormattedNameTestCase(VersionedModelTestCase):
-    """Formatted name model unit test class.
-    """
-    def test_formatted_name_crud(self):
-        self.verify_versioned_model_crud(
-            factory_class=FormattedNameModelFactory)
-
-    def test_str(self):
-        name = 'John Smith'
-        instance = FormattedNameModelFactory(name=name)
-        self.assertTrue(
-            str(instance).endswith(
-                '{}'.format(name)))
-
-
-class NicknameTypeModelFactory(NamedModelFactory):
-    """Nickname type model factory class.
-    """
-    class Meta(object):
-        """Model meta class."""
-        model = NicknameType
 
 
 class NicknameTypeTestCase(NamedModelTestCase):
@@ -124,70 +113,8 @@ class NicknameTypeTestCase(NamedModelTestCase):
     def test_nickname_type_crud(self):
         self.verify_named_model_crud(
             names=("name_1", "name_2"),
-            factory_class=NicknameTypeModelFactory,
+            factory_class=factories.NicknameTypeModelFactory,
             get_by_name="name_1")
-
-
-class LogoTypeModelFactory(NamedModelFactory):
-    """Logo type model factory class.
-    """
-    class Meta(object):
-        """Model meta class."""
-        model = LogoType
-
-
-class LogoTypeTestCase(NamedModelTestCase):
-    """Logo type model unit test class.
-    """
-    def test_nickname_type_crud(self):
-        self.verify_named_model_crud(
-            names=("name_1", "name_2"),
-            factory_class=LogoTypeModelFactory,
-            get_by_name="name_1")
-
-
-class PhotoTypeModelFactory(NamedModelFactory):
-    """Photo type model factory class.
-    """
-    class Meta(object):
-        """Model meta class."""
-        model = PhotoType
-
-
-class PhotoTypeTestCase(NamedModelTestCase):
-    """Photo type model unit test class.
-    """
-    def test_photo_type_crud(self):
-        self.verify_named_model_crud(
-            names=("name_1", "name_2"),
-            factory_class=PhotoTypeModelFactory,
-            get_by_name="name_1")
-
-
-class UrlTypeModelFactory(NamedModelFactory):
-    """Url type model factory class.
-    """
-    class Meta(object):
-        """Model meta class."""
-        model = UrlType
-
-
-class UrlTypeTestCase(NamedModelTestCase):
-    """Url type model unit test class.
-    """
-    def test_url_type_crud(self):
-        self.verify_named_model_crud(
-            names=("name_1", "name_2"),
-            factory_class=UrlTypeModelFactory,
-            get_by_name="name_1")
-
-
-class PhoneTypeModelFactory(NamedModelFactory):
-    """Phone type model factory class.
-    """
-    class Meta(object):
-        """Model meta class."""
-        model = PhoneType
 
 
 class PhoneTypeTestCase(NamedModelTestCase):
@@ -196,41 +123,25 @@ class PhoneTypeTestCase(NamedModelTestCase):
     def test_phone_type_crud(self):
         self.verify_named_model_crud(
             names=("name_1", "name_2"),
-            factory_class=PhoneTypeModelFactory,
+            factory_class=factories.PhoneTypeModelFactory,
             get_by_name="name_1")
 
 
-class EmailTypeModelFactory(NamedModelFactory):
-    """Email type model factory class.
+class PhotoTypeTestCase(NamedModelTestCase):
+    """Photo type model unit test class.
     """
-    class Meta(object):
-        """Model meta class."""
-        model = EmailType
-
-
-class EmailTypeTestCase(NamedModelTestCase):
-    """Email type model unit test class.
-    """
-    def test_email_type_crud(self):
+    def test_photo_type_crud(self):
         self.verify_named_model_crud(
             names=("name_1", "name_2"),
-            factory_class=EmailTypeModelFactory,
+            factory_class=factories.PhotoTypeModelFactory,
             get_by_name="name_1")
 
 
-class InstantMessagingTypeModelFactory(NamedModelFactory):
-    """Instant messaging type model factory class.
+class UrlTypeTestCase(NamedModelTestCase):
+    """Url type model unit test class.
     """
-    class Meta(object):
-        """Model meta class."""
-        model = InstantMessagingType
-
-
-class InstantMessagingTypeTestCase(NamedModelTestCase):
-    """Instant messaging type model unit test class.
-    """
-    def test_instant_messaging_type_crud(self):
+    def test_url_type_crud(self):
         self.verify_named_model_crud(
             names=("name_1", "name_2"),
-            factory_class=InstantMessagingTypeModelFactory,
+            factory_class=factories.UrlTypeModelFactory,
             get_by_name="name_1")

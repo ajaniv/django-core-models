@@ -2,17 +2,19 @@
 .. module::  django_core_models.locations.tests.test_views
    :synopsis: locations models application views unit test module.
 
-*locations models* application views unit test module.
+*locations* application views unit test module.
 """
 from __future__ import absolute_import, print_function
-from django_core_utils.tests.api_test_utils import NamdedModelApiTestCase
+from django_core_utils.tests.api_test_utils import (NamedModelApiTestCase,
+                                                    VersionedModelApiTestCase)
+
 from django_core_models_libs.test_utils import IsoApiTestCase
 from . import factories
 from .. import models
 from .. import serializers
 
 
-class AddressTypeApiTestCase(NamdedModelApiTestCase):
+class AddressTypeApiTestCase(NamedModelApiTestCase):
     """AddressType API unit test class."""
     factory_class = factories.AddressTypeModelFactory
     model_class = models.AddressType
@@ -71,7 +73,7 @@ class CountryApiTestCase(IsoApiTestCase):
         self.verify_delete_default()
 
 
-class DistanceUnitApiTestCase(NamdedModelApiTestCase):
+class DistanceUnitApiTestCase(NamedModelApiTestCase):
     """DistanceUnit API unit test class."""
     factory_class = factories.DistanceUnitModelFactory
     model_class = models.DistanceUnit
@@ -100,7 +102,7 @@ class DistanceUnitApiTestCase(NamdedModelApiTestCase):
         self.verify_delete_default()
 
 
-class GeographicLocationTypeApiTestCase(NamdedModelApiTestCase):
+class GeographicLocationTypeApiTestCase(NamedModelApiTestCase):
     """GeographicLocationType API unit test class."""
     factory_class = factories.GeographicLocationTypeModelFactory
     model_class = models.GeographicLocationType
@@ -129,7 +131,7 @@ class GeographicLocationTypeApiTestCase(NamdedModelApiTestCase):
         self.verify_delete_default()
 
 
-class GeographicLocationApiTestCase(NamdedModelApiTestCase):
+class GeographicLocationApiTestCase(NamedModelApiTestCase):
     """GeographicLocation API unit test class."""
     factory_class = factories.GeographicLocationModelFactory
     model_class = models.GeographicLocation
@@ -197,7 +199,7 @@ class GeographicLocationApiTestCase(NamdedModelApiTestCase):
         self.verify_delete_default()
 
 
-class LanguageTypeApiTestCase(NamdedModelApiTestCase):
+class LanguageTypeApiTestCase(NamedModelApiTestCase):
     """LanaguageType API unit test class."""
     factory_class = factories.LanguageTypeModelFactory
     model_class = models.LanguageType
@@ -256,7 +258,7 @@ class LanguageApiTestCase(IsoApiTestCase):
         self.verify_delete_default()
 
 
-class TimezoneTypeApiTestCase(NamdedModelApiTestCase):
+class TimezoneTypeApiTestCase(NamedModelApiTestCase):
     """TimezoneType API unit test class."""
     factory_class = factories.TimezoneTypeModelFactory
     model_class = models.TimezoneType
@@ -285,7 +287,7 @@ class TimezoneTypeApiTestCase(NamdedModelApiTestCase):
         self.verify_delete_default()
 
 
-class TimezoneApiTestCase(NamdedModelApiTestCase):
+class TimezoneApiTestCase(NamedModelApiTestCase):
     """Timezone API unit test class."""
     factory_class = factories.TimezoneModelFactory
     model_class = models.Timezone
@@ -478,27 +480,18 @@ class StateApiTestCase(RegionApiTestCase):
         self.verify_delete_default()
 
 
-class USCityApiTestCase(NamdedModelApiTestCase):
-    """US City API unit test class."""
-    factory_class = factories.USCityModelFactory
+class CityApiTestCase(NamedModelApiTestCase):
+    """Base class for city rest api test cases"""
     model_class = models.City
     serializer_class = serializers.CitySerializer
 
     url_detail = "city-detail"
     url_list = "city-list"
 
-    name = "London"
-
-    def city_data(self, instance):
-        """return city location data"""
-        instance = instance or self.factory_class()
-        data = dict(state=instance.state.id)
-        return data
-
     def post_required_data(self, ref_instance, user=None, site=None):
         """Return named model post request required data."""
         data = super(
-            USCityApiTestCase, self).post_required_data(user, site)
+            CityApiTestCase, self).post_required_data(user, site)
         data.update(self.city_data(ref_instance))
         return data
 
@@ -512,12 +505,64 @@ class USCityApiTestCase(NamdedModelApiTestCase):
             model_class=self.model_class,
             expected_name=expected_name)
 
+        attrs = self.verify_attrs
         if ref_instance:
-            self.assert_instance_equal(
-                ref_instance, instance,
-                ("state",))
+            self.assert_instance_equal(ref_instance, instance, attrs)
 
         return response, instance
+
+
+class FrenchCityApiTestCase(CityApiTestCase):
+    """French City API unit test class."""
+    factory_class = factories.FrenchCityModelFactory
+    name = "Lille"
+    verify_attrs = ("province",)
+
+    def city_data(self, instance):
+        """return city data"""
+        instance = instance or self.factory_class()
+        data = dict(province=instance.province.id)
+        return data
+
+    def test_create_city(self):
+        instance = self.create_instance_default()
+        self.verify_create_city(
+            ref_instance=instance, expected_name=self.name)
+
+    def test_create_city_partial(self):
+        instance = self.create_instance_default()
+        data = self.city_data(instance)
+        data["name"] = self.name
+        data["province"] = instance.province.id
+        self.verify_create_city(
+            ref_instance=instance,
+            data=data,
+            expected_name=self.name)
+
+    def test_get_city(self):
+        self.verify_get_defaults()
+
+    def test_put_city_partial(self):
+        instance = self.create_instance_default()
+        data = dict(
+            id=instance.id, name=self.name, province=instance.province.id)
+        self.verify_put(self.url_detail, instance, data, self.serializer_class)
+
+    def test_delete_city(self):
+        self.verify_delete_default()
+
+
+class USCityApiTestCase(CityApiTestCase):
+    """US City API unit test class."""
+    factory_class = factories.USCityModelFactory
+    name = "Houston"
+    verify_attrs = ("state",)
+
+    def city_data(self, instance):
+        """return city location data"""
+        instance = instance or self.factory_class()
+        data = dict(state=instance.state.id)
+        return data
 
     def test_create_city(self):
         instance = self.create_instance_default()
@@ -543,4 +588,129 @@ class USCityApiTestCase(NamdedModelApiTestCase):
         self.verify_put(self.url_detail, instance, data, self.serializer_class)
 
     def test_delete_city(self):
+        self.verify_delete_default()
+
+
+class AddressApiTestCase(VersionedModelApiTestCase):
+    """Base class for address api test cases."""
+    url_detail = "address-detail"
+    url_list = "address-list"
+    model_class = models.Address
+    serializer_class = serializers.AddressSerializer
+    label = "Mr John Smith"
+
+    def address_data(self, instance):
+        """return address data"""
+        instance = instance or self.factory_class()
+        data = dict(
+            city=instance.city,
+            country=instance.country.id,
+            label=self.label,
+            postal_code=instance.postal_code,
+            street_address=instance.street_address)
+        return data
+
+    def post_required_data(self, ref_instance, user=None, site=None):
+        """Return named model post request required data."""
+        data = super(
+            AddressApiTestCase, self).post_required_data(user, site)
+        data.update(self.address_data(ref_instance))
+        return data
+
+    def verify_create_address(
+            self, ref_instance=None,
+            data=None, extra_attrs=None,
+            expected_label=None):
+        """Generate post request for address creation."""
+        data = data or self.post_required_data(ref_instance)
+
+        response, instance = self.verify_create(
+            url_name=self.url_list,
+            data=data,
+            model_class=self.model_class)
+
+        base_attrs = ("city", "country", "postal_code", "street_address",)
+        attrs = base_attrs + extra_attrs if extra_attrs else base_attrs
+        if ref_instance:
+            self.assert_instance_equal(ref_instance, instance, attrs)
+
+        self.assertEqual(instance.label, expected_label,
+                         "label comparison mismatch")
+
+        return response, instance
+
+
+class FrenchAddressApiTestCase(AddressApiTestCase):
+    """French address API unit test class."""
+    factory_class = factories.FrenchAddressModelFactory
+
+    def address_data(self, instance):
+        """return address data"""
+        instance = instance or self.factory_class()
+        data = super(FrenchAddressApiTestCase, self).address_data(instance)
+        data.update(dict(province=instance.province.id))
+        return data
+
+    def test_create_address(self):
+        instance = self.create_instance_default()
+        self.verify_create_address(
+            ref_instance=instance,
+            extra_attrs=("province",),
+            expected_label=self.label)
+
+    def test_create_address_partial(self):
+        instance = self.create_instance_default()
+        data = self.address_data(instance)
+        self.verify_create_address(
+            ref_instance=instance,
+            data=data,
+            expected_label=self.label)
+
+    def test_get_address(self):
+        self.verify_get_defaults()
+
+    def test_put_address_partial(self):
+        instance = self.create_instance_default()
+        data = dict(id=instance.id, label=self.label)
+        self.verify_put(self.url_detail, instance, data, self.serializer_class)
+
+    def test_delete_address(self):
+        self.verify_delete_default()
+
+
+class USAddressApiTestCase(AddressApiTestCase):
+    """US address API unit test class."""
+    factory_class = factories.USAddressModelFactory
+
+    def address_data(self, instance):
+        """return address data"""
+        instance = instance or self.factory_class()
+        data = super(USAddressApiTestCase, self).address_data(instance)
+        data.update(dict(state=instance.state.id))
+        return data
+
+    def test_create_address(self):
+        instance = self.create_instance_default()
+        self.verify_create_address(
+            ref_instance=instance,
+            extra_attrs=("state",),
+            expected_label=self.label)
+
+    def test_create_address_partial(self):
+        instance = self.create_instance_default()
+        data = self.address_data(instance)
+        self.verify_create_address(
+            ref_instance=instance,
+            data=data,
+            expected_label=self.label)
+
+    def test_get_address(self):
+        self.verify_get_defaults()
+
+    def test_put_address_partial(self):
+        instance = self.create_instance_default()
+        data = dict(id=instance.id, label=self.label)
+        self.verify_put(self.url_detail, instance, data, self.serializer_class)
+
+    def test_delete_address(self):
         self.verify_delete_default()

@@ -5,10 +5,10 @@
 django_core_models test utilities  module.
 
 """
-from django_core_utils.tests.api_test_utils import NamdedModelApiTestCase
+from django_core_utils.tests.api_test_utils import NamedModelApiTestCase
 
 
-class IsoApiTestCase(NamdedModelApiTestCase):
+class IsoApiTestCase(NamedModelApiTestCase):
     """Base class for named classes with iso field unit tests.
     """
     def post_required_data(self, user=None, site=None):

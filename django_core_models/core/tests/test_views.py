@@ -5,14 +5,14 @@
 *core models* application views unit test module.
 """
 from __future__ import absolute_import, print_function
-from django_core_utils.tests.api_test_utils import NamdedModelApiTestCase
+from django_core_utils.tests.api_test_utils import NamedModelApiTestCase
 from django_core_models_libs.test_utils import IsoApiTestCase
 from . import factories
 from .. import models
 from .. import serializers
 
 
-class AnnotationApiTestCase(NamdedModelApiTestCase):
+class AnnotationApiTestCase(NamedModelApiTestCase):
     """Annotation API unit test class."""
     factory_class = factories.AnnotationModelFactory
     model_class = models.Annotation
@@ -60,7 +60,7 @@ class AnnotationApiTestCase(NamdedModelApiTestCase):
         self.verify_delete_default()
 
 
-class CategoryApiTestCase(NamdedModelApiTestCase):
+class CategoryApiTestCase(NamedModelApiTestCase):
     """Category API unit test class."""
     factory_class = factories.CategoryModelFactory
     model_class = models.Category

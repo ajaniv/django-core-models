@@ -1,5 +1,5 @@
 """
-.. module::  location.tests.test_models
+.. module::  django_core_models.location.tests.test_models
    :synopsis: location application models unit test module.
 
 *location* application models unit test module.
