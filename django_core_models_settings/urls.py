@@ -38,6 +38,8 @@ urlpatterns_api = [
         include('django_core_models.locations.urls')),
     url(r'^api/organizations/',
         include('django_core_models.organizations.urls')),
+    url(r'^api/social-media/',
+        include('django_core_models.social_media.urls')),
 ]
 
 urlpatterns_rest_framework = [
