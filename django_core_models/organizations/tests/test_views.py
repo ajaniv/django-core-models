@@ -5,14 +5,14 @@
 *organizations*  application views unit test module.
 """
 from __future__ import absolute_import, print_function
-from django_core_utils.tests.api_test_utils import NamdedModelApiTestCase
+from django_core_utils.tests.api_test_utils import NamedModelApiTestCase
 
 from . import factories
 from .. import models
 from .. import serializers
 
 
-class OrganizationTypeApiTestCase(NamdedModelApiTestCase):
+class OrganizationTypeApiTestCase(NamedModelApiTestCase):
     """OrganizationType API unit test class."""
     factory_class = factories.OrganizationTypeModelFactory
     model_class = models.OrganizationType
@@ -41,7 +41,7 @@ class OrganizationTypeApiTestCase(NamdedModelApiTestCase):
         self.verify_delete_default()
 
 
-class OrganizationApiTestCase(NamdedModelApiTestCase):
+class OrganizationApiTestCase(NamedModelApiTestCase):
     """Organization API unit test class."""
     factory_class = factories.OrganizationModelFactory
     model_class = models.Organization
@@ -108,7 +108,7 @@ class OrganizationApiTestCase(NamdedModelApiTestCase):
         self.verify_delete_default()
 
 
-class OrganizationUnitApiTestCase(NamdedModelApiTestCase):
+class OrganizationUnitApiTestCase(NamedModelApiTestCase):
     """Organization unit  API unit test class."""
     factory_class = factories.OrganizationUnitModelFactory
     model_class = models.OrganizationUnit
@@ -175,7 +175,7 @@ class OrganizationUnitApiTestCase(NamdedModelApiTestCase):
         self.verify_delete_default()
 
 
-class RoleApiTestCase(NamdedModelApiTestCase):
+class RoleApiTestCase(NamedModelApiTestCase):
     """Role API unit test class."""
     factory_class = factories.RoleModelFactory
     model_class = models.Role
@@ -204,7 +204,7 @@ class RoleApiTestCase(NamdedModelApiTestCase):
         self.verify_delete_default()
 
 
-class TitleApiTestCase(NamdedModelApiTestCase):
+class TitleApiTestCase(NamedModelApiTestCase):
     """Title API unit test class."""
     factory_class = factories.TitleModelFactory
     model_class = models.Title

@@ -5,7 +5,7 @@
 *locations* application views unit test module.
 """
 from __future__ import absolute_import, print_function
-from django_core_utils.tests.api_test_utils import (NamdedModelApiTestCase,
+from django_core_utils.tests.api_test_utils import (NamedModelApiTestCase,
                                                     VersionedModelApiTestCase)
 
 from django_core_models_libs.test_utils import IsoApiTestCase
@@ -14,7 +14,7 @@ from .. import models
 from .. import serializers
 
 
-class AddressTypeApiTestCase(NamdedModelApiTestCase):
+class AddressTypeApiTestCase(NamedModelApiTestCase):
     """AddressType API unit test class."""
     factory_class = factories.AddressTypeModelFactory
     model_class = models.AddressType
@@ -73,7 +73,7 @@ class CountryApiTestCase(IsoApiTestCase):
         self.verify_delete_default()
 
 
-class DistanceUnitApiTestCase(NamdedModelApiTestCase):
+class DistanceUnitApiTestCase(NamedModelApiTestCase):
     """DistanceUnit API unit test class."""
     factory_class = factories.DistanceUnitModelFactory
     model_class = models.DistanceUnit
@@ -102,7 +102,7 @@ class DistanceUnitApiTestCase(NamdedModelApiTestCase):
         self.verify_delete_default()
 
 
-class GeographicLocationTypeApiTestCase(NamdedModelApiTestCase):
+class GeographicLocationTypeApiTestCase(NamedModelApiTestCase):
     """GeographicLocationType API unit test class."""
     factory_class = factories.GeographicLocationTypeModelFactory
     model_class = models.GeographicLocationType
@@ -131,7 +131,7 @@ class GeographicLocationTypeApiTestCase(NamdedModelApiTestCase):
         self.verify_delete_default()
 
 
-class GeographicLocationApiTestCase(NamdedModelApiTestCase):
+class GeographicLocationApiTestCase(NamedModelApiTestCase):
     """GeographicLocation API unit test class."""
     factory_class = factories.GeographicLocationModelFactory
     model_class = models.GeographicLocation
@@ -199,7 +199,7 @@ class GeographicLocationApiTestCase(NamdedModelApiTestCase):
         self.verify_delete_default()
 
 
-class LanguageTypeApiTestCase(NamdedModelApiTestCase):
+class LanguageTypeApiTestCase(NamedModelApiTestCase):
     """LanaguageType API unit test class."""
     factory_class = factories.LanguageTypeModelFactory
     model_class = models.LanguageType
@@ -258,7 +258,7 @@ class LanguageApiTestCase(IsoApiTestCase):
         self.verify_delete_default()
 
 
-class TimezoneTypeApiTestCase(NamdedModelApiTestCase):
+class TimezoneTypeApiTestCase(NamedModelApiTestCase):
     """TimezoneType API unit test class."""
     factory_class = factories.TimezoneTypeModelFactory
     model_class = models.TimezoneType
@@ -287,7 +287,7 @@ class TimezoneTypeApiTestCase(NamdedModelApiTestCase):
         self.verify_delete_default()
 
 
-class TimezoneApiTestCase(NamdedModelApiTestCase):
+class TimezoneApiTestCase(NamedModelApiTestCase):
     """Timezone API unit test class."""
     factory_class = factories.TimezoneModelFactory
     model_class = models.Timezone
@@ -480,7 +480,7 @@ class StateApiTestCase(RegionApiTestCase):
         self.verify_delete_default()
 
 
-class CityApiTestCase(NamdedModelApiTestCase):
+class CityApiTestCase(NamedModelApiTestCase):
     """Base class for city rest api test cases"""
     model_class = models.City
     serializer_class = serializers.CitySerializer

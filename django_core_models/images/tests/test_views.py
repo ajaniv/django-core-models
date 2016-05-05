@@ -6,14 +6,14 @@
 """
 from __future__ import absolute_import, print_function
 import six
-from django_core_utils.tests.api_test_utils import NamdedModelApiTestCase
+from django_core_utils.tests.api_test_utils import NamedModelApiTestCase
 from python_core_utils.image import encode_file
 from . import factories
 from .. import models
 from .. import serializers
 
 
-class DocumentOrientationApiTestCase(NamdedModelApiTestCase):
+class DocumentOrientationApiTestCase(NamedModelApiTestCase):
     """DocumentOrientation API unit test class."""
     factory_class = factories.DocumentOrientationModelFactory
     model_class = models.DocumentOrientation
@@ -40,7 +40,7 @@ class DocumentOrientationApiTestCase(NamdedModelApiTestCase):
         self.verify_delete_default()
 
 
-class ImageFormatApiTestCase(NamdedModelApiTestCase):
+class ImageFormatApiTestCase(NamedModelApiTestCase):
     """ImageFormat API unit test class."""
     factory_class = factories.ImageFormatModelFactory
     model_class = models.ImageFormat
@@ -67,7 +67,7 @@ class ImageFormatApiTestCase(NamdedModelApiTestCase):
         self.verify_delete_default()
 
 
-class ImageApiTestCase(NamdedModelApiTestCase):
+class ImageApiTestCase(NamedModelApiTestCase):
     """Image API unit test class."""
     factory_class = factories.ImageModelFactory
     model_class = models.Image
