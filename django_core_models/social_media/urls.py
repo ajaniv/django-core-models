@@ -53,6 +53,13 @@ urlpatterns = [
         views.NameDetail.as_view(),
         name='name-detail'),
 
+    url(r'^nicknames/$',
+        views.NicknameList.as_view(),
+        name='nickname-list'),
+    url(r'^nicknames/(?P<pk>[0-9]+)/$',
+        views.NicknameDetail.as_view(),
+        name='nickname-detail'),
+
     url(r'^nickname-types/$',
         views.NicknameTypeList.as_view(),
         name='nickname-type-list'),

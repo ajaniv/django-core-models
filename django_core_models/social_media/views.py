@@ -49,6 +49,25 @@ class FormattedNameDetail(FormattedNameMixin, ObjectDetailView):
     pass
 
 
+class NicknameMixin(object):
+    """Nickname mixin class."""
+    queryset = models.Nickname.objects.all()
+    serializer_class = serializers.NicknameSerializer
+
+
+class NicknameList(NicknameMixin, ObjectListView):
+    """Class to list all Nickname instances,
+    or create new Nickname instance."""
+    pass
+
+
+class NicknameDetail(NicknameMixin, ObjectDetailView):
+    """
+    Class to retrieve, update or delete Nickname instance.
+    """
+    pass
+
+
 class GroupMixin(object):
     """Group mixin class."""
     queryset = models.Group.objects.all()

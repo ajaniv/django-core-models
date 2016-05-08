@@ -42,7 +42,36 @@ class EmailTypeApiTestCase(NamedModelApiTestCase):
         self.verify_delete_default()
 
 
-class FormattedNameApiTestCase(VersionedModelApiTestCase):
+class SimpleNameApiTestCase(VersionedModelApiTestCase):
+    """SimpleName model api test case class."""
+    def name_data(self,):
+        """return  name data"""
+        data = dict(name=self.name)
+        return data
+
+    def post_required_data(self, user=None, site=None):
+        """Return  post request required data."""
+        data = super(
+            SimpleNameApiTestCase, self).post_required_data(user, site)
+        data.update(self.name_data())
+        return data
+
+    def verify_create_name(self, data=None):
+        """Generate and verify post request for  name creation."""
+        data = data or self.post_required_data()
+        response, instance = self.verify_create(
+            url_name=self.url_list,
+            data=data,
+            model_class=self.model_class)
+
+        self.assertEqual(instance.name,
+                         self.name,
+                         "name initialization error")
+
+        return response, instance
+
+
+class FormattedNameApiTestCase(SimpleNameApiTestCase):
     """FormattedName API unit test class."""
     factory_class = factories.FormattedNameModelFactory
     model_class = models.FormattedName
@@ -53,38 +82,12 @@ class FormattedNameApiTestCase(VersionedModelApiTestCase):
 
     name = "Mr John Smith II"
 
-    def formatted_name_data(self,):
-        """return formatted name data"""
-        data = dict(name=self.name)
-        return data
-
-    def post_required_data(self, user=None, site=None):
-        """Return  post request required data."""
-        data = super(
-            FormattedNameApiTestCase, self).post_required_data(user, site)
-        data.update(self.formatted_name_data())
-        return data
-
-    def verify_create_formatted_name(self, data=None):
-        """Generate and verify post request for formatted name creation."""
-        data = data or self.post_required_data()
-        response, instance = self.verify_create(
-            url_name=self.url_list,
-            data=data,
-            model_class=self.model_class)
-
-        self.assertEqual(instance.name,
-                         self.name,
-                         "formatted name initialization error")
-
-        return response, instance
-
     def test_create_formatted_name(self):
-        self.verify_create_formatted_name()
+        self.verify_create_name()
 
     def test_create_formatted_name_partial(self):
-        data = self.formatted_name_data()
-        self.verify_create_formatted_name(data=data)
+        data = self.name_data()
+        self.verify_create_name(data=data)
 
     def test_get_formatted_name(self):
         self.verify_get_defaults()
@@ -95,6 +98,36 @@ class FormattedNameApiTestCase(VersionedModelApiTestCase):
         self.verify_put(self.url_detail, instance, data, self.serializer_class)
 
     def test_delete_formatted_name(self):
+        self.verify_delete_default()
+
+
+class NicknameApiTestCase(SimpleNameApiTestCase):
+    """Nickname API unit test class."""
+    factory_class = factories.NicknameModelFactory
+    model_class = models.Nickname
+    serializer_class = serializers.NicknameSerializer
+
+    url_detail = "nickname-detail"
+    url_list = "nickname-list"
+
+    name = "smiley"
+
+    def test_create_nickname(self):
+        self.verify_create_name()
+
+    def test_create_nickname_partial(self):
+        data = self.name_data()
+        self.verify_create_name(data=data)
+
+    def test_get_nickname_name(self):
+        self.verify_get_defaults()
+
+    def test_put_nickname_partial(self):
+        instance = self.create_instance_default()
+        data = dict(id=instance.id, name=self.name)
+        self.verify_put(self.url_detail, instance, data, self.serializer_class)
+
+    def test_delete_nickname(self):
         self.verify_delete_default()
 
 

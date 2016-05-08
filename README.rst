@@ -113,6 +113,7 @@ Social Media
 * InstantMessagingType
 * LogoType
 * Name
+* Nickname
 * NicknameType
 * PhoneType
 * PhotoType

@@ -23,14 +23,32 @@ class EmailTypeModelFactory(NamedModelFactory):
         model = models.EmailType
 
 
-class FormattedNameModelFactory(VersionedModelFactory):
-    """Formatted name model factory class.
-    """
+class SimpleNameModelFactory(VersionedModelFactory):
+    """SimpleName model factory class."""
     name = factory.fuzzy.FuzzyText()
 
     class Meta(object):
         """Model meta class."""
+        model = models.SimpleName
+        abstract = True
+
+
+class FormattedNameModelFactory(SimpleNameModelFactory):
+    """Formatted name model factory class.
+    """
+
+    class Meta(object):
+        """Model meta class."""
         model = models.FormattedName
+
+
+class NicknameModelFactory(SimpleNameModelFactory):
+    """Nickname model factory class.
+    """
+
+    class Meta(object):
+        """Model meta class."""
+        model = models.Nickname
 
 
 class GroupModelFactory(NamedModelFactory):

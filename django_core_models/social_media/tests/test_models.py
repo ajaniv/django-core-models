@@ -38,6 +38,21 @@ class FormattedNameTestCase(VersionedModelTestCase):
                 '{}'.format(name)))
 
 
+class NicknameTestCase(VersionedModelTestCase):
+    """Nickname name model unit test class.
+    """
+    def test_nickname_crud(self):
+        self.verify_versioned_model_crud(
+            factory_class=factories.NicknameModelFactory)
+
+    def test_str(self):
+        name = 'Smiley'
+        instance = factories.NicknameModelFactory(name=name)
+        self.assertTrue(
+            str(instance).endswith(
+                '{}'.format(name)))
+
+
 class GroupTestCase(NamedModelTestCase):
     """Group model unit test class.
     """

@@ -20,7 +20,7 @@ _email_type_verbose = humanize(underscore(_email_type))
 
 
 class EmailType(NamedModel):
-    """Email type model class.
+    """EmailType model class.
 
     Enable email classification.
     """
@@ -31,14 +31,10 @@ class EmailType(NamedModel):
         verbose_name = _(_email_type_verbose)
         verbose_name_plural = _(pluralize(_email_type_verbose))
 
-_formatted_name = "FormattedName"
-_formatted_name_verbose = humanize(underscore(_formatted_name))
 
+class SimpleName(VersionedModel):
+    """SimpleName model class.
 
-class FormattedName(VersionedModel):
-    """Formatted name model class.
-
-    Specifies the formatted  name fields.
     """
     # Note: MySql does not allow unique char fields to exceed 255
     name = fields.char_field()
@@ -46,14 +42,42 @@ class FormattedName(VersionedModel):
     class Meta(VersionedModel.Meta):
         """Model meta class declaration."""
         app_label = _app_label
-        db_table = db_table(_app_label, _formatted_name)
-        verbose_name = _(_formatted_name_verbose)
-        verbose_name_plural = _(pluralize(_formatted_name_verbose))
+        abstract = True
 
     def __str__(self):
         # TODO: in python 2.7 calling super results in recursion
         return '{0} {1.name!s}'.format(
-            super(FormattedName, self).__str__(), self)
+            super(SimpleName, self).__str__(), self)
+
+_formatted_name = "FormattedName"
+_formatted_name_verbose = humanize(underscore(_formatted_name))
+
+
+class FormattedName(SimpleName):
+    """FormattedName name model class.
+
+    Specifies the formatted  name fields.
+    """
+
+    class Meta(SimpleName.Meta):
+        """Model meta class declaration."""
+        db_table = db_table(_app_label, _formatted_name)
+        verbose_name = _(_formatted_name_verbose)
+        verbose_name_plural = _(pluralize(_formatted_name_verbose))
+
+_nickname = "Nickname"
+_nickname_verbose = humanize(underscore(_nickname))
+
+
+class Nickname(SimpleName):
+    """Nickname  model class.
+    """
+    class Meta(SimpleName.Meta):
+        """Model meta class declaration."""
+        db_table = db_table(_app_label, _nickname)
+        verbose_name = _(_nickname_verbose)
+        verbose_name_plural = _(pluralize(_nickname_verbose))
+
 
 _group = "Group"
 _group_verbose = humanize(underscore(_group))
@@ -76,7 +100,7 @@ _instance_messaging_type_verbose = humanize(
 
 
 class InstantMessagingType(NamedModel):
-    """Instant messaging  type model class.
+    """IInstantMessagingType model class.
 
     Enable the definition of instant messaging type.
     Sample instant messaging type values include "unknown"
@@ -94,7 +118,7 @@ _logo_type_verbose = humanize(underscore(_logo_type))
 
 
 class LogoType(NamedModel):
-    """Logo type model class.
+    """LogoType model class.
 
     Enable logo classification.
     Sample values may include 'unknown'.
@@ -111,7 +135,7 @@ _name_verbose = humanize(underscore(_name))
 
 
 class Name(VersionedModel):
-    """Contact name model class.
+    """Name model class.
 
     Defines the  name attributes.
 
@@ -148,7 +172,7 @@ _nickname_type_verbose = humanize(underscore(_nickname_type))
 
 
 class NicknameType(NamedModel):
-    """Nickname type model class.
+    """NicknameType model class.
 
     Enable nickname classification.
     Sample values may include 'work, 'home', 'unknown'.
@@ -165,7 +189,7 @@ _phone_type_verbose = humanize(underscore(_phone_type))
 
 
 class PhoneType(NamedModel):
-    """Phone type model class.
+    """PhoneType model class.
 
     Enable phone type classification.  Values may include "text",
     "fax", "cell", "unknown" """
@@ -182,7 +206,7 @@ _photo_type_verbose = humanize(underscore(_photo_type))
 
 
 class PhotoType(NamedModel):
-    """Photo type model class.
+    """PhotoType model class.
 
     Enable photo classification.
     Sample values may include 'unknown'.
@@ -199,7 +223,7 @@ _url_type_verbose = humanize(underscore(_url_type))
 
 
 class UrlType(NamedModel):
-    """Url type model class.
+    """UrlType model class.
 
     Enable url classification.
     Sample values may include 'unknown'.

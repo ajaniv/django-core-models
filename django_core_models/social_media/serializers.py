@@ -20,14 +20,29 @@ class EmailTypeSerializer(NamedModelSerializer):
         model = models.EmailType
 
 
-class FormattedNameSerializer(VersionedModelSerializer):
-    """FormattedName model serializer class."""
-
+class SimpleNameSerializer(VersionedModelSerializer):
+    """SimpleName serializer class."""
     class Meta(VersionedModelSerializer.Meta):
         """Meta class definition."""
-        model = models.FormattedName
+        model = models.SimpleName
         fields = VersionedModelSerializer.Meta.fields + (
             "name",)
+
+
+class FormattedNameSerializer(SimpleNameSerializer):
+    """FormattedName model serializer class."""
+
+    class Meta(SimpleNameSerializer.Meta):
+        """Meta class definition."""
+        model = models.FormattedName
+
+
+class NicknameSerializer(SimpleNameSerializer):
+    """Nickname model serializer class."""
+
+    class Meta(SimpleNameSerializer.Meta):
+        """Meta class definition."""
+        model = models.Nickname
 
 
 class GroupSerializer(NamedModelSerializer):
