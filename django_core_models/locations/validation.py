@@ -1,8 +1,8 @@
 """
-.. module::  location.validation
-   :synopsis:  location validation module
+.. module::  locations.validation
+   :synopsis:  locations validation module
 
-*location* application validation module.
+*locations* application validation module.
 
 """
 from __future__ import absolute_import
