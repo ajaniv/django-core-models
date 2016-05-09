@@ -367,6 +367,63 @@ class NicknameTypeApiTestCase(NamedModelApiTestCase):
         self.verify_delete_default()
 
 
+class PhoneApiTestCase(VersionedModelApiTestCase):
+    """Phone API unit test class."""
+    factory_class = factories.PhoneModelFactory
+    model_class = models.Phone
+    serializer_class = serializers.PhoneSerializer
+
+    url_detail = "phone-detail"
+    url_list = "phone-list"
+
+    number = factories.random_phone_number()
+
+    def phone_data(self,):
+        """return phone data"""
+        data = dict(number=self.number)
+        return data
+
+    def post_required_data(self, user=None, site=None):
+        """Return  post request required data."""
+        data = super(
+            PhoneApiTestCase, self).post_required_data(user, site)
+        data.update(self.phone_data())
+        return data
+
+    def verify_create_phone(self, data=None):
+        """Generate and verify post request for phone creation."""
+        data = data or self.post_required_data()
+        response, instance = self.verify_create(
+            url_name=self.url_list,
+            data=data,
+            model_class=self.model_class)
+
+        self.assertEqual(instance.number,
+                         self.number,
+                         "Phone.number initialization error")
+
+        return response, instance
+
+    def test_create_phone(self):
+        self.verify_create_phone()
+
+    def test_create_phone_partial(self):
+        data = self.phone_data()
+        self.verify_create_phone(data=data)
+
+    def test_get_phone(self):
+        self.verify_get_defaults()
+
+    def test_put_phone_partial(self):
+        instance = self.create_instance_default()
+        data = dict(id=instance.id,
+                    number=self.number)
+        self.verify_put(self.url_detail, instance, data, self.serializer_class)
+
+    def test_delete_phone(self):
+        self.verify_delete_default()
+
+
 class PhoneTypeApiTestCase(NamedModelApiTestCase):
     """PhoneType API unit test class."""
     factory_class = factories.PhoneTypeModelFactory

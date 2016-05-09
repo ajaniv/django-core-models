@@ -201,6 +201,25 @@ class NicknameType(NamedModel):
         verbose_name = _(_nickname_type_verbose)
         verbose_name_plural = _(pluralize(_nickname_type_verbose))
 
+_phone = "Phone"
+_phone_verbose = humanize(underscore(_phone))
+
+
+class Phone(VersionedModel):
+    """Phone model class.
+    """
+    number = fields.phone_number_field(unique=True)
+
+    class Meta(VersionedModel.Meta):
+        """Model meta class declaration."""
+        app_label = _app_label
+        db_table = db_table(_app_label, _phone)
+        verbose_name = _(_phone_verbose)
+        verbose_name_plural = _(pluralize(_phone_verbose))
+
+_photo_type = "PhotoType"
+_photo_type_verbose = humanize(underscore(_photo_type))
+
 _phone_type = "PhoneType"
 _phone_type_verbose = humanize(underscore(_phone_type))
 

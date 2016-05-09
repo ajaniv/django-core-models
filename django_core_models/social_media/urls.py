@@ -74,6 +74,13 @@ urlpatterns = [
         views.NicknameTypeDetail.as_view(),
         name='nickname-type-detail'),
 
+    url(r'phones/$',
+        views.PhoneList.as_view(),
+        name='phone-list'),
+    url(r'^phones/(?P<pk>[0-9]+)/$',
+        views.PhoneDetail.as_view(),
+        name='phone-detail'),
+
     url(r'^phone-types/$',
         views.PhoneTypeList.as_view(),
         name='phone-type-list'),

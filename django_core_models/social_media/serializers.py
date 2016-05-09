@@ -103,6 +103,16 @@ class NicknameTypeSerializer(NamedModelSerializer):
         model = models.NicknameType
 
 
+class PhoneSerializer(VersionedModelSerializer):
+    """Phone model serializer class."""
+
+    class Meta(VersionedModelSerializer.Meta):
+        """Meta class definition."""
+        model = models.Phone
+        fields = VersionedModelSerializer.Meta.fields + (
+            "number",)
+
+
 class PhoneTypeSerializer(NamedModelSerializer):
     """PhoneType model serializer class."""
 

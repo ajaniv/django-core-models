@@ -5,6 +5,8 @@
 *social_media* application factories module.
 """
 from __future__ import absolute_import
+import functools
+import random
 import factory.fuzzy
 
 from django_core_utils.tests.factories import (NamedModelFactory,
@@ -110,6 +112,26 @@ class NicknameTypeModelFactory(NamedModelFactory):
     class Meta(object):
         """Model meta class."""
         model = models.NicknameType
+
+
+def random_phone_number(n=None):
+    """Generate a randam phone number"""
+    # TODO: make more robust
+
+    digit_gen = functools.partial(random.randint, 0, 9)
+    digits = [str(digit_gen()) for _ in range(4)]
+    return "+1415555{}".format("".join(digits))
+
+
+class PhoneModelFactory(VersionedModelFactory):
+    """Phone model factory class.
+    """
+    number = factory.Sequence(
+        lambda n: random_phone_number(n))
+
+    class Meta(object):
+        """Model meta class."""
+        model = models.Phone
 
 
 class PhoneTypeModelFactory(NamedModelFactory):

@@ -182,6 +182,25 @@ class NicknameTypeDetail(NicknameTypeMixin, ObjectDetailView):
     pass
 
 
+class PhoneMixin(object):
+    """Phone mixin class."""
+    queryset = models.Phone.objects.all()
+    serializer_class = serializers.PhoneSerializer
+
+
+class PhoneList(PhoneMixin, ObjectListView):
+    """Class to list all Phone instances,
+     or create  new Phone instance."""
+    pass
+
+
+class PhoneDetail(PhoneMixin, ObjectDetailView):
+    """
+    Class to retrieve, update or delete Phone instance.
+    """
+    pass
+
+
 class PhoneTypeMixin(object):
     """PhoneType mixin class."""
     queryset = models.PhoneType.objects.all()

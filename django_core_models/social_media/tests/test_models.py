@@ -22,7 +22,7 @@ class EmailTestCase(VersionedModelTestCase):
 
 
 class EmailTypeTestCase(NamedModelTestCase):
-    """Email type model unit test class.
+    """EmailType model unit test class.
     """
     def test_email_type_crud(self):
         self.verify_named_model_crud(
@@ -32,7 +32,7 @@ class EmailTypeTestCase(NamedModelTestCase):
 
 
 class FormattedNameTestCase(VersionedModelTestCase):
-    """Formatted name model unit test class.
+    """FormattedName model unit test class.
     """
     def test_formatted_name_crud(self):
         self.verify_versioned_model_crud(
@@ -72,7 +72,7 @@ class GroupTestCase(NamedModelTestCase):
 
 
 class InstantMessagingTypeTestCase(NamedModelTestCase):
-    """Instant messaging type model unit test class.
+    """InstantMessagingType model unit test class.
     """
     def test_instant_messaging_type_crud(self):
         self.verify_named_model_crud(
@@ -82,7 +82,7 @@ class InstantMessagingTypeTestCase(NamedModelTestCase):
 
 
 class LogoTypeTestCase(NamedModelTestCase):
-    """Logo type model unit test class.
+    """LogoType model unit test class.
     """
     def test_nickname_type_crud(self):
         self.verify_named_model_crud(
@@ -131,7 +131,7 @@ class NameTestCase(VersionedModelTestCase):
 
 
 class NicknameTypeTestCase(NamedModelTestCase):
-    """Nickname type model unit test class.
+    """NicknameType model unit test class.
     """
     def test_nickname_type_crud(self):
         self.verify_named_model_crud(
@@ -140,8 +140,16 @@ class NicknameTypeTestCase(NamedModelTestCase):
             get_by_name="name_1")
 
 
+class PhoneTestCase(VersionedModelTestCase):
+    """Phone model unit test class.
+    """
+    def test_phone_crud(self):
+        self.verify_versioned_model_crud(
+            factory_class=factories.PhoneModelFactory)
+
+
 class PhoneTypeTestCase(NamedModelTestCase):
-    """Phone type model unit test class.
+    """PhoneType model unit test class.
     """
     def test_phone_type_crud(self):
         self.verify_named_model_crud(
@@ -151,7 +159,7 @@ class PhoneTypeTestCase(NamedModelTestCase):
 
 
 class PhotoTypeTestCase(NamedModelTestCase):
-    """Photo type model unit test class.
+    """PhotoType model unit test class.
     """
     def test_photo_type_crud(self):
         self.verify_named_model_crud(
@@ -161,7 +169,7 @@ class PhotoTypeTestCase(NamedModelTestCase):
 
 
 class UrlTypeTestCase(NamedModelTestCase):
-    """Url type model unit test class.
+    """UrlType model unit test class.
     """
     def test_url_type_crud(self):
         self.verify_named_model_crud(
