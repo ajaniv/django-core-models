@@ -79,6 +79,7 @@ Domains
 
 ### Social Media
 
+-   Email
 -   EmailType
 -   FormattedName
 -   Group
@@ -87,8 +88,10 @@ Domains
 -   Name
 -   Nickname
 -   NicknameType
+-   Phone
 -   PhoneType
 -   PhotoType
+-   Url
 -   UrlType
 
 Quick start

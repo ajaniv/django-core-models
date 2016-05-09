@@ -107,6 +107,7 @@ Organization
 Social Media
 ^^^^^^^^^^^^
 
+* Email
 * EmailType
 * FormattedName
 * Group
@@ -115,8 +116,10 @@ Social Media
 * Name
 * Nickname
 * NicknameType
+* Phone
 * PhoneType
 * PhotoType
+* Url
 * UrlType
 
 
