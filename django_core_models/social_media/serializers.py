@@ -12,8 +12,18 @@ from rest_framework import serializers
 from . import models
 
 
+class EmailSerializer(VersionedModelSerializer):
+    """Email model serializer class."""
+
+    class Meta(VersionedModelSerializer.Meta):
+        """Meta class definition."""
+        model = models.Email
+        fields = VersionedModelSerializer.Meta.fields + (
+            "address",)
+
+
 class EmailTypeSerializer(NamedModelSerializer):
-    """OrganizationType model serializer class."""
+    """EmailType model serializer class."""
 
     class Meta(NamedModelSerializer.Meta):
         """Meta class definition."""

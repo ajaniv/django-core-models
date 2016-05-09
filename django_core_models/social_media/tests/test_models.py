@@ -13,6 +13,14 @@ from django_core_utils.tests.test_utils import (NamedModelTestCase,
 from . import factories
 
 
+class EmailTestCase(VersionedModelTestCase):
+    """Email model unit test class.
+    """
+    def test_email_crud(self):
+        self.verify_versioned_model_crud(
+            factory_class=factories.EmailModelFactory)
+
+
 class EmailTypeTestCase(NamedModelTestCase):
     """Email type model unit test class.
     """

@@ -18,6 +18,13 @@ urlpatterns = [
         views.EmailTypeDetail.as_view(),
         name='email-type-detail'),
 
+    url(r'emails/$',
+        views.EmailList.as_view(),
+        name='email-list'),
+    url(r'^emails/(?P<pk>[0-9]+)/$',
+        views.EmailDetail.as_view(),
+        name='email-detail'),
+
     url(r'^formatted-names/$',
         views.FormattedNameList.as_view(),
         name='formatted-name-list'),

@@ -15,6 +15,23 @@ from django_core_utils.models import NamedModel, VersionedModel, db_table
 
 _app_label = "social_media"
 
+
+_email = "Email"
+_email_verbose = humanize(underscore(_email))
+
+
+class Email(VersionedModel):
+    """Email model class.
+    """
+    address = fields.email_field(unique=True)
+
+    class Meta(VersionedModel.Meta):
+        """Model meta class declaration."""
+        app_label = _app_label
+        db_table = db_table(_app_label, _email)
+        verbose_name = _(_email_verbose)
+        verbose_name_plural = _(pluralize(_email_verbose))
+
 _email_type = "EmailType"
 _email_type_verbose = humanize(underscore(_email_type))
 

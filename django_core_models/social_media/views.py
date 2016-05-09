@@ -11,6 +11,25 @@ from . import models
 from . import serializers
 
 
+class EmailMixin(object):
+    """Email mixin class."""
+    queryset = models.Email.objects.all()
+    serializer_class = serializers.EmailSerializer
+
+
+class EmailList(EmailMixin, ObjectListView):
+    """Class to list all Email instances,
+     or create  new Email instance."""
+    pass
+
+
+class EmailDetail(EmailMixin, ObjectDetailView):
+    """
+    Class to retrieve, update or delete Email instance.
+    """
+    pass
+
+
 class EmailTypeMixin(object):
     """EmailType mixin class."""
     queryset = models.EmailType.objects.all()

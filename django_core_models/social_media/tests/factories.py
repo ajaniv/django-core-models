@@ -13,6 +13,16 @@ from django_core_utils.tests.factories import (NamedModelFactory,
 from .. import models
 
 
+class EmailModelFactory(VersionedModelFactory):
+    """Email model factory class.
+    """
+    address = factory.Sequence(lambda n: 'person{0}@example.com'.format(n))
+
+    class Meta(object):
+        """Model meta class."""
+        model = models.Email
+
+
 class EmailTypeModelFactory(NamedModelFactory):
     """Email type model factory class.
     """
