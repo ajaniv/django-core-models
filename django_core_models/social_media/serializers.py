@@ -129,6 +129,16 @@ class PhotoTypeSerializer(NamedModelSerializer):
         model = models.PhotoType
 
 
+class UrlSerializer(VersionedModelSerializer):
+    """Url model serializer class."""
+
+    class Meta(VersionedModelSerializer.Meta):
+        """Meta class definition."""
+        model = models.Url
+        fields = VersionedModelSerializer.Meta.fields + (
+            "address",)
+
+
 class UrlTypeSerializer(NamedModelSerializer):
     """UrlType model serializer class."""
 

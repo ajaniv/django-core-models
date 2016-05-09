@@ -482,6 +482,63 @@ class PhotoTypeApiTestCase(NamedModelApiTestCase):
         self.verify_delete_default()
 
 
+class UrlApiTestCase(VersionedModelApiTestCase):
+    """Url API unit test class."""
+    factory_class = factories.UrlModelFactory
+    model_class = models.Url
+    serializer_class = serializers.UrlSerializer
+
+    url_detail = "url-detail"
+    url_list = "url-list"
+
+    address = factories.random_url()
+
+    def url_data(self,):
+        """return url data"""
+        data = dict(address=self.address)
+        return data
+
+    def post_required_data(self, user=None, site=None):
+        """Return  post request required data."""
+        data = super(
+            UrlApiTestCase, self).post_required_data(user, site)
+        data.update(self.url_data())
+        return data
+
+    def verify_create_url(self, data=None):
+        """Generate and verify post request for url creation."""
+        data = data or self.post_required_data()
+        response, instance = self.verify_create(
+            url_name=self.url_list,
+            data=data,
+            model_class=self.model_class)
+
+        self.assertEqual(instance.address,
+                         self.address,
+                         "Url.address initialization error")
+
+        return response, instance
+
+    def test_create_url(self):
+        self.verify_create_url()
+
+    def test_create_url_partial(self):
+        data = self.url_data()
+        self.verify_create_url(data=data)
+
+    def test_get_url(self):
+        self.verify_get_defaults()
+
+    def test_put_url_partial(self):
+        instance = self.create_instance_default()
+        data = dict(id=instance.id,
+                    address=self.address)
+        self.verify_put(self.url_detail, instance, data, self.serializer_class)
+
+    def test_delete_url(self):
+        self.verify_delete_default()
+
+
 class UrlTypeApiTestCase(NamedModelApiTestCase):
     """UrlType API unit test class."""
     factory_class = factories.UrlTypeModelFactory

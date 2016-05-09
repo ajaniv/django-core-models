@@ -154,6 +154,22 @@ class PhotoTypeModelFactory(NamedModelFactory):
         model = models.PhotoType
 
 
+def random_url(n=None):
+    """Generate a randam url """
+    n = n or random.randint(0, 1000)
+    return "http://www.dummy-{n}.com".format(n=n)
+
+
+class UrlModelFactory(VersionedModelFactory):
+    """Url model factory class.
+    """
+    address = factory.Sequence(lambda n: random_url(n))
+
+    class Meta(object):
+        """Model meta class."""
+        model = models.Url
+
+
 class UrlTypeModelFactory(NamedModelFactory):
     """Url type model factory class.
     """

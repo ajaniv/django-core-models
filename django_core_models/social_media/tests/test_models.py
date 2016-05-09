@@ -168,6 +168,14 @@ class PhotoTypeTestCase(NamedModelTestCase):
             get_by_name="name_1")
 
 
+class UrlTestCase(VersionedModelTestCase):
+    """Url model unit test class.
+    """
+    def test_url_crud(self):
+        self.verify_versioned_model_crud(
+            factory_class=factories.UrlModelFactory)
+
+
 class UrlTypeTestCase(NamedModelTestCase):
     """UrlType model unit test class.
     """

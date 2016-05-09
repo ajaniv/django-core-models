@@ -95,6 +95,13 @@ urlpatterns = [
         views.PhotoTypeDetail.as_view(),
         name='photo-type-detail'),
 
+    url(r'urls/$',
+        views.UrlList.as_view(),
+        name='url-list'),
+    url(r'^urls/(?P<pk>[0-9]+)/$',
+        views.UrlDetail.as_view(),
+        name='url-detail'),
+
     url(r'^url-types/$',
         views.UrlTypeList.as_view(),
         name='url-type-list'),

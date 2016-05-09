@@ -239,6 +239,25 @@ class PhotoTypeDetail(PhotoTypeMixin, ObjectDetailView):
     pass
 
 
+class UrlMixin(object):
+    """Url mixin class."""
+    queryset = models.Url.objects.all()
+    serializer_class = serializers.UrlSerializer
+
+
+class UrlList(UrlMixin, ObjectListView):
+    """Class to list all Url instances,
+     or create  new Url instance."""
+    pass
+
+
+class UrlDetail(UrlMixin, ObjectDetailView):
+    """
+    Class to retrieve, update or delete Url instance.
+    """
+    pass
+
+
 class UrlTypeMixin(object):
     """UrlType mixin class."""
     queryset = models.UrlType.objects.all()

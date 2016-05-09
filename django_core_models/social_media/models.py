@@ -217,8 +217,6 @@ class Phone(VersionedModel):
         verbose_name = _(_phone_verbose)
         verbose_name_plural = _(pluralize(_phone_verbose))
 
-_photo_type = "PhotoType"
-_photo_type_verbose = humanize(underscore(_photo_type))
 
 _phone_type = "PhoneType"
 _phone_type_verbose = humanize(underscore(_phone_type))
@@ -253,6 +251,23 @@ class PhotoType(NamedModel):
         db_table = db_table(_app_label, _photo_type)
         verbose_name = _(_photo_type_verbose)
         verbose_name_plural = _(pluralize(_photo_type_verbose))
+
+_url = "Url"
+_url_verbose = humanize(underscore(_url))
+
+
+class Url(VersionedModel):
+    """Url model class.
+    """
+    address = fields.url_field(unique=True)
+
+    class Meta(VersionedModel.Meta):
+        """Model meta class declaration."""
+        app_label = _app_label
+        db_table = db_table(_app_label, _url)
+        verbose_name = _(_url_verbose)
+        verbose_name_plural = _(pluralize(_url_verbose))
+
 
 _url_type = "UrlType"
 _url_type_verbose = humanize(underscore(_url_type))
