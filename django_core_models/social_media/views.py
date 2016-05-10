@@ -68,25 +68,6 @@ class FormattedNameDetail(FormattedNameMixin, ObjectDetailView):
     pass
 
 
-class NicknameMixin(object):
-    """Nickname mixin class."""
-    queryset = models.Nickname.objects.all()
-    serializer_class = serializers.NicknameSerializer
-
-
-class NicknameList(NicknameMixin, ObjectListView):
-    """Class to list all Nickname instances,
-    or create new Nickname instance."""
-    pass
-
-
-class NicknameDetail(NicknameMixin, ObjectDetailView):
-    """
-    Class to retrieve, update or delete Nickname instance.
-    """
-    pass
-
-
 class GroupMixin(object):
     """Group mixin class."""
     queryset = models.Group.objects.all()
@@ -102,6 +83,25 @@ class GroupList(GroupMixin, ObjectListView):
 class GroupDetail(GroupMixin, ObjectDetailView):
     """
     Class to retrieve, update or delete Group instance.
+    """
+    pass
+
+
+class InstantMessagingMixin(object):
+    """InstantMessaging mixin class."""
+    queryset = models.InstantMessaging.objects.all()
+    serializer_class = serializers.InstantMessagingSerializer
+
+
+class InstantMessagingList(InstantMessagingMixin, ObjectListView):
+    """Class to list all InstantMessaging instances,
+     or create  new InstantMessaging instance."""
+    pass
+
+
+class InstantMessagingDetail(InstantMessagingMixin, ObjectDetailView):
+    """
+    Class to retrieve, update or delete InstantMessaging instance.
     """
     pass
 
@@ -159,6 +159,25 @@ class NameList(NameMixin, ObjectListView):
 class NameDetail(NameMixin, ObjectDetailView):
     """
     Class to retrieve, update or delete Name instance.
+    """
+    pass
+
+
+class NicknameMixin(object):
+    """Nickname mixin class."""
+    queryset = models.Nickname.objects.all()
+    serializer_class = serializers.NicknameSerializer
+
+
+class NicknameList(NicknameMixin, ObjectListView):
+    """Class to list all Nickname instances,
+    or create new Nickname instance."""
+    pass
+
+
+class NicknameDetail(NicknameMixin, ObjectDetailView):
+    """
+    Class to retrieve, update or delete Nickname instance.
     """
     pass
 

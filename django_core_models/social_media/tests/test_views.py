@@ -217,6 +217,63 @@ class GroupApiTestCase(NamedModelApiTestCase):
         self.verify_delete_default()
 
 
+class InstantMessagingApiTestCase(VersionedModelApiTestCase):
+    """InstantMessaging API unit test class."""
+    factory_class = factories.InstantMessagingModelFactory
+    model_class = models.InstantMessaging
+    serializer_class = serializers.InstantMessagingSerializer
+
+    url_detail = "instant-messaging-detail"
+    url_list = "instant-messaging-list"
+
+    address = factories.random_instant_messaging_address()
+
+    def instant_messaging_data(self,):
+        """return instant messaging data"""
+        data = dict(address=self.address)
+        return data
+
+    def post_required_data(self, user=None, site=None):
+        """Return  post request required data."""
+        data = super(
+            InstantMessagingApiTestCase, self).post_required_data(user, site)
+        data.update(self.instant_messaging_data())
+        return data
+
+    def verify_create_instant_messaging(self, data=None):
+        """Generate and verify post request for instant messaging creation."""
+        data = data or self.post_required_data()
+        response, instance = self.verify_create(
+            url_name=self.url_list,
+            data=data,
+            model_class=self.model_class)
+
+        self.assertEqual(instance.address,
+                         self.address,
+                         "InstantMessaging addresss initialization error")
+
+        return response, instance
+
+    def test_create_instant_messaging(self):
+        self.verify_create_instant_messaging()
+
+    def test_create_instant_messaging_partial(self):
+        data = self.instant_messaging_data()
+        self.verify_create_instant_messaging(data=data)
+
+    def test_get_email(self):
+        self.verify_get_defaults()
+
+    def test_put_email_partial(self):
+        instance = self.create_instance_default()
+        data = dict(id=instance.id,
+                    address=self.address)
+        self.verify_put(self.url_detail, instance, data, self.serializer_class)
+
+    def test_delete_instant_messaging(self):
+        self.verify_delete_default()
+
+
 class InstantMessagingTypeApiTestCase(NamedModelApiTestCase):
     """InstantMessagingType API unit test class."""
     factory_class = factories.InstantMessagingTypeModelFactory

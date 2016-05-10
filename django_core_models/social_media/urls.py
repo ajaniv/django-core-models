@@ -39,10 +39,17 @@ urlpatterns = [
         views.GroupDetail.as_view(),
         name='group-detail'),
 
-    url(r'^instant-message-types/$',
+    url(r'^instant-messaging/$',
+        views.InstantMessagingList.as_view(),
+        name='instant-messaging-list'),
+    url(r'^instant-messaging/(?P<pk>[0-9]+)/$',
+        views.InstantMessagingDetail.as_view(),
+        name='instant-messaging-detail'),
+
+    url(r'^instant-messaging-types/$',
         views.InstantMessagingTypeList.as_view(),
         name='instant-messaging-type-list'),
-    url(r'^instant-message-types/(?P<pk>[0-9]+)/$',
+    url(r'^instant-messaging-types/(?P<pk>[0-9]+)/$',
         views.InstantMessagingTypeDetail.as_view(),
         name='instant-messaging-type-detail'),
 

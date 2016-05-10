@@ -71,6 +71,14 @@ class GroupTestCase(NamedModelTestCase):
             get_by_name="name_1")
 
 
+class InstantMessagingTestCase(VersionedModelTestCase):
+    """InstantMessaging model unit test class.
+    """
+    def test_instant_messaging_crud(self):
+        self.verify_versioned_model_crud(
+            factory_class=factories.InstantMessagingModelFactory)
+
+
 class InstantMessagingTypeTestCase(NamedModelTestCase):
     """InstantMessagingType model unit test class.
     """

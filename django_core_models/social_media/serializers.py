@@ -9,6 +9,7 @@ from __future__ import absolute_import
 from django_core_utils.serializers import (NamedModelSerializer,
                                            VersionedModelSerializer)
 from rest_framework import serializers
+from django_core_utils.serializers import InstantMessagingField
 from . import models
 
 
@@ -61,6 +62,18 @@ class GroupSerializer(NamedModelSerializer):
     class Meta(NamedModelSerializer.Meta):
         """Meta class definition."""
         model = models.Group
+
+
+class InstantMessagingSerializer(VersionedModelSerializer):
+    """InstantMessaging model serializer class."""
+
+    address = InstantMessagingField()
+
+    class Meta(VersionedModelSerializer.Meta):
+        """Meta class definition."""
+        model = models.InstantMessaging
+        fields = VersionedModelSerializer.Meta.fields + (
+            "address",)
 
 
 class InstantMessagingTypeSerializer(NamedModelSerializer):

@@ -73,6 +73,23 @@ class GroupModelFactory(NamedModelFactory):
         model = models.Group
 
 
+def random_instant_messaging_address(n=None):
+    """Generate a randam instant messaging address"""
+    n = n or random.randint(0, 1000)
+    # @TODO: not clear why ip/localhost portion is required
+    return "skype://localhost/echo{0}?chat".format(n)
+
+
+class InstantMessagingModelFactory(VersionedModelFactory):
+    """InstantMessaging model factory class.
+    """
+    address = factory.Sequence(lambda n: random_instant_messaging_address(n))
+
+    class Meta(object):
+        """Model meta class."""
+        model = models.InstantMessaging
+
+
 class InstantMessagingTypeModelFactory(NamedModelFactory):
     """Instant messaging type model factory class.
     """

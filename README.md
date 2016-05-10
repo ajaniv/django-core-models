@@ -83,6 +83,7 @@ Domains
 -   EmailType
 -   FormattedName
 -   Group
+-   InstantMessaging
 -   InstantMessagingType
 -   LogoType
 -   Name

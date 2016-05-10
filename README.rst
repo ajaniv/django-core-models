@@ -111,6 +111,7 @@ Social Media
 * EmailType
 * FormattedName
 * Group
+* InstantMessaging
 * InstantMessagingType
 * LogoType
 * Name

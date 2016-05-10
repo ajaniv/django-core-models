@@ -16,6 +16,24 @@ from django_core_utils.models import NamedModel, VersionedModel, db_table
 _app_label = "social_media"
 
 
+class SimpleName(VersionedModel):
+    """SimpleName model class.
+
+    """
+    # Note: MySql does not allow unique char fields to exceed 255
+    name = fields.char_field()
+
+    class Meta(VersionedModel.Meta):
+        """Model meta class declaration."""
+        app_label = _app_label
+        abstract = True
+
+    def __str__(self):
+        # TODO: in python 2.7 calling super results in recursion
+        return '{0} {1.name!s}'.format(
+            super(SimpleName, self).__str__(), self)
+
+
 _email = "Email"
 _email_verbose = humanize(underscore(_email))
 
@@ -49,23 +67,6 @@ class EmailType(NamedModel):
         verbose_name_plural = _(pluralize(_email_type_verbose))
 
 
-class SimpleName(VersionedModel):
-    """SimpleName model class.
-
-    """
-    # Note: MySql does not allow unique char fields to exceed 255
-    name = fields.char_field()
-
-    class Meta(VersionedModel.Meta):
-        """Model meta class declaration."""
-        app_label = _app_label
-        abstract = True
-
-    def __str__(self):
-        # TODO: in python 2.7 calling super results in recursion
-        return '{0} {1.name!s}'.format(
-            super(SimpleName, self).__str__(), self)
-
 _formatted_name = "FormattedName"
 _formatted_name_verbose = humanize(underscore(_formatted_name))
 
@@ -82,19 +83,6 @@ class FormattedName(SimpleName):
         verbose_name = _(_formatted_name_verbose)
         verbose_name_plural = _(pluralize(_formatted_name_verbose))
 
-_nickname = "Nickname"
-_nickname_verbose = humanize(underscore(_nickname))
-
-
-class Nickname(SimpleName):
-    """Nickname  model class.
-    """
-    class Meta(SimpleName.Meta):
-        """Model meta class declaration."""
-        db_table = db_table(_app_label, _nickname)
-        verbose_name = _(_nickname_verbose)
-        verbose_name_plural = _(pluralize(_nickname_verbose))
-
 
 _group = "Group"
 _group_verbose = humanize(underscore(_group))
@@ -110,6 +98,24 @@ class Group(NamedModel):
         db_table = db_table(_app_label, _group)
         verbose_name = _(_group_verbose)
         verbose_name_plural = _(pluralize(_group_verbose))
+
+
+_instant_messaging = "InstantMessaging"
+_instant_messaging_verbose = humanize(underscore(_instant_messaging))
+
+
+class InstantMessaging(VersionedModel):
+    """InstantMessaging model class.
+    """
+    address = fields.instant_messaging_field(unique=True)
+
+    class Meta(VersionedModel.Meta):
+        """Model meta class declaration."""
+        app_label = _app_label
+        db_table = db_table(_app_label, _instant_messaging)
+        verbose_name = _(_instant_messaging_verbose)
+        verbose_name_plural = _(pluralize(_instant_messaging_verbose))
+
 
 _instance_messaging_type = "InstantMessagingType"
 _instance_messaging_type_verbose = humanize(
@@ -183,6 +189,21 @@ class Name(VersionedModel):
     def __str__(self):
         return '{0} {1.family_name!s} {1.given_name!s}'.format(
             super(Name, self).__str__(), self)
+
+
+_nickname = "Nickname"
+_nickname_verbose = humanize(underscore(_nickname))
+
+
+class Nickname(SimpleName):
+    """Nickname  model class.
+    """
+    class Meta(SimpleName.Meta):
+        """Model meta class declaration."""
+        db_table = db_table(_app_label, _nickname)
+        verbose_name = _(_nickname_verbose)
+        verbose_name_plural = _(pluralize(_nickname_verbose))
+
 
 _nickname_type = "NicknameType"
 _nickname_type_verbose = humanize(underscore(_nickname_type))
