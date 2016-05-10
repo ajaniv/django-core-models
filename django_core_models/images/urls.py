@@ -31,4 +31,11 @@ urlpatterns = [
         views.ImageDetail.as_view(),
         name='image-detail'),
 
+    url(r'^image-references/$',
+        views.ImageReferenceList.as_view(),
+        name='image-reference-list'),
+    url(r'^image-references/(?P<pk>[0-9]+)/$',
+        views.ImageReferenceDetail.as_view(),
+        name='image-reference-detail'),
+
 ]

@@ -14,9 +14,10 @@ from inflection import humanize, pluralize, underscore
 
 from python_core_utils.image import encode_file
 from django_core_utils import constants, fields
-from django_core_utils.models import NamedModel, NamedModelManager, db_table
+from django_core_utils.models import (NamedModel, NamedModelManager,
+                                      VersionedModel, db_table)
 from django_core_utils.utils import current_site
-
+from . import validation
 
 _app_label = "images"
 
@@ -153,3 +154,27 @@ class Image(NamedModel):
         Defaulting to base64 encoding
         """
         return encode_file(self.image.file)
+
+_image_reference = "ImageReference"
+_image_reference_verbose = humanize(underscore(_image_reference))
+
+
+class ImageReference(VersionedModel):
+    """ImageReference model class.
+
+    Either image or url fields need to be defined, but not both.
+    """
+    image = fields.foreign_key_field(Image, blank=True, null=True)
+    # url of image if one is not defined
+    url = fields.url_field(null=True, blank=True)
+
+    class Meta(VersionedModel.Meta):
+        """Model meta class declaration."""
+        app_label = _app_label
+        db_table = db_table(_app_label, _image_reference)
+        verbose_name = _(_image_reference_verbose)
+        verbose_name_plural = _(pluralize(_image_reference_verbose))
+
+    def clean(self):
+        super(ImageReference, self).clean()
+        validation.image_validation(self.image, self.url)

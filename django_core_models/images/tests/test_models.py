@@ -6,7 +6,8 @@
 """
 from __future__ import absolute_import, print_function
 
-from django_core_utils.tests.test_utils import NamedModelTestCase
+from django_core_utils.tests.test_utils import (NamedModelTestCase,
+                                                VersionedModelTestCase)
 
 from ..models import (IMAGE_FORMAT_GIF, IMAGE_FORMATS,
                       ORIENTATION_LANDSCAPE, VISUAL_ORIENTATION)
@@ -62,3 +63,18 @@ class ImageTestCase(NamedModelTestCase):
         text = str(instance)
         self.assertTrue(text.endswith(
             '{} {}'.format(IMAGE_FORMAT_GIF, ORIENTATION_LANDSCAPE)))
+
+
+class ImageReferenceTestCase(VersionedModelTestCase):
+    """ImageReference model unit test class.
+    """
+    def test_image_reference_crud(self):
+        self.verify_versioned_model_crud(
+            factory_class=factories.ImageReferenceModelFactory)
+
+    def test_image_reference_url(self):
+        url = "http://www.example.com/image.gif"
+        instance = factories.ImageReferenceModelFactory(
+            image=None, url=url)
+        instance.clean()
+        self.assertEqual(instance.url, url)

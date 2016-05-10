@@ -6,7 +6,8 @@
 """
 from __future__ import absolute_import, print_function
 import six
-from django_core_utils.tests.api_test_utils import NamedModelApiTestCase
+from django_core_utils.tests.api_test_utils import (NamedModelApiTestCase,
+                                                    VersionedModelApiTestCase)
 from python_core_utils.image import encode_file
 from . import factories
 from .. import models
@@ -146,4 +147,69 @@ class ImageApiTestCase(NamedModelApiTestCase):
             self.url_detail, instance, data, self.serializer_class, ["image"])
 
     def test_delete_image(self):
+        self.verify_delete_default()
+
+
+class ImageReferenceApiTestCase(VersionedModelApiTestCase):
+    """ImageReference api test cases class."""
+    factory_class = factories.ImageReferenceModelFactory
+    model_class = models.ImageReference
+    serializer_class = serializers.ImageReferenceSerializer
+
+    url_detail = "image-reference-detail"
+    url_list = "image-reference-list"
+
+    image_url = "http://www.example.com/image.gif"
+
+    def image_reference_data(self, instance):
+        """return image reference data"""
+        instance = instance or self.factory_class()
+        data = dict(image=instance.image.id)
+        return data
+
+    def post_required_data(self, ref_instance, user=None, site=None):
+        """Return named model post request required data."""
+        data = super(
+            ImageReferenceApiTestCase, self).post_required_data(user, site)
+        data.update(self.image_reference_data(ref_instance))
+        return data
+
+    def verify_create_image_reference(
+            self, ref_instance=None,
+            data=None, attrs=None):
+        """Generate post request for image reference creation."""
+        data = data or self.post_required_data(ref_instance)
+
+        response, instance = self.verify_create(
+            url_name=self.url_list,
+            data=data,
+            model_class=self.model_class)
+
+        attrs = attrs or ("image", )
+        if ref_instance:
+            self.assert_instance_equal(ref_instance, instance, attrs)
+
+        return response, instance
+
+    def test_create_image_reference(self):
+        instance = self.create_instance_default()
+        self.verify_create_image_reference(
+            ref_instance=instance)
+
+    def test_create_image_reference_partial(self):
+        instance = self.create_instance_default()
+        data = self.image_reference_data(instance)
+        self.verify_create_image_reference(
+            ref_instance=instance,
+            data=data)
+
+    def test_get_image_reference(self):
+        self.verify_get_defaults()
+
+    def test_put_image_reference_partial(self):
+        instance = self.create_instance_default()
+        data = dict(id=instance.id, image=None, url=self.image_url)
+        self.verify_put(self.url_detail, instance, data, self.serializer_class)
+
+    def test_delete_image_reference(self):
         self.verify_delete_default()

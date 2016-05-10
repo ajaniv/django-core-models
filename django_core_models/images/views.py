@@ -18,7 +18,8 @@ class DocumentOrientationMixin(object):
 
 
 class DocumentOrientationList(DocumentOrientationMixin, ObjectListView):
-    """Class to list all DocumentOrientation, or create a new DocumentOrientation instance."""
+    """Class to list all DocumentOrientation,
+     or create a new DocumentOrientation instance."""
     pass
 
 
@@ -54,12 +55,30 @@ class ImageMixin(object):
 
 
 class ImageList(ImageMixin, ObjectListView):
-    """Class to list Image ages, or create a new Image instance."""
+    """Class to list Images, or create a new Image instance."""
     pass
 
 
 class ImageDetail(ImageMixin, ObjectDetailView):
     """
     Class to retrieve, update or delete Image instance.
+    """
+    pass
+
+
+class ImageReferenceMixin(object):
+    """ImageReference  mixin class."""
+    queryset = models.ImageReference.objects.all()
+    serializer_class = serializers.ImageReferenceSerializer
+
+
+class ImageReferenceList(ImageReferenceMixin, ObjectListView):
+    """Class to list ImageReference, or create a new Image instance."""
+    pass
+
+
+class ImageReferenceDetail(ImageReferenceMixin, ObjectDetailView):
+    """
+    Class to retrieve, update or delete ImageReference instance.
     """
     pass

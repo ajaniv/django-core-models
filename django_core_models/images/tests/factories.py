@@ -6,7 +6,8 @@
 """
 from __future__ import absolute_import, print_function
 import factory
-from django_core_utils.tests.factories import NamedModelFactory
+from django_core_utils.tests.factories import (NamedModelFactory,
+                                               VersionedModelFactory)
 from .. import models
 
 
@@ -51,3 +52,13 @@ class ImageModelFactory(NamedModelFactory):
     class Meta(object):
         """Model meta class."""
         model = models.Image
+
+
+class ImageReferenceModelFactory(VersionedModelFactory):
+    """ImageReference  model factory class.
+    """
+    image = factory.SubFactory(ImageModelFactory)
+
+    class Meta(object):
+        """Model meta class."""
+        model = models.ImageReference

@@ -5,7 +5,8 @@
 *django_core_models* images application serializers module.
 """
 from __future__ import absolute_import
-from django_core_utils.serializers import NamedModelSerializer
+from django_core_utils.serializers import (NamedModelSerializer,
+                                           VersionedModelSerializer)
 from drf_extra_fields.fields import Base64ImageField
 
 from . import models
@@ -40,3 +41,13 @@ class ImageSerializer(NamedModelSerializer):
             "image_orientation", "width", "height")
 
         read_only_fields = ("width", "height",)
+
+
+class ImageReferenceSerializer(VersionedModelSerializer):
+    """ImageReference model serializer class."""
+
+    class Meta(VersionedModelSerializer.Meta):
+        """Meta class definition."""
+        model = models.ImageReference
+        fields = VersionedModelSerializer.Meta.fields + (
+            "image", "url")
