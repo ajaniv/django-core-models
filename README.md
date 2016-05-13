@@ -1,5 +1,5 @@
-core-models
-===========
+django-core-models
+==================
 
 *django-core-models* is a Django project which defines common models for applications requiring contact related functionality. During the development of a contact application inspired by [VCARD RFC6350](https://tools.ietf.org/html/rfc6350/) quite a few low level models which were candidate for reuse by applications in related domains were identified. The choices were:
 
