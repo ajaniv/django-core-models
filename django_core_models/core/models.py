@@ -25,6 +25,7 @@ class Annotation(OptionalNamedModel):
 
     Capture annotations/notes.
     """
+    STR_SIZE = 32
     annotation = fields.annotation_field()
 
     class Meta(OptionalNamedModel.Meta):
@@ -33,6 +34,12 @@ class Annotation(OptionalNamedModel):
         db_table = db_table(_app_label, _annotation)
         verbose_name = _(_annotation_verbose)
         verbose_name_plural = _(pluralize(_annotation_verbose))
+
+    def __str__(self):
+        data = super(Annotation, self).__str__()
+        if not data and self.annotation:
+            data = self.annotation[:self.STR_SIZE]
+        return data
 
 
 _category = "Category"
