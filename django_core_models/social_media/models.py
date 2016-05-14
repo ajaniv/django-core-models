@@ -29,9 +29,7 @@ class SimpleName(VersionedModel):
         abstract = True
 
     def __str__(self):
-        # TODO: in python 2.7 calling super results in recursion
-        return '{0} {1.name!s}'.format(
-            super(SimpleName, self).__str__(), self)
+        return self.name
 
 
 _email = "Email"
@@ -183,12 +181,13 @@ class Name(VersionedModel):
 
     @property
     def full_name(self):
-        return '{} {} {}'.format(
-            self.given_name, self.family_name, self.formatted_additional_name)
+        if self.additional_name:
+            return '{} {} {}'.format(
+                self.given_name, self.family_name, self.additional_name)
+        return '{} {}'.format(self.given_name, self.family_name)
 
     def __str__(self):
-        return '{0} {1.family_name!s} {1.given_name!s}'.format(
-            super(Name, self).__str__(), self)
+        return self.full_name
 
 
 _nickname = "Nickname"
