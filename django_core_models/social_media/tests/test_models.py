@@ -120,10 +120,13 @@ class NameTestCase(VersionedModelTestCase):
                 'name other fields initialization error')
 
     def test_full_name(self):
-        family_name = 'Smith'
-        given_name = 'John'
+        family_name = "Smith"
+        given_name = "John"
+        additional_name = "Jr"
         instance = factories.NameModelFactory(
-            family_name=family_name, given_name=given_name)
+            family_name=family_name,
+            given_name=given_name,
+            additional_name=additional_name)
         self.assertTrue(
             instance.full_name.startswith(
                 '{} {}'.format(given_name, family_name)))
@@ -133,9 +136,8 @@ class NameTestCase(VersionedModelTestCase):
         given_name = 'John'
         instance = factories.NameModelFactory(
             family_name=family_name, given_name=given_name)
-        self.assertTrue(
-            str(instance).endswith(
-                '{} {}'.format(family_name, given_name)))
+        self.assertEqual(str(instance),
+                         "{} {}".format(given_name, family_name))
 
 
 class NicknameTypeTestCase(NamedModelTestCase):
