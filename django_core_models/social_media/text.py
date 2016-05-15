@@ -51,3 +51,26 @@ name_help_texts = {
     "honorific_prefix": _("Honorific prefix."),
     "honorific_suffix": _("Honorific suffix."),
     }
+nickname_labels = {
+    "name": _("Nickname"),
+    }
+
+nickname_help_texts = {
+    "name": _("Nickname."),
+    }
+
+phone_labels = {
+    "number": _("Number"),
+    }
+
+phone_help_texts = {
+    "number": _("Number."),
+    }
+
+url_labels = {
+    "address": _("Address"),
+    }
+
+url_help_texts = {
+    "address": _("Url address."),
+    }

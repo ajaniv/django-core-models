@@ -76,3 +76,48 @@ class NameAdminForm(forms.VersionedModelAdminForm):
         help_texts = dict_merge(
             forms.VersionedModelAdminForm.Meta.help_texts,
             text.name_help_texts)
+
+
+class NicknameAdminForm(forms.VersionedModelAdminForm):
+    """Nickname model admin form  class.
+    """
+    class Meta(forms.VersionedModelAdminForm.Meta):
+        """Form meta class."""
+        model = models.Nickname
+        labels = dict_merge(
+            forms.VersionedModelAdminForm.Meta.labels,
+            text.nickname_labels)
+
+        help_texts = dict_merge(
+            forms.VersionedModelAdminForm.Meta.help_texts,
+            text.nickname_help_texts)
+
+
+class PhoneAdminForm(forms.VersionedModelAdminForm):
+    """Phone model admin form  class.
+    """
+    class Meta(forms.VersionedModelAdminForm.Meta):
+        """Form meta class."""
+        model = models.Phone
+        labels = dict_merge(
+            forms.VersionedModelAdminForm.Meta.labels,
+            text.phone_labels)
+
+        help_texts = dict_merge(
+            forms.VersionedModelAdminForm.Meta.help_texts,
+            text.phone_help_texts)
+
+
+class UrlAdminForm(forms.VersionedModelAdminForm):
+    """Url model admin form  class.
+    """
+    class Meta(forms.VersionedModelAdminForm.Meta):
+        """Form meta class."""
+        model = models.Url
+        labels = dict_merge(
+            forms.VersionedModelAdminForm.Meta.labels,
+            text.url_labels)
+
+        help_texts = dict_merge(
+            forms.VersionedModelAdminForm.Meta.help_texts,
+            text.url_help_texts)

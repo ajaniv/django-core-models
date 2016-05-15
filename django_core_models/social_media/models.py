@@ -242,6 +242,9 @@ class Phone(VersionedModel):
         verbose_name = _(_phone_verbose)
         verbose_name_plural = _(pluralize(_phone_verbose))
 
+    def __str__(self):
+        return str(self.number)
+
 
 _phone_type = "PhoneType"
 _phone_type_verbose = humanize(underscore(_phone_type))
@@ -293,6 +296,8 @@ class Url(VersionedModel):
         verbose_name = _(_url_verbose)
         verbose_name_plural = _(pluralize(_url_verbose))
 
+    def __str__(self):
+        return self.address
 
 _url_type = "UrlType"
 _url_type_verbose = humanize(underscore(_url_type))
