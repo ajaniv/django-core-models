@@ -24,3 +24,13 @@ image_help_texts = {
     "height": _("Image height."),
     "width": _("Image width."),
     }
+
+image_reference_labels = {
+    "image": _("Image"),
+    "url": _("Url"),
+    }
+
+image_reference_help_texts = {
+    "image": _("Image."),
+    "image_url": _("Image url."),
+    }

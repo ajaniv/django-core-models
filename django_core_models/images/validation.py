@@ -10,8 +10,11 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 
 
-def image_validation(image, url):
-    """Validate ContactImage association image and url.
+def image_reference_validation(instance):
+    """Validate ImageReference instance.
     """
-    if not (image or url):
-        raise ValidationError(_("Image and url are none."))
+    if not (instance.image or instance.url):
+        raise ValidationError(_("Image and url are not defined."))
+
+    if instance.image and instance.url:
+        raise ValidationError(_("Image and url are both defined."))

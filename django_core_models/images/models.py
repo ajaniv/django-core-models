@@ -177,4 +177,7 @@ class ImageReference(VersionedModel):
 
     def clean(self):
         super(ImageReference, self).clean()
-        validation.image_validation(self.image, self.url)
+        validation.image_reference_validation(self)
+
+    def __str__(self):
+        return str(self.image) if self.image else self.url

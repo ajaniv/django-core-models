@@ -10,34 +10,38 @@ from __future__ import absolute_import
 from django.contrib import admin
 
 from python_core_utils.core import class_name
-from django_core_utils.admin import (NamedModelAdmin, admin_site_register,
+from django_core_utils.admin import (NamedModelAdmin, VersionedModelAdmin,
+                                     admin_site_register,
                                      named_model_admin_class_attrs)
 
 
-from .forms import ImageAdminForm
-from .models import DocumentOrientation, Image, ImageFormat
+from . import forms, models
+
 
 DISPLAY_IMAGE_SIZE = 40
+
+_image_fields = (
+    ("name",),
+    ("image",),
+    ("image_format",),
+    ("image_orientation",),
+    ("width", "height"),
+    ("alias",),
+    ("description",),)
 
 
 class ImageAdmin(NamedModelAdmin):
     """
     Image model admin class
     """
-    form = ImageAdminForm
+    form = forms.ImageAdminForm
     list_display = ("id", "get_name", "get_alias", "get_image",
                     "version", "update_time", "update_user")
     list_display_links = ("id", "get_name", )
 
-    fieldsets = (('Image',
-                  {'fields': (("name",),
-                   ("image",),
-                   ("image_format",),
-                   ("image_orientation",),
-                   ("width", "height"),
-                   ("alias",),
-                   ("description",),
-                   )}),) + NamedModelAdmin.get_field_sets()
+    fieldsets = (
+        ("Image",
+         {'fields': _image_fields}),) + NamedModelAdmin.get_field_sets()
 
     readonly_fields = NamedModelAdmin.readonly_fields + ("width", "height")
 
@@ -46,8 +50,27 @@ class ImageAdmin(NamedModelAdmin):
         return str(instance.image)[:DISPLAY_IMAGE_SIZE]
     get_image.short_description = "image"
 
+_image_reference_fields = (
+    ("image",),
+    ("url",),)
 
-_named_classes = (DocumentOrientation, ImageFormat, )
+_versioned_fields = VersionedModelAdmin.get_field_sets()
+
+
+class ImageReferenceAdmin(VersionedModelAdmin):
+    """
+    Image model admin class
+    """
+    form = forms.ImageReferenceAdminForm
+    list_display = ("id", "image", "url",
+                    "version", "update_time", "update_user")
+    list_display_links = ("id", "image", )
+
+    fieldsets = (
+        ("Image reference",
+         {'fields': _image_reference_fields}),) + _versioned_fields
+
+_named_classes = (models.DocumentOrientation, models.ImageFormat, )
 
 for clasz in _named_classes:
     admin_site_register(
@@ -55,8 +78,8 @@ for clasz in _named_classes:
         (NamedModelAdmin,),
         named_model_admin_class_attrs(class_name(clasz)))
 
-_other_model_classes = (Image,)
-_other_admin_classes = (ImageAdmin,)
+_other_model_classes = (models.Image, models.ImageReference)
+_other_admin_classes = (ImageAdmin, ImageReferenceAdmin)
 
 for model_class, admin_class in zip(_other_model_classes,
                                     _other_admin_classes):
