@@ -7,27 +7,60 @@ Django social_media application forms  module.
 """
 from __future__ import absolute_import
 
+
 from django_core_utils import forms
 from python_core_utils.core import dict_merge
 
-from .models import FormattedName, Name
-from .text import (formatted_name_help_texts, formatted_name_labels,
-                   name_help_texts, name_labels)
+from . import models
+from . import text
 
 
-class FormattedNameAdminForm(forms.VersionedModelAdminForm):
+class EmailAdminForm(forms.VersionedModelAdminForm):
     """Formatted name  model admin form  class.
     """
     class Meta(forms.VersionedModelAdminForm.Meta):
         """Form meta class."""
-        model = FormattedName
+        model = models.Email
         labels = dict_merge(
             forms.VersionedModelAdminForm.Meta.labels,
-            formatted_name_labels)
+            text.email_labels)
 
         help_texts = dict_merge(
             forms.VersionedModelAdminForm.Meta.help_texts,
-            formatted_name_help_texts)
+            text.email_help_texts)
+
+
+class FormattedNameAdminForm(forms.VersionedModelAdminForm):
+    """FormattedName  model admin form  class.
+    """
+    class Meta(forms.VersionedModelAdminForm.Meta):
+        """Form meta class."""
+        model = models.FormattedName
+        labels = dict_merge(
+            forms.VersionedModelAdminForm.Meta.labels,
+            text.formatted_name_labels)
+
+        help_texts = dict_merge(
+            forms.VersionedModelAdminForm.Meta.help_texts,
+            text.formatted_name_help_texts)
+
+
+class InstantMessagingAdminForm(forms.VersionedModelAdminForm):
+    """InstantMessaging model admin form  class.
+    """
+    address = forms.InstantMessagingField(
+        help_text=text.instant_messaging_help_texts["address"])
+
+    class Meta(forms.VersionedModelAdminForm.Meta):
+        """Form meta class."""
+        model = models.InstantMessaging
+        labels = dict_merge(
+            forms.VersionedModelAdminForm.Meta.labels,
+            text.instant_messaging_labels)
+
+        help_texts = dict_merge(
+            forms.VersionedModelAdminForm.Meta.help_texts,
+            text.instant_messaging_help_texts)
 
 
 class NameAdminForm(forms.VersionedModelAdminForm):
@@ -35,11 +68,11 @@ class NameAdminForm(forms.VersionedModelAdminForm):
     """
     class Meta(forms.VersionedModelAdminForm.Meta):
         """Form meta class."""
-        model = Name
+        model = models.Name
         labels = dict_merge(
             forms.VersionedModelAdminForm.Meta.labels,
-            name_labels)
+            text.name_labels)
 
         help_texts = dict_merge(
             forms.VersionedModelAdminForm.Meta.help_texts,
-            name_help_texts)
+            text.name_help_texts)

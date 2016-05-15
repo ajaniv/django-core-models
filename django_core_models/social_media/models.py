@@ -48,6 +48,9 @@ class Email(VersionedModel):
         verbose_name = _(_email_verbose)
         verbose_name_plural = _(pluralize(_email_verbose))
 
+    def __str__(self):
+        return self.address
+
 _email_type = "EmailType"
 _email_type_verbose = humanize(underscore(_email_type))
 
@@ -114,6 +117,8 @@ class InstantMessaging(VersionedModel):
         verbose_name = _(_instant_messaging_verbose)
         verbose_name_plural = _(pluralize(_instant_messaging_verbose))
 
+    def __str__(self):
+        return self.address
 
 _instance_messaging_type = "InstantMessagingType"
 _instance_messaging_type_verbose = humanize(
