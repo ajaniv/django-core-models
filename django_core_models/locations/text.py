@@ -58,14 +58,14 @@ geographic_location_labels = {
     "latitude": _("Latitude"),
     "longitude": _("Longitude"),
     "range": _("Range"),
-    "unit": _("Unit"),
+    "range_unit": _("Unit"),
     }
 
 geographic_location_help_texts = {
     "latitude": _("Latitude."),
     "longitude": _("Longitude."),
     "range": _("Range in unit."),
-    "unit": _("Distance unit."),
+    "range_unit": _("Distance unit."),
     }
 
 language_labels = {

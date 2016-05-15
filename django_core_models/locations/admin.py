@@ -95,7 +95,7 @@ _geographic_location_fields = (
     ("latitude",),
     ("longitude",),
     ("range",),
-    ("unit",),
+    ("range_unit",),
     ("name",),
     ("alias",),
     ("description",),)

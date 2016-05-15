@@ -112,8 +112,10 @@ class GeographicLocation(OptionalNamedModel):
         verbose_name_plural = _(pluralize(_geographic_location_verbose))
 
     def __str__(self):
-        value = "{0:9.5f} {1:9.5f}".format(self.latitude, self.longitude)
-        return value
+        if self.name:
+            return self.name
+        return "lat:{0:9.5f} lon:{1:9.5f}".format(
+            self.latitude, self.longitude)
 
     def clean(self):
         """Perform cross field validation.
