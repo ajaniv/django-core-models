@@ -38,6 +38,7 @@ class ImageAdmin(NamedModelAdmin):
     list_display = ("id", "get_name", "get_alias", "get_image",
                     "version", "update_time", "update_user")
     list_display_links = ("id", "get_name", )
+    limit_qs_to_request_user = True
 
     fieldsets = (
         ("Image",
@@ -65,6 +66,7 @@ class ImageReferenceAdmin(VersionedModelAdmin):
     list_display = ("id", "image", "url",
                     "version", "update_time", "update_user")
     list_display_links = ("id", "image", )
+    limit_qs_to_request_user = True
 
     fieldsets = (
         ("Image reference",

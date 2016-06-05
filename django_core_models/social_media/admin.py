@@ -36,7 +36,7 @@ class EmailAdmin(VersionedModelAdmin):
         ("Email",
          {"fields": _email_fields}),
     ) + _versioned_field_sets
-
+    limit_qs_to_request_user = True
 
 _formatted_name_fields = (
     ("name",),)
@@ -55,7 +55,7 @@ class FormattedNameAdmin(VersionedModelAdmin):
         ("Formatted name",
          {"fields": _formatted_name_fields}),
     ) + _versioned_field_sets
-
+    limit_qs_to_request_user = True
 _instant_messaging_fields = (
     ("address",),)
 
@@ -73,6 +73,7 @@ class InstantMessagingAdmin(VersionedModelAdmin):
         ("Instant messaging",
          {"fields": _instant_messaging_fields}),
     ) + _versioned_field_sets
+    limit_qs_to_request_user = True
 
 _name_fields = (
     ("family_name",),
@@ -94,6 +95,7 @@ class NameAdmin(VersionedModelAdmin):
         ("Name",
          {"fields": _name_fields}),
     ) + _versioned_field_sets
+    limit_qs_to_request_user = True
 
 _nickname_fields = (
     ("name",),)
@@ -112,6 +114,7 @@ class NicknameAdmin(VersionedModelAdmin):
         ("Nickname",
          {"fields": _nickname_fields}),
     ) + _versioned_field_sets
+    limit_qs_to_request_user = True
 
 _phone_fields = (
     ("number",),)
@@ -130,7 +133,7 @@ class PhoneAdmin(VersionedModelAdmin):
         ("Phone",
          {"fields": _phone_fields}),
     ) + _versioned_field_sets
-
+    limit_qs_to_request_user = True
 
 _url_fields = (
     ("address",),)
@@ -149,6 +152,7 @@ class UrlAdmin(VersionedModelAdmin):
         ("Url",
          {"fields": _url_fields}),
     ) + _versioned_field_sets
+    limit_qs_to_request_user = True
 
 _named_classes = (
     models.EmailType, models.Group,

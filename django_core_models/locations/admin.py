@@ -39,6 +39,7 @@ class AddressAdmin(VersionedModelAdmin):
     list_display = ("id", "label", "get_address",
                     "version", "update_time", "update_user")
     list_display_links = ("id", "get_address", )
+    limit_qs_to_request_user = True
 
     fieldsets = (
         ('Address',

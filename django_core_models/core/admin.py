@@ -37,6 +37,7 @@ class AnnotationAdmin(OptionalNamedModelAdmin):
     list_display_links = ("id", "get_annotation", )
     search_fields = ("get_name", "get_annotation",)
     ordering = ("id",)
+    limit_qs_to_request_user = True
 
     def get_annotation(self, instance):
         """return annotation."""
