@@ -5,20 +5,20 @@ services:
     restart: always
     image: mysql:latest
     ports:
-      - "3306:3306"
+      - "3307:3306"
     environment:
     # In a 'real' environment passwords will be defined in the environment
     # by only using the key
     - MYSQL_ROOT_PASSWORD=rootpassword
     - MYSQL_USER=mysql
     - MYSQL_PASSWORD=mysql
-    - MYSQL_DATABASE=django_core_utils
+    - MYSQL_DATABASE=django_core_models
     
   web-mysql:
     build: 
       context: .
       dockerfile: docker-mysql-dockerfile.yml
-    command: docker/run.sh -w 5 -t mysql -d db-mysql
+    command: docker/run.sh -w 10 -t mysql -d db-mysql
     volumes:
       - .:/code
     ports:

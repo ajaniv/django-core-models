@@ -662,7 +662,7 @@ Fixtures can be loaded per application as outlined below:
 Other
 -----
 
-* pandoc was used to convert from .rst to .md:
+* pandoc may be used to convert from .rst to .md:
 
   ``pandoc -f rst -t markdown_github -o README.md README.rst``
   
