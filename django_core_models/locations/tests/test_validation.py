@@ -94,29 +94,29 @@ class ProvinceValidationTestCase(ValidationTestCase):
 
     def test_province_validation(self):
         province_validation(ProvinceModelFactory(
-            name=ProvinceModelFactory.PROVINCE_LOWER_NORMANDY,
-            iso_code=ProvinceModelFactory.ISO_3166_2_Normandy,
+            name=ProvinceModelFactory.PROVINCE_NORMANDY,
+            iso_code=ProvinceModelFactory.ISO_3166_2_NORMANDY,
             country=self.country_france()))
 
     def test_province_validation_invalid_iso(self):
         with self.assertRaises(ValidationError):
             province_validation(ProvinceModelFactory(
-                name=ProvinceModelFactory.PROVINCE_LOWER_NORMANDY,
-                iso_code="FR-ABC",
+                name=ProvinceModelFactory.PROVINCE_NORMANDY,
+                iso_code="FR-P",
                 country=self.country_france()))
 
     def test_province_validation_invalid_name(self):
         with self.assertRaises(ValidationError):
             province_validation(StateModelFactory(
                 name="Bad name",
-                iso_code=ProvinceModelFactory.ISO_3166_2_Normandy,
+                iso_code=ProvinceModelFactory.ISO_3166_2_NORMANDY,
                 country=self.country_france()))
 
     def test_state_validation_invalid_country(self):
         with self.assertRaises(ValidationError):
             province_validation(StateModelFactory(
-                name=ProvinceModelFactory.PROVINCE_LOWER_NORMANDY,
-                iso_code=ProvinceModelFactory.ISO_3166_2_Normandy,
+                name=ProvinceModelFactory.PROVINCE_NORMANDY,
+                iso_code=ProvinceModelFactory.ISO_3166_2_NORMANDY,
                 country=self.country_usa()))
 
 

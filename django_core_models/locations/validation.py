@@ -27,7 +27,7 @@ def country_validation(instance):
     entity = "Country"
     check_instance(entity, instance)
     try:
-        official = pycountry.countries.get(alpha2=instance.iso_code)
+        official = pycountry.countries.get(alpha_2=instance.iso_code)
     except KeyError:
         raise ValidationError(
             _(invalid_iso(entity)),
@@ -59,7 +59,7 @@ def language_validation(instance):
     check_instance(entity, instance)
     try:
         official = pycountry.languages.get(
-            iso639_1_code=instance.iso_code)
+            alpha_2=instance.iso_code)
     except KeyError:
         raise ValidationError(
             _(invalid_iso(entity)),
@@ -78,9 +78,12 @@ def state_validation(instance):
 
     check_instance(entity, instance)
     check_instance("Country", instance.country)
+    # Note: underlying implementation may raise KeyError or return None
     try:
         official = pycountry.subdivisions.get(code=instance.iso_code)
     except KeyError:
+        official = None
+    if not official:
         raise ValidationError(_(invalid_iso(entity)),
                               params={'value': instance.iso_code})
 
@@ -102,9 +105,12 @@ def province_validation(instance):
     entity = "Province"
     check_instance(entity, instance)
     check_instance("Country", instance.country)
+    # Note: Underlying implementation may raise KeyError or return None
     try:
         official = pycountry.subdivisions.get(code=instance.iso_code)
     except KeyError:
+        official = None
+    if not official:
         raise ValidationError(_(invalid_iso(entity)),
                               params={'value': instance.iso_code})
 

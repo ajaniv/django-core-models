@@ -158,17 +158,17 @@ class ProvinceTestCase(NamedModelTestCase):
         self.verify_named_instances_crud(
             provinces,
             factory_class=ProvinceModelFactory,
-            get_by_name=ProvinceModelFactory.PROVINCE_LOWER_NORMANDY)
+            get_by_name=ProvinceModelFactory.PROVINCE_NORMANDY)
         ProvinceModelFactory
 
     def test_state_fields(self):
         instance = ProvinceModelFactory(
-            name=ProvinceModelFactory.PROVINCE_LOWER_NORMANDY,
+            name=ProvinceModelFactory.PROVINCE_NORMANDY,
             country=country_france(),
-            iso_code=ProvinceModelFactory.ISO_3166_2_Normandy)
+            iso_code=ProvinceModelFactory.ISO_3166_2_NORMANDY)
         self.verify_instance(instance)
         self.assertEqual(instance.iso_code,
-                         ProvinceModelFactory.ISO_3166_2_Normandy,
+                         ProvinceModelFactory.ISO_3166_2_NORMANDY,
                          "province iso initialization error")
         self.assertEqual(instance.country.iso_code,
                          CountryModelFactory.ISO_3166_2_FR,

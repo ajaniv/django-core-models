@@ -145,14 +145,14 @@ class LanguageModelFactory(LanguageMixin, NamedModelFactory):
 
 
 class ProvinceMixin(ISOMixin):
-    ISO_3166_2_Normandy = "FR-P"
-    ISO_3166_2_CALAIS = "FR-O"
+    ISO_3166_2_NORMANDY = "FR-NOR"
+    ISO_3166_2_BRETAGNE = "FR-BRE"
 
-    PROVINCE_LOWER_NORMANDY = "Basse-Normandie"
-    PROVINCE_CALAIS = "Nord - Pas-de-Calais"
+    PROVINCE_NORMANDY = "Normandie"
+    PROVINCE_BRETAGNE = "Bretagne"
 
-    names = (PROVINCE_LOWER_NORMANDY, PROVINCE_CALAIS)
-    iso_codes = (ISO_3166_2_Normandy, ISO_3166_2_CALAIS)
+    names = (PROVINCE_NORMANDY, PROVINCE_BRETAGNE)
+    iso_codes = (ISO_3166_2_NORMANDY, ISO_3166_2_BRETAGNE)
 
 
 class ProvinceModelFactory(ProvinceMixin, NamedModelFactory):
@@ -169,8 +169,8 @@ class ProvinceModelFactory(ProvinceMixin, NamedModelFactory):
 
 province_normandy_sub_factory = factory.SubFactory(
     ProvinceModelFactory,
-    name=ProvinceModelFactory.PROVINCE_LOWER_NORMANDY,
-    iso_code=ProvinceModelFactory.ISO_3166_2_Normandy,
+    name=ProvinceModelFactory.PROVINCE_NORMANDY,
+    iso_code=ProvinceModelFactory.ISO_3166_2_NORMANDY,
     country=country_france_sub_factory)
 
 
@@ -244,8 +244,8 @@ class FrenchCityModelFactory(FranceCityMixin, NamedModelFactory):
     name = factory.Sequence(lambda n: FranceCityMixin.name(n))
     province = factory.SubFactory(
         ProvinceModelFactory,
-        name=ProvinceModelFactory.PROVINCE_LOWER_NORMANDY,
-        iso_code=ProvinceModelFactory.ISO_3166_2_Normandy,
+        name=ProvinceModelFactory.PROVINCE_NORMANDY,
+        iso_code=ProvinceModelFactory.ISO_3166_2_NORMANDY,
         country=country_france_sub_factory)
 
 
