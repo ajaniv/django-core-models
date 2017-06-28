@@ -403,8 +403,8 @@ class ProvinceApiTestCase(RegionApiTestCase):
     url_detail = "province-detail"
     url_list = "province-list"
 
-    name = factories.ProvinceModelFactory.PROVINCE_CALAIS
-    iso_code = factories.ProvinceModelFactory.ISO_3166_2_CALAIS
+    name = factories.ProvinceModelFactory.PROVINCE_BRETAGNE
+    iso_code = factories.ProvinceModelFactory.ISO_3166_2_BRETAGNE
     country = factories.CountryModelFactory.COUNTRY_FRANCE
 
     def test_create_province(self):

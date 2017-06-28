@@ -23,7 +23,7 @@ def currency_validation(instance):
     entity = "Currency"
     check_instance(entity, instance)
     try:
-        official = pycountry.currencies.get(letter=instance.iso_code)
+        official = pycountry.currencies.get(alpha_3=instance.iso_code)
     except KeyError:
         raise ValidationError(
             _(invalid_iso(entity)),
