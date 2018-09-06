@@ -1,8 +1,8 @@
 """
-..  module:: django_core_models.images.serializers
-    :synopsis: django_core_models images application serializers module.
+..  module:: django_core_models.documents.serializers
+    :synopsis: django_core_models documents application serializers module.
 
-*django_core_models* images application serializers module.
+*django_core_models* documents application serializers module.
 """
 from __future__ import absolute_import
 from django_core_utils.serializers import (NamedModelSerializer,
@@ -11,6 +11,22 @@ from drf_extra_fields.fields import Base64ImageField
 
 from . import models
 
+class DocumentSerializer(NamedModelSerializer):
+    """Document model serializer class."""
+
+    class Meta(NamedModelSerializer.Meta):
+        """Meta class definition."""
+        model = models.Image
+        fields = NamedModelSerializer.Meta.fields + (
+            "document", "document_format", "document_orientation")
+
+
+class DocumentFormatSerializer(NamedModelSerializer):
+    """Document format model serializer class."""
+
+    class Meta(NamedModelSerializer.Meta):
+        """Meta class definition."""
+        model = models.DocumentFormat
 
 class DocumentOrientationSerializer(NamedModelSerializer):
     """DocumentOrientation model serializer class."""
@@ -18,6 +34,14 @@ class DocumentOrientationSerializer(NamedModelSerializer):
     class Meta(NamedModelSerializer.Meta):
         """Meta class definition."""
         model = models.DocumentOrientation
+        
+class DocumentReferenceSerializer(VersionedModelSerializer):
+    """DocumentReference model serializer class."""
+
+    class Meta(VersionedModelSerializer.Meta):
+        """Meta class definition."""
+        model = models.DocumentReference
+        fields = VersionedModelSerializer.Meta.fields + ("document", "url")
 
 
 class ImageFormatSerializer(NamedModelSerializer):

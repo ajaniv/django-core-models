@@ -1,8 +1,8 @@
 """
-.. module::  django_core_models.images.tests.test_views
-   :synopsis: images models application views unit test module.
+.. module::  django_core_models.documents.tests.test_views
+   :synopsis: documents models application views unit test module.
 
-*images* application views unit test module.
+*documents* application views unit test module.
 """
 from __future__ import absolute_import, print_function
 import six

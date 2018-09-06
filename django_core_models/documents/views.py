@@ -1,8 +1,8 @@
 """
-..  module:: django_core_models.images.views
-    :synopsis: django_core_models images application views  module.
+..  module:: django_core_models.documents.views
+    :synopsis: django_core_models documents application views  module.
 
-*django_core_models* images application views  module.
+*django_core_models* documents application views  module.
 """
 from __future__ import absolute_import
 
@@ -10,6 +10,39 @@ from django_core_utils.views import ObjectListView, ObjectDetailView
 from . import models
 from . import serializers
 
+class DocumentMixin(object):
+    """DocumentMixin mixin class."""
+    queryset = models.Document.objects.all()
+    serializer_class = serializers.DocumentSerializer
+
+
+class DocumentList(DocumentMixin, ObjectListView):
+    """Class to list Documents, or create a new Document instance."""
+    pass
+
+
+class DocumentDetail(DocumentMixin, ObjectDetailView):
+    """
+    Class to retrieve, update or delete Document instance.
+    """
+    pass
+
+class DocumentFormatMixin(object):
+    """DocumentFormat mixin class."""
+    queryset = models.DocumentFormat.objects.all()
+    serializer_class = serializers.DocumentFormatSerializer
+
+
+class DocumentFormatList(DocumentFormatMixin, ObjectListView):
+    """Class to list all DocumentFormat, or create a new DocumentFormat instance."""
+    pass
+
+
+class DocumentFormatDetail(DocumentFormatMixin, ObjectDetailView):
+    """
+    Class to retrieve, update or delete DocumentFormat instance.
+    """
+    pass
 
 class DocumentOrientationMixin(object):
     """DocumentOrientation mixin class."""
@@ -29,6 +62,22 @@ class DocumentOrientationDetail(DocumentOrientationMixin, ObjectDetailView):
     """
     pass
 
+class DocumentReferenceMixin(object):
+    """DocumentReference  mixin class."""
+    queryset = models.DocumentReference.objects.all()
+    serializer_class = serializers.DocumentReferenceSerializer
+
+
+class DocumentReferenceList(DocumentReferenceMixin, ObjectListView):
+    """Class to list DocumentReference, or create a new Image instance."""
+    pass
+
+
+class DocumentReferenceDetail(DocumentReferenceMixin, ObjectDetailView):
+    """
+    Class to retrieve, update or delete DocumentReference instance.
+    """
+    pass
 
 class ImageFormatMixin(object):
     """ImageFormat mixin class."""

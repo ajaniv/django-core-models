@@ -9,7 +9,7 @@ from django.apps import AppConfig
 from django.utils.translation import ugettext_lazy as _
 
 
-class ImageConfig(AppConfig):
+class DocumentConfig(AppConfig):
     """Django's image application configuration class."""
     name = __package__
-    verbose_name = _("Image")
+    verbose_name = _("Documents")

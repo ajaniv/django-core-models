@@ -47,9 +47,9 @@ _category_verbose = humanize(underscore(_category))
 
 
 class Category(NamedModel):
-    """Contact category model class.
+    """Category model class.
 
-    Allows classification of contacts, other abstractions.
+    Allows classification using high level descriptors.
     Sample values may include "industry", "travel", "unknown".
     """
 
@@ -59,6 +59,24 @@ class Category(NamedModel):
         db_table = db_table(_app_label, _category)
         verbose_name = _(_category_verbose)
         verbose_name_plural = _(pluralize(_category_verbose))
+        
+_tag = "Tag"
+_tag_verbose = humanize(underscore(_tag))
+
+
+class Tag(NamedModel):
+    """Tag model class.
+
+    Allows classification using detailed descriptors.
+
+    """
+
+    class Meta(NamedModel.Meta):
+        """Model meta class declaration."""
+        app_label = _app_label
+        db_table = db_table(_app_label, _tag)
+        verbose_name = _(_tag_verbose)
+        verbose_name_plural = _(pluralize(_tag_verbose))
 
 _currency = "Currency"
 _currency_verbose = humanize(underscore(_currency))

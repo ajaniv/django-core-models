@@ -46,8 +46,8 @@ def demographics_urls(request, content_format):
     }
 
 
-def images_urls(request, content_format):
-    """Return images application end points."""
+def documents_urls(request, content_format):
+    """Return documents application end points."""
     return {
         'document-orientations': reverse(
             'document-orientation-list',
@@ -158,7 +158,7 @@ def root_urls(request, content_format):
 @permission_classes((permissions.AllowAny,))
 def api_root(request, content_format=None):
     end_points = {}
-    url_functions = (core_urls, demographics_urls, images_urls,
+    url_functions = (core_urls, demographics_urls, documents_urls,
                      locations_urls, organizations_urls, social_media_urls,
                      root_urls)
     for url_function in url_functions:

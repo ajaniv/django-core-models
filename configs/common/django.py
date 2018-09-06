@@ -57,7 +57,7 @@ EXTENDED_DJANGO_APPS = [
 CUSTOM_APPS = [
     'django_core_models.core.apps.CoreModelsConfig',
     'django_core_models.demographics.apps.DemographicsConfig',
-    'django_core_models.images.apps.ImageConfig',
+    'django_core_models.documents.apps.DocumentConfig',
     'django_core_models.locations.apps.LocationConfig',
     'django_core_models.organizations.apps.OrganizationConfig',
     'django_core_models.social_media.apps.SocialMediaConfig',

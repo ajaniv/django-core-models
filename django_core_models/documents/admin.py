@@ -19,6 +19,7 @@ from . import forms, models
 
 
 DISPLAY_IMAGE_SIZE = 40
+DISPLAY_DOCUMENT_SIZE = 40
 
 _image_fields = (
     ("name",),
@@ -60,7 +61,7 @@ _versioned_fields = VersionedModelAdmin.get_field_sets()
 
 class ImageReferenceAdmin(VersionedModelAdmin):
     """
-    Image model admin class
+    Image reference model admin class
     """
     form = forms.ImageReferenceAdminForm
     list_display = ("id", "image", "url",
@@ -71,8 +72,56 @@ class ImageReferenceAdmin(VersionedModelAdmin):
     fieldsets = (
         ("Image reference",
          {'fields': _image_reference_fields}),) + _versioned_fields
+         
+_document_fields = (
+    ("name",),
+    ("document",),
+    ("document_format",),
+    ("document_orientation",),
+    ("alias",),
+    ("description",),)
 
-_named_classes = (models.DocumentOrientation, models.ImageFormat, )
+
+class DocumentAdmin(NamedModelAdmin):
+    """
+    Document model admin class
+    """
+    form = forms.DocumentAdminForm
+    list_display = ("id", "get_name", "get_alias", "get_document",
+                    "version", "update_time", "update_user")
+    list_display_links = ("id", "get_name", )
+    limit_qs_to_request_user = True
+
+    fieldsets = (
+        ("Document",
+         {'fields': _document_fields}),) + NamedModelAdmin.get_field_sets()
+
+
+    def get_document(self, instance):
+        """return instance document."""
+        return str(instance.image)[:DISPLAY_DOCUMENT_SIZE]
+    get_document.short_description = "document"
+
+_document_reference_fields = (
+    ("document",),
+    ("url",),)
+
+class DocumentReferenceAdmin(VersionedModelAdmin):
+    """
+    Document reference model admin class
+    """
+    form = forms.DocumentReferenceAdminForm
+    list_display = ("id", "document", "url",
+                    "version", "update_time", "update_user")
+    list_display_links = ("id", "document", )
+    limit_qs_to_request_user = True
+
+    fieldsets = (
+        ("Document reference",
+         {'fields': _document_reference_fields}),) + _versioned_fields
+
+
+_named_classes = (models.DocumentOrientation, models.DocumentFormat, models.ImageFormat)
 
 for clasz in _named_classes:
     admin_site_register(
@@ -80,8 +129,8 @@ for clasz in _named_classes:
         (NamedModelAdmin,),
         named_model_admin_class_attrs(class_name(clasz)))
 
-_other_model_classes = (models.Image, models.ImageReference)
-_other_admin_classes = (ImageAdmin, ImageReferenceAdmin)
+_other_model_classes = (models.Document, models.DocumentReference, models.Image, models.ImageReference)
+_other_admin_classes = (DocumentAdmin, DocumentReferenceAdmin, ImageAdmin, ImageReferenceAdmin)
 
 for model_class, admin_class in zip(_other_model_classes,
                                     _other_admin_classes):
