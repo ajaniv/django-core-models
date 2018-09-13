@@ -4,7 +4,7 @@ services:
   db-mysql-test:
     restart: always
     image: mysql:latest
-    entrypoint: ['/entrypoint.sh', '--default-authentication-plugin=mysql_native_password']
+    entrypoint: ['/entrypoint.sh', '--default-authentication-plugin=mysql_native_password', '--default-storage-engine=InnoDB']
     ports:
       - "3307:3306"
     environment:
