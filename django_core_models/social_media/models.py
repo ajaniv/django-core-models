@@ -159,6 +159,8 @@ class LogoType(NamedModel):
 _name = "Name"
 _name_verbose = humanize(underscore(_name))
 
+# @TODO: my sql index size limitation
+NAME_FIELD_LENGTH = 196
 
 class Name(VersionedModel):
     """Name model class.
@@ -168,9 +170,9 @@ class Name(VersionedModel):
     """
     family_name = fields.char_field()
     given_name = fields.char_field()
-    additional_name = fields.char_field(blank=True, null=True)
-    honorific_prefix = fields.char_field(blank=True, null=True)
-    honorific_suffix = fields.char_field(blank=True, null=True)
+    additional_name = fields.char_field(blank=True, null=True, max_length=NAME_FIELD_LENGTH)
+    honorific_prefix = fields.char_field(blank=True, null=True, max_length=NAME_FIELD_LENGTH)
+    honorific_suffix = fields.char_field(blank=True, null=True, max_length=NAME_FIELD_LENGTH)
 
     class Meta(VersionedModel.Meta):
         """Model meta class declaration."""
