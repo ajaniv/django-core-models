@@ -313,11 +313,12 @@ class AddressType(NamedModel):
         verbose_name = _(_address_type_verbose)
         verbose_name_plural = _(pluralize(_address_type_verbose))
 
+# @TODO: mysql index length is limited to 3072
 POSTAL_CODE_LENGTH = 10
-STREET_ADDRESS_LENGTH = 255
-EXTENDED_ADDRESS_LENGTH = 255
-CITY_LENGTH = 255
-
+STREET_ADDRESS_LENGTH = 196
+EXTENDED_ADDRESS_LENGTH = 196
+CITY_LENGTH = 128
+POST_OFFICE_BOX_LENGTH = 32
 _address = "Address"
 _address_verbose = humanize(underscore(_address))
 
@@ -331,7 +332,8 @@ class Address(VersionedModel):
     """
     # Labe:l allows to override  name specified in contact
     label = fields.char_field(null=True, blank=True)
-    post_office_box = fields.char_field(max_length=32, null=True, blank=True)
+    post_office_box = fields.char_field(max_length=POST_OFFICE_BOX_LENGTH,
+                                        null=True, blank=True)
 
     # street_address/address line 1: e.g.75 Carol St.
     street_address = fields.char_field(max_length=STREET_ADDRESS_LENGTH,
