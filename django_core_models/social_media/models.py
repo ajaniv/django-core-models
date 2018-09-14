@@ -169,11 +169,11 @@ class Name(VersionedModel):
     Defines the  name attributes.
 
     """
-    family_name = fields.char_field()
-    given_name = fields.char_field()
-    additional_name = fields.char_field(blank=True, null=True, max_length=NAME_FIELD_LENGTH)
-    honorific_prefix = fields.char_field(blank=True, null=True, max_length=NAME_FIELD_LENGTH)
-    honorific_suffix = fields.char_field(blank=True, null=True, max_length=NAME_FIELD_LENGTH)
+    family_name = fields.char_field(max_length=NAME_FIELD_LENGTH)
+    given_name = fields.char_field(max_length=NAME_FIELD_LENGTH)
+    additional_name = fields.char_field(blank=True, null=True)
+    honorific_prefix = fields.char_field(blank=True, null=True)
+    honorific_suffix = fields.char_field(blank=True, null=True)
 
     class Meta(VersionedModel.Meta):
         """Model meta class declaration."""
