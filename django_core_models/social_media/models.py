@@ -160,7 +160,7 @@ _name = "Name"
 _name_verbose = humanize(underscore(_name))
 
 # @TODO: my sql index size limitation
-NAME_FIELD_LENGTH = 196
+NAME_FIELD_LENGTH = 255
 
 
 class Name(VersionedModel):
@@ -171,7 +171,7 @@ class Name(VersionedModel):
     """
     family_name = fields.char_field(max_length=NAME_FIELD_LENGTH)
     given_name = fields.char_field(max_length=NAME_FIELD_LENGTH)
-    additional_name = fields.char_field(blank=True, null=True)
+    additional_name = fields.char_field(blank=True, null=True, max_length=NAME_FIELD_LENGTH)
     honorific_prefix = fields.char_field(blank=True, null=True)
     honorific_suffix = fields.char_field(blank=True, null=True)
 
