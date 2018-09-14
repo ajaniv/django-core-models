@@ -162,6 +162,7 @@ _name_verbose = humanize(underscore(_name))
 # @TODO: my sql index size limitation
 NAME_FIELD_LENGTH = 196
 
+
 class Name(VersionedModel):
     """Name model class.
 
