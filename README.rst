@@ -686,6 +686,8 @@ To do
   these are to be updated.  The root cause is the need to call model clean method
   from the serializer validate function because of the desire to avoid
   duplicating the model validation logic.
+* Following the upgrade to MySql 8.X, discovered that index size is contrainted to 3072 bytes.
+  This impacts Django unique_together construct definitions.
 
 
 .. _djangorestframework: http://www.django-rest-framework.org/
